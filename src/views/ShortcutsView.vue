@@ -67,8 +67,8 @@ export default {
 
 .shortcut-button:active {
   background: #489BFFF7;
-  border: 1px #096dd9 solid;
-  box-shadow: 1px 2px #096dd9;
+  border: 1px #489BFFF7 solid;
+  box-shadow: none;
   color: white;
 }
 
