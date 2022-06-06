@@ -50,12 +50,12 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: white;
+  background: #096dd9;
   border: 1px #096dd9 solid;
-  border-radius: 25%;
+  border-radius: 50%;
   padding: 10px;
-  box-shadow: 1px 2px #096dd9;
-  color: #096dd9;
+  box-shadow: 1px 2px #489BFFF7;
+  color: white;
 }
 
 .shortcut-button:hover {
