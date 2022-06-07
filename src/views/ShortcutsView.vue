@@ -1,59 +1,160 @@
 <template>
   <div class="shortcuts-container">
-    <button class="shortcut-button" @click="action('https://google.it')">
-      <ChromeFilled class="shortcut-button-icon"/>
-    </button>
-    <button class="shortcut-button">
-      <FolderFilled class="shortcut-button-icon" @click="action('file:/home/rob')"/>
-    </button>
-    <button class="shortcut-button">
-      <FacebookFilled class="shortcut-button-icon" @click="action('https://facebook.com')"/>
-    </button>
+    <div class="shortcut-button-card" v-for="(b, index) in buttons" :key="index">
+      <div class="shortcut-button-card-header">
+        <span class="shortcut-button-title">{{b.title}}</span>
+        <div class="delete-button-container">
+          <DeleteFilled key="delete" class="delete-button" @click="deleteShortcut(b.id)"/>
+        </div>
+      </div>
+      <div class="shortcut-button-card-content">
+        <a-button class="shortcut-button" shape="circle" :size="b.size" type="primary" @click="action(b.action)">
+        <template #icon>
+          <ChromeFilled class="shortcut-button-icon"/>
+        </template>
+      </a-button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { shortcutLaunchByCMD } from "@/service/shortcut";
-import { ChromeFilled, FolderFilled, FacebookFilled } from '@ant-design/icons-vue';
+import {shortcutLaunchByCMD} from "@/service/shortcut";
+import {ChromeFilled, DeleteFilled} from '@ant-design/icons-vue';
 
 export default {
   name: 'ShortcutsView',
   components: {
     ChromeFilled,
-    FolderFilled,
-    FacebookFilled
+    DeleteFilled
   },
   data() {
     return {
-      iconStyle: {
-        fontSize: '20px',
-        color: '#096dd9'
-      }
+      buttons: [
+        {
+          action: 'https://google.it',
+          icon: 'chrome',
+          id: 1,
+          size: 'large',
+          title: 'Chrome'
+        },
+        {
+          action: 'https://google.it',
+          icon: 'chrome',
+          id: 2,
+          size: 'large',
+          title: 'Chrome'
+        },
+        {
+          action: 'https://google.it',
+          icon: 'chrome',
+          id: 3,
+          size: 'large',
+          title: 'Chrome'
+        },
+        {
+          action: 'https://google.it',
+          icon: 'chrome',
+          id: 4,
+          size: 'large',
+          title: 'Chrome'
+        },
+        {
+          action: 'https://google.it',
+          icon: 'chrome',
+          id: 5,
+          size: 'large',
+          title: 'Chrome'
+        },
+        {
+          action: 'https://google.it',
+          icon: 'chrome',
+          id: 6,
+          size: 'large',
+          title: 'Chrome'
+        }
+      ]
     }
   },
   methods: {
     action(cmd) {
       shortcutLaunchByCMD(cmd)
+    },
+    deleteShortcut(id) {
+      console.log(id)
     }
   }
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .shortcuts-container {
-  margin-top: 5rem;
   display: flex;
   justify-content: space-evenly;
+  align-content: space-evenly;
+  flex-wrap: wrap;
+  flex-grow: 2;
+  row-gap: 0.5rem;
+  column-gap: 0.5rem;
+}
+
+.shortcut-button-card {
+  min-width: 130px;
+  background-color: white;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.shortcut-button-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px #f0f0f0 solid;
+}
+
+.shortcut-button-title {
+  color: inherit;
+  font-size: inherit;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  font-size: 16px;
+}
+
+.delete-button-container {
+  padding: 0.3rem;
+  background-color: firebrick;
+  border-radius: 0 1rem 0 0;
+}
+
+.delete-button-container:hover {
+  background-color: #DA4D4DF9;
+}
+
+.delete-button-container:active {
+  background-color: #4B4B4BF7;
+}
+
+.delete-button {
+  font-size: 20px;
+  color: white;
+  padding: 0.2rem;
+}
+
+.shortcut-button-card-content {
+  min-height: 100px;
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .shortcut-button {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   background: #096dd9;
   border: 1px #096dd9 solid;
-  border-radius: 50%;
-  padding: 10px;
   box-shadow: 1px 2px #489BFFF7;
   color: white;
 }
@@ -73,15 +174,7 @@ export default {
 }
 
 .shortcut-button-icon {
-  font-size: 20px;
+  font-size: 25px;
   color: inherit;
-}
-
-.shortcut-button-icon:hover {
-  font-size: 20px;
-}
-
-.shortcut-button-icon:active {
-  font-size: 20px;
 }
 </style>

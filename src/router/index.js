@@ -17,9 +17,19 @@ const routes = [
         component: () => import('../views/ShortcutsView.vue')
       },
       {
-        path: 'settings',
-        name: 'settings',
-        component: () => import('../views/SettingsView.vue')
+        path: 'add',
+        name: 'add',
+        component: () => import('../views/ShortcutsView.vue')
+      },
+      {
+        path: 'import',
+        name: 'import',
+        component: () => import('../views/ShortcutsView.vue')
+      },
+      {
+        path: 'export',
+        name: 'export',
+        component: () => import('../views/ShortcutsView.vue')
       },
     ]
   }

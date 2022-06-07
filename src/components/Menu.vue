@@ -1,18 +1,25 @@
 <template>
-  <div class="container">
-    <a-menu v-model:selectedKeys="current" mode="horizontal" @select="go">
+  <div class="menu-container">
+    <a-menu v-model:selectedKeys="current" mode="horizontal" @select="go" theme="dark">
       <a-menu-item key="shortcuts">
         <template #icon>
           <AppstoreFilled :style="iconStyle"/>
         </template>
         Shortcuts
       </a-menu-item>
-      <a-menu-item key="settings">
+      <a-sub-menu key="settings">
         <template #icon>
           <SettingFilled :style="iconStyle"/>
         </template>
-        Settings
-      </a-menu-item>
+        <template #title>Settings</template>
+        <a-menu-item-group title="Shortcuts">
+          <a-menu-item key="add">Add</a-menu-item>
+        </a-menu-item-group>
+        <a-menu-item-group title="DB Configuration">
+          <a-menu-item key="import">Import</a-menu-item>
+          <a-menu-item key="export">Export</a-menu-item>
+        </a-menu-item-group>
+      </a-sub-menu>
     </a-menu>
   </div>
 </template>
@@ -42,6 +49,3 @@ export default {
   }
 }
 </script>
-
-<style scoped lang="scss">
-</style>
