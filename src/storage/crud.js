@@ -1,8 +1,26 @@
-import {connection} from './db'
 import {shortcutTable} from './db'
 
+let connection;
+
+function getConnection() {
+    if (!connection) {
+        connection = require('knex') (
+            {
+                client: 'sqlite3',
+                connection: {
+                    filename: `/home/rob/Desktop/workspace/electron-multimedia-app/src/storage/test.sqlite`,
+                    database: 'test'
+                },
+                useNullAsDefault: true
+            }
+        );
+    }
+
+    return connection
+}
+
 export function addShortcut() {
-    connection(shortcutTable).insert({
+    getConnection().table(shortcutTable).insert({
         action: 'https://google.it',
         icon: 'chrome',
         size: 'large',
@@ -10,18 +28,26 @@ export function addShortcut() {
     }).then(result => console.log(result))
 }
 
-function removeShortcut() {
-    console.log('remove')
+export function removeShortcut(id) {
+    getConnection()
+        .del()
+        .table(shortcutTable)
+        .where('id', id)
+        .then(() => {
+            alert('Id ' + id + ' deleted successfully')
+        })
 }
 
-function exportShortcuts() {
+export function exportShortcuts() {
     console.log('export')
 }
 
-function importShortcuts() {
+export function importShortcuts() {
     console.log('import')
 }
 
-export function getAllShortcuts() {
-    console.log(connection.select('title', 'action', 'icon', 'size').table(shortcutTable))
+export function getAllShortcut() {
+    return getConnection()
+        .select('id', 'title', 'action', 'icon', 'size')
+        .table(shortcutTable)
 }

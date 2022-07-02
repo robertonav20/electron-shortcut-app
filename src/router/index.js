@@ -22,6 +22,11 @@ const routes = [
         component: () => import('../views/ShortcutsView.vue')
       },
       {
+        path: 'deleteAll',
+        name: 'deleteAll',
+        component: () => import('../views/ShortcutsView.vue')
+      },
+      {
         path: 'import',
         name: 'import',
         component: () => import('../views/ShortcutsView.vue')

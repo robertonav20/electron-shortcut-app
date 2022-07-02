@@ -1,14 +1,14 @@
 <template>
   <div class="shortcuts-container">
-    <div class="shortcut-button-card" v-for="(b, index) in buttons" :key="index">
+    <div class="shortcut-button-card" v-for="(s, index) in shortcuts" :key="index">
       <div class="shortcut-button-card-header">
-        <span class="shortcut-button-title">{{b.title}}</span>
+        <span class="shortcut-button-title">{{s.title}}</span>
         <div class="delete-button-container">
-          <DeleteFilled key="delete" class="delete-button" @click="deleteShortcut(b.id)"/>
+          <DeleteFilled key="delete" class="delete-button" @click="deleteShortcut(s.id)"/>
         </div>
       </div>
       <div class="shortcut-button-card-content">
-        <a-button class="shortcut-button" shape="circle" :size="b.size" type="primary" @click="action(b.action)">
+        <a-button class="shortcut-button" shape="circle" :size="s.size" type="primary" @click="action(s.action)">
         <template #icon>
           <ChromeFilled class="shortcut-button-icon"/>
         </template>
@@ -19,8 +19,9 @@
 </template>
 
 <script>
-import {shortcutLaunchByCMD} from "@/service/shortcut";
 import {ChromeFilled, DeleteFilled} from '@ant-design/icons-vue';
+import {shortcutLaunchByCMD} from "@/service/shortcut";
+import {getAllShortcut, removeShortcut} from "@/storage/crud";
 
 export default {
   name: 'ShortcutsView',
@@ -30,58 +31,26 @@ export default {
   },
   data() {
     return {
-      buttons: [
-        {
-          action: 'https://google.it',
-          icon: 'chrome',
-          id: 1,
-          size: 'large',
-          title: 'Chrome'
-        },
-        {
-          action: 'https://google.it',
-          icon: 'chrome',
-          id: 2,
-          size: 'large',
-          title: 'Chrome'
-        },
-        {
-          action: 'https://google.it',
-          icon: 'chrome',
-          id: 3,
-          size: 'large',
-          title: 'Chrome'
-        },
-        {
-          action: 'https://google.it',
-          icon: 'chrome',
-          id: 4,
-          size: 'large',
-          title: 'Chrome'
-        },
-        {
-          action: 'https://google.it',
-          icon: 'chrome',
-          id: 5,
-          size: 'large',
-          title: 'Chrome'
-        },
-        {
-          action: 'https://google.it',
-          icon: 'chrome',
-          id: 6,
-          size: 'large',
-          title: 'Chrome'
-        }
-      ]
+      shortcuts: []
     }
+  },
+  mounted() {
+    this.getAll();
   },
   methods: {
     action(cmd) {
       shortcutLaunchByCMD(cmd)
     },
+    getAll() {
+      getAllShortcut().then(rows => {
+        if (rows && rows.length > 0) {
+          this.shortcuts = rows
+        }
+      })
+    },
     deleteShortcut(id) {
-      console.log(id)
+      removeShortcut(id)
+      this.shortcuts = this.shortcuts.filter(s => s.id !== id)
     }
   }
 }

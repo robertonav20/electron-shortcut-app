@@ -1,5 +1,6 @@
-export var connection;
 export const shortcutTable = 'SHORTCUT'
+let connection;
+
 export function initDB() {
     connection = require('knex') (
         {
@@ -12,7 +13,6 @@ export function initDB() {
         }
     );
 
-
     connection.schema.hasTable(shortcutTable).then(result => {
         if (result) {
             console.log('Table ' + shortcutTable + ' exists yet')
@@ -23,7 +23,7 @@ export function initDB() {
                 table.string('icon')
                 table.string('size')
                 table.string('action')
-            }).then(result => console.log('Connection successful'))
+            }).then(result => console.log('Connection successful' + result))
             console.log('Table created')
         }
     })
