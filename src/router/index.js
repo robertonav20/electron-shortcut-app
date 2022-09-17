@@ -10,32 +10,7 @@ const routes = [
         path: '/',
         name: 'default',
         component: () => import('../views/ShortcutsView.vue')
-      },
-      {
-        path: 'shortcuts',
-        name: 'shortcuts',
-        component: () => import('../views/ShortcutsView.vue')
-      },
-      {
-        path: 'add',
-        name: 'add',
-        component: () => import('../views/ShortcutsView.vue')
-      },
-      {
-        path: 'deleteAll',
-        name: 'deleteAll',
-        component: () => import('../views/ShortcutsView.vue')
-      },
-      {
-        path: 'import',
-        name: 'import',
-        component: () => import('../views/ShortcutsView.vue')
-      },
-      {
-        path: 'export',
-        name: 'export',
-        component: () => import('../views/ShortcutsView.vue')
-      },
+      }
     ]
   }
 ]

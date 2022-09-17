@@ -1,6 +1,6 @@
 <template>
   <div class="menu-container">
-    <a-menu v-model:selectedKeys="current" mode="horizontal" @select="go" theme="dark">
+    <a-menu v-model:selectedKeys="current" mode="horizontal" theme="dark">
       <a-menu-item key="shortcuts">
         <template #icon>
           <AppstoreFilled :style="iconStyle"/>
@@ -57,11 +57,6 @@ export default {
       clearTrigger: false,
       importTrigger: false,
       exportTrigger: false
-    }
-  },
-  methods: {
-    go() {
-      this.$router.push(this.current[0])
     }
   }
 }

@@ -22,7 +22,7 @@
 import {ChromeFilled, DeleteFilled} from '@ant-design/icons-vue';
 import {shortcutLaunchByCMD} from "@/service/shortcut";
 import {getAllShortcut, removeShortcut} from "@/storage/crud";
-
+import { remote } from 'electron'
 export default {
   name: 'ShortcutsView',
   components: {
@@ -36,6 +36,7 @@ export default {
   },
   mounted() {
     this.getAll();
+    remote.ipcMain.on('reload-shortcut-list', this.getAll)
   },
   methods: {
     action(cmd) {
@@ -49,7 +50,7 @@ export default {
       })
     },
     deleteShortcut(id) {
-      removeShortcut(id)
+      removeShortcut(id, true)
       this.shortcuts = this.shortcuts.filter(s => s.id !== id)
     }
   }

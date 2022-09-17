@@ -1,14 +1,24 @@
 <template>
-  <a-modal :visible="visible" title="Export Shortcut" @ok="closeModal" @cancel="closeModal">
-    <p>Some contents...</p>
-    <p>Some contents...</p>
-    <p>Some contents...</p>
+  <a-modal :visible="visible" title="Export Shortcut" @cancel="closeModal" @ok="exportAll">
+    <div class="ant-modal-body">
+      <export-outlined class="icon"/>
+      <p>Are you sure export all data?</p>
+    </div>
   </a-modal>
 </template>
 
 <script>
+import {ExportOutlined} from '@ant-design/icons-vue';
+import {getAllShortcut} from "@/storage/crud";
+
+import { remote } from 'electron'
+const fs = require('fs')
+
 export default {
   name: 'ExportShortcut',
+  components: {
+    ExportOutlined
+  },
   props: ['open', 'close'],
   data() {
     return {
@@ -29,7 +39,41 @@ export default {
     },
     closeModal() {
       this.visible = false
+    },
+    exportAll() {
+      getAllShortcut().then(rows => {
+        const options = {
+          title: "Export shortcuts",
+          defaultPath: "export_shortcuts.json",
+          buttonLabel: "Export",
+          filters: [
+            {name: 'json', extensions: ['json']},
+          ]
+        };
+        remote.dialog.showSaveDialog(remote.getCurrentWindow(), options).then(({filePath}) => {
+          if (filePath != undefined && filePath != '') {
+            fs.writeFile(filePath, JSON.stringify(rows), 'utf-8', ( ) => {
+              alert('All data exported successfully here ' + filePath)
+            });
+          }
+        });
+        this.closeModal()
+      })
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.ant-modal-body {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.icon {
+  color: #096dd9;
+  font-size: 25px;
+}
+</style>
