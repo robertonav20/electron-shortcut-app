@@ -6,7 +6,7 @@ export function initDB() {
         {
             client: 'sqlite3',
             connection: {
-                filename: `/home/rob/Desktop/workspace/electron-multimedia-app/src/storage/test.sqlite`,
+                filename: `./test.sqlite`,
                 database: 'test'
             },
             useNullAsDefault: true

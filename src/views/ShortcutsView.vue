@@ -36,7 +36,10 @@ export default {
   },
   mounted() {
     this.getAll();
-    remote.ipcMain.on('reload-shortcut-list', this.getAll)
+    remote.ipcMain.on('reload-shortcut-list', () => {
+      console.log('event received')
+      this.getAll()
+    })
   },
   methods: {
     action(cmd) {

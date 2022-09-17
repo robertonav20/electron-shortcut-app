@@ -8,7 +8,7 @@ function getConnection() {
             {
                 client: 'sqlite3',
                 connection: {
-                    filename: `/home/rob/Desktop/workspace/electron-multimedia-app/src/storage/test.sqlite`,
+                    filename: `./test.sqlite`,
                     database: 'test'
                 },
                 useNullAsDefault: true
@@ -26,11 +26,10 @@ export function addShortcut(shortcut, showAlert) {
         size: shortcut.size,
         title: shortcut.title
     }).then(result => {
-            if (showAlert === true) {
-                alert('Id ' + result + ' added successfully')
-            }
+        if (showAlert === true) {
+            alert('Id ' + result + ' added successfully')
         }
-    )
+    })
 }
 
 export function removeShortcut(id, showAlert) {
@@ -48,5 +47,11 @@ export function removeShortcut(id, showAlert) {
 export function getAllShortcut() {
     return getConnection()
         .select('id', 'title', 'action', 'icon', 'size')
+        .table(shortcutTable)
+}
+
+export function deleteAll() {
+    return getConnection()
+        .del()
         .table(shortcutTable)
 }
