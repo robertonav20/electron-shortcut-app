@@ -19,7 +19,7 @@ function getConnection() {
     return connection
 }
 
-export function addShortcut(shortcut, showAlert) {
+export function addShortcut(shortcut, showAlert, callback) {
     getConnection().table(shortcutTable).insert({
         action: shortcut.action,
         icon: shortcut.icon,
@@ -28,6 +28,9 @@ export function addShortcut(shortcut, showAlert) {
     }).then(result => {
         if (showAlert === true) {
             alert('Id ' + result + ' added successfully')
+        }
+        if (callback != null && callback != undefined) {
+            callback(result)
         }
     })
 }

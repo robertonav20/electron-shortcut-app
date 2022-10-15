@@ -5,7 +5,7 @@ module.exports = defineConfig({
         electronBuilder: {
             nodeIntegration: true,
             builderOptions: {
-                extraResources: ['src/storage/']
+                extraResources: ['src/router', 'src/service', 'src/storage']
             },
             externals: ['knex','sqlite3']
         }

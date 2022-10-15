@@ -10,7 +10,7 @@
       <div class="shortcut-button-card-content">
         <a-button class="shortcut-button" shape="circle" :size="s.size" type="primary" @click="action(s.action)">
         <template #icon>
-          <ChromeFilled class="shortcut-button-icon"/>
+          <CodeFilled />
         </template>
       </a-button>
       </div>
@@ -19,14 +19,15 @@
 </template>
 
 <script>
-import {ChromeFilled, DeleteFilled} from '@ant-design/icons-vue';
+import {CodeFilled, DeleteFilled} from '@ant-design/icons-vue';
 import {shortcutLaunchByCMD} from "@/service/shortcut";
 import {getAllShortcut, removeShortcut} from "@/storage/crud";
 import { remote } from 'electron'
+
 export default {
   name: 'ShortcutsView',
   components: {
-    ChromeFilled,
+    CodeFilled,
     DeleteFilled
   },
   data() {
