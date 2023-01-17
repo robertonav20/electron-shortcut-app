@@ -1,17 +1,10 @@
+import {configuration} from './configuration'
+
 export const shortcutTable = 'SHORTCUT'
 let connection;
 
 export function initDB() {
-    connection = require('knex') (
-        {
-            client: 'sqlite3',
-            connection: {
-                filename: `./test.sqlite`,
-                database: 'test'
-            },
-            useNullAsDefault: true
-        }
-    );
+    connection = require('knex')(configuration);
 
     connection.schema.hasTable(shortcutTable).then(result => {
         if (result) {

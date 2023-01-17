@@ -1,19 +1,11 @@
 import {shortcutTable} from './db'
+import {configuration} from './configuration'
 
 let connection;
 
 function getConnection() {
     if (!connection) {
-        connection = require('knex')(
-            {
-                client: 'sqlite3',
-                connection: {
-                    filename: `./test.sqlite`,
-                    database: 'test'
-                },
-                useNullAsDefault: true
-            }
-        );
+        connection = require('knex')(configuration);
     }
 
     return connection
