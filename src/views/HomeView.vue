@@ -1,7 +1,7 @@
 <template>
   <a-layout class="layout">
     <a-layout-header>
-      <MenuComponent/>
+      <menu-component/>
     </a-layout-header>
     <a-layout-content class="content">
       <router-view/>

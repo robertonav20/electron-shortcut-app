@@ -3,13 +3,13 @@
     <a-menu v-model:selectedKeys="current" mode="horizontal" theme="dark">
       <a-menu-item key="shortcuts">
         <template #icon>
-          <AppstoreFilled :style="iconStyle"/>
+          <app-store-filled :style="iconStyle"/>
         </template>
         Shortcuts
       </a-menu-item>
       <a-sub-menu key="settings">
         <template #icon>
-          <SettingFilled :style="iconStyle"/>
+          <setting-filled :style="iconStyle"/>
         </template>
         <template #title>Settings</template>
         <a-menu-item-group title="Shortcuts">
