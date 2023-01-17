@@ -4,13 +4,13 @@
       <div class="shortcut-button-card-header">
         <span class="shortcut-button-title">{{s.title}}</span>
         <div class="delete-button-container">
-          <DeleteFilled key="delete" class="delete-button" @click="deleteShortcut(s.id)"/>
+          <delete-filled key="delete" class="delete-button" @click="deleteShortcut(s.id)"/>
         </div>
       </div>
       <div class="shortcut-button-card-content">
         <a-button class="shortcut-button" shape="circle" :size="s.size" type="primary" @click="action(s.action)">
         <template #icon>
-          <CodeFilled />
+          <code-filled class="shortcut-button-icon"/>
         </template>
       </a-button>
       </div>
@@ -95,6 +95,7 @@ export default {
   margin-left: 1rem;
   margin-right: 1rem;
   font-size: 16px;
+  font-weight: bold;
 }
 
 .delete-button-container {
@@ -131,6 +132,8 @@ export default {
   border: 1px #096dd9 solid;
   box-shadow: 1px 2px #489BFFF7;
   color: white;
+  min-width: 50px;
+  min-height: 50px;
 }
 
 .shortcut-button:hover {
@@ -138,6 +141,7 @@ export default {
   border: 1px #4B4B4BF7 solid;
   box-shadow: 1px 2px #4B4B4BF7;
   color: #4B4B4BF7;
+
 }
 
 .shortcut-button:active {

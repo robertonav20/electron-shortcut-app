@@ -4,7 +4,7 @@
       <a-form-item label="Title">
         <a-input v-model:value="shortcut.title" placeholder="Insert title">
           <template #prefix>
-            <user-outlined type="user"/>
+            <font-size-outlined/>
           </template>
           <template #suffix>
             <a-tooltip title="Extra information">
@@ -16,7 +16,7 @@
       <a-form-item label="Action">
         <a-input v-model:value="shortcut.action" placeholder="Action like http://google.it">
           <template #prefix>
-            <user-outlined type="user"/>
+            <setting-outlined/>
           </template>
           <template #suffix>
             <a-tooltip title="Extra information">
@@ -28,7 +28,7 @@
       <a-form-item label="Icon">
         <a-input v-model:value="shortcut.icon" placeholder="Icon">
           <template #prefix>
-            <user-outlined type="user"/>
+            <eye-outlined/>
           </template>
           <template #suffix>
             <a-tooltip title="Extra information">
@@ -38,9 +38,9 @@
         </a-input>
       </a-form-item>
       <a-form-item label="Size">
-        <a-input v-model:value="shortcut.size" placeholder="Size like 20, 30, 40">
+        <a-input disabled v-model:value="shortcut.size" placeholder="Size like small, middle, large">
           <template #prefix>
-            <user-outlined type="user"/>
+            <field-binary-outlined/>
           </template>
           <template #suffix>
             <a-tooltip title="Extra information">
@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import {InfoCircleOutlined, UserOutlined} from '@ant-design/icons-vue';
+import {InfoCircleOutlined, FontSizeOutlined, SettingOutlined, FieldBinaryOutlined, EyeOutlined} from '@ant-design/icons-vue';
 import {reactive, ref, computed} from "vue";
 import {addShortcut} from "@/storage/crud";
 import {ipcRenderer} from "electron";
@@ -69,7 +69,7 @@ const shortcut = reactive({
   title: '',
   action: '',
   icon: '',
-  size: null
+  size: 'large'
 })
 
 const rules = reactive({
@@ -124,8 +124,11 @@ export default {
   name: 'AddShortcut',
   props: ['open', 'close'],
   components: {
-    UserOutlined,
     InfoCircleOutlined,
+    FontSizeOutlined,
+    SettingOutlined,
+    FieldBinaryOutlined,
+    EyeOutlined
   },
   data() {
     return {
@@ -161,7 +164,7 @@ export default {
       this.shortcut.title = ''
       this.shortcut.action = ''
       this.shortcut.icon = ''
-      this.shortcut.size = null
+      this.shortcut.size = 'large'
       this.closeModal()
     },
     submit() {
@@ -173,6 +176,7 @@ export default {
               this.shortcut,
             false,
             () => {
+              this.reset()
               this.loading = false
               this.closeModal()
               ipcRenderer.send('reload-shortcut-list')
