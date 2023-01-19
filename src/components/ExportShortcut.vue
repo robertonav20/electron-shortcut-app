@@ -1,18 +1,16 @@
 <template>
   <a-modal :visible="visible" title="Export Shortcut" @cancel="closeModal" @ok="exportAll">
     <div class="ant-modal-body">
-      <export-outlined class="icon"/>
+      <export-outlined class="icon" />
       <p>Are you sure export all data?</p>
     </div>
   </a-modal>
 </template>
 
 <script>
-import {ExportOutlined} from '@ant-design/icons-vue';
-import {getAllShortcut} from "@/storage/crud";
-
-import { remote } from 'electron'
-const fs = require('fs')
+import { ExportOutlined } from '@ant-design/icons-vue';
+import { getAllShortcut } from '@/storage/crud';
+import { showSaveDialog, getCurrentWindow, writeFile } from '@/service/utils'
 
 export default {
   name: 'ExportShortcut',
@@ -47,12 +45,12 @@ export default {
           defaultPath: "export_shortcuts.json",
           buttonLabel: "Export",
           filters: [
-            {name: 'json', extensions: ['json']},
+            { name: 'json', extensions: ['json'] },
           ]
         };
-        remote.dialog.showSaveDialog(remote.getCurrentWindow(), options).then(({filePath}) => {
+        showSaveDialog(getCurrentWindow(), options).then(({ filePath }) => {
           if (filePath != undefined && filePath != '') {
-            fs.writeFile(filePath, JSON.stringify(rows), 'utf-8', ( ) => {
+            writeFile(filePath, JSON.stringify(rows), 'utf-8', () => {
               alert('All data exported successfully here ' + filePath)
             });
           }

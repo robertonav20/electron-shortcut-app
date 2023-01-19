@@ -1,8 +1,8 @@
 "use strict";
 
-import { app, protocol, BrowserWindow } from "electron";
-import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
-import { initDB } from "./storage/db";
+import { app, protocol, BrowserWindow } from 'electron';
+import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
+import { initDB } from './storage/db';
 
 initDB();
 
@@ -19,11 +19,11 @@ async function createWindow() {
     width: 1024,
     height: 768,
     webPreferences: {
+      contextIsolation: false,
       enableRemoteModule: true,
       nodeIntegration: true,
-      nodeIntegrationInWorker: true,
-      contextIsolation: false
-    },
+      nodeIntegrationInWorker: true
+    }
   });
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {

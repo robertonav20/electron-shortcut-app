@@ -1,4 +1,5 @@
 const {defineConfig} = require('@vue/cli-service')
+
 module.exports = defineConfig({
     transpileDependencies: true,
     pluginOptions: {
@@ -6,8 +7,7 @@ module.exports = defineConfig({
             nodeIntegration: true,
             customFileProtocol: './',
             builderOptions: {
-                extraResources: ['src/router', 'src/service', 'src/storage'],
-                asar: false
+                extraResources: ['src/router', 'src/service', 'src/storage']
             },
             externals: ['knex','sqlite3']
         }
