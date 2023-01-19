@@ -4,8 +4,10 @@ module.exports = defineConfig({
     pluginOptions: {
         electronBuilder: {
             nodeIntegration: true,
+            customFileProtocol: './',
             builderOptions: {
-                extraResources: ['src/router', 'src/service', 'src/storage']
+                extraResources: ['src/router', 'src/service', 'src/storage'],
+                asar: false
             },
             externals: ['knex','sqlite3']
         }

@@ -87,10 +87,13 @@ export default {
   align-items: center;
   width: 100%;
   border-bottom: 1px #f0f0f0 solid;
+  background-color: #001529;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
 }
 
 .shortcut-button-title {
-  color: inherit;
+  color: rgba(255, 255, 255, 0.65) !important;
   font-size: inherit;
   margin-left: 1rem;
   margin-right: 1rem;
