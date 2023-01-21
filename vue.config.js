@@ -22,6 +22,7 @@ module.exports = defineConfig({
     pluginOptions: {
         electronBuilder: {
             appId: "electron.multimedia.app",
+            asar: false,
             builderOptions: {
                 extraResources: ['src']
             },
@@ -31,6 +32,12 @@ module.exports = defineConfig({
             externals: ['knex', 'sqlite3'],
             extraResources: [
                 "./node_modules/@electron/remote/**"
+            ],
+            files: [
+                `dist/**/*`,
+                `node_modules/**/*`,
+                `package.json`,
+                `background.js`
             ],
             mainProcessFile: 'src/background.js',
             node: {

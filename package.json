@@ -3,6 +3,7 @@
   "author": "robertonav20",
   "version": "0.1.0",
   "private": true,
+  "main": "background.js",
   "scripts": {
     "serve": "npm run electron:serve",
     "build": "npm run electron:build",
@@ -19,12 +20,8 @@
     "ant-design-vue": "^3.2.5",
     "better-sqlite3": "^8.0.1",
     "core-js": "^3.8.3",
-    "crypto-browserify": "^3.12.0",
     "knex": "^2.4.1",
     "sqlite3": "^5.1.4",
-    "stream-browserify": "^3.0.0",
-    "timers-browserify": "^2.0.12",
-    "tty-browserify": "^0.0.1",
     "vue": "^3.2.13",
     "vue-router": "^4.0.15"
   },
