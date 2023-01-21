@@ -1,37 +1,24 @@
-import {shortcutTable} from './db'
-import {configuration} from './configuration'
+import { ipcRenderer } from 'electron';
 
-let connection;
 
-function getConnection() {
-    if (!connection) {
-        connection = require('knex')(configuration);
-    }
-
-    return connection
+export function getAllShortcut() {
+    return ipcRenderer.invoke('getAllShortcut')
 }
 
-export function addShortcut(shortcut, showAlert, callback) {
-    getConnection().table(shortcutTable).insert({
-        action: shortcut.action,
-        icon: shortcut.icon,
-        size: shortcut.size,
-        title: shortcut.title
-    }).then(result => {
-        if (showAlert === true) {
-            alert('Id ' + result + ' added successfully')
-        }
-        if (callback != null && callback != undefined) {
-            callback(result)
-        }
-    })
+export function addShortcut(action, icon, size, title, showAlert, callback) {
+    return ipcRenderer.invoke('addShortcut', action, icon, size, title)
+        .then(result => {
+            if (showAlert === true) {
+                alert('Id ' + result + ' added successfully')
+            }
+            if (callback != null && callback != undefined) {
+                callback(result)
+            }
+        })
 }
 
 export function removeShortcut(id, showAlert) {
-    getConnection()
-        .del()
-        .table(shortcutTable)
-        .where('id', id)
+    return ipcRenderer.invoke('removeShortcut', id)
         .then(() => {
             if (showAlert === true) {
                 alert('Id ' + id + ' deleted successfully')
@@ -39,14 +26,6 @@ export function removeShortcut(id, showAlert) {
         })
 }
 
-export function getAllShortcut() {
-    return getConnection()
-        .select('id', 'title', 'action', 'icon', 'size')
-        .table(shortcutTable)
-}
-
 export function deleteAll() {
-    return getConnection()
-        .del()
-        .table(shortcutTable)
+    return ipcRenderer.invoke('deleteAll')
 }

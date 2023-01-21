@@ -4,23 +4,26 @@
       <a-form-item label="Title">
         <a-input v-model:value="shortcut.title" placeholder="Insert title">
           <template #prefix>
-            <font-size-outlined/>
+            <font-size-outlined />
           </template>
           <template #suffix>
             <a-tooltip title="Extra information">
-              <info-circle-outlined style="color: rgba(0, 0, 0, 0.45)"/>
+              <info-circle-outlined style="color: rgba(0, 0, 0, 0.45)" />
             </a-tooltip>
           </template>
         </a-input>
       </a-form-item>
       <a-form-item label="Action">
-        <a-input v-model:value="shortcut.action" placeholder="Action like http://google.it">
+        <a-input
+          v-model:value="shortcut.action"
+          placeholder="Action like http://google.it"
+        >
           <template #prefix>
-            <setting-outlined/>
+            <setting-outlined />
           </template>
           <template #suffix>
             <a-tooltip title="Extra information">
-              <info-circle-outlined style="color: rgba(0, 0, 0, 0.45)"/>
+              <info-circle-outlined style="color: rgba(0, 0, 0, 0.45)" />
             </a-tooltip>
           </template>
         </a-input>
@@ -28,113 +31,133 @@
       <a-form-item label="Icon">
         <a-input v-model:value="shortcut.icon" placeholder="Icon">
           <template #prefix>
-            <eye-outlined/>
+            <eye-outlined />
           </template>
           <template #suffix>
             <a-tooltip title="Extra information">
-              <info-circle-outlined style="color: rgba(0, 0, 0, 0.45)"/>
+              <info-circle-outlined style="color: rgba(0, 0, 0, 0.45)" />
             </a-tooltip>
           </template>
         </a-input>
       </a-form-item>
       <a-form-item label="Size">
-        <a-input disabled v-model:value="shortcut.size" placeholder="Size like small, middle, large">
+        <a-input
+          disabled
+          v-model:value="shortcut.size"
+          placeholder="Size like small, middle, large"
+        >
           <template #prefix>
-            <field-binary-outlined/>
+            <field-binary-outlined />
           </template>
           <template #suffix>
             <a-tooltip title="Extra information">
-              <info-circle-outlined style="color: rgba(0, 0, 0, 0.45)"/>
+              <info-circle-outlined style="color: rgba(0, 0, 0, 0.45)" />
             </a-tooltip>
           </template>
         </a-input>
       </a-form-item>
-      <a-form-item class="error-infos" :wrapper-col="{ span: 1, offset: 1 }" v-bind="errorInfos" />
+      <a-form-item
+        class="error-infos"
+        :wrapper-col="{ span: 1, offset: 1 }"
+        v-bind="errorInfos"
+      />
     </a-form>
     <template #footer>
       <a-button key="back" @click="reset">Cancel</a-button>
-      <a-button key="submit" type="primary" :loading="loading" @click="submit">Add</a-button>
+      <a-button key="submit" type="primary" :loading="loading" @click="submit"
+        >Add</a-button
+      >
     </template>
   </a-modal>
 </template>
 
 <script>
-import {InfoCircleOutlined, FontSizeOutlined, SettingOutlined, FieldBinaryOutlined, EyeOutlined} from '@ant-design/icons-vue';
-import {reactive, ref, computed} from "vue";
-import {addShortcut} from "@/storage/crud";
-import {ipcRenderer} from "electron";
-import { Form } from 'ant-design-vue';
+import {
+  InfoCircleOutlined,
+  FontSizeOutlined,
+  SettingOutlined,
+  FieldBinaryOutlined,
+  EyeOutlined,
+} from "@ant-design/icons-vue";
+import { reactive, ref, computed } from "vue";
+import { addShortcut } from "@/storage/crud";
+import { send } from "@/service/utils";
+import { Form } from "ant-design-vue";
 
 const shortcut = reactive({
-  title: '',
-  action: '',
-  icon: '',
-  size: 'large'
-})
+  title: "",
+  action: "",
+  icon: "",
+  size: "large",
+});
 
 const rules = reactive({
-  title: [{
-    required: true,
-    message: 'Please input title',
-    type: 'string'
-  }],
-  action: [{
-    required: true,
-    message: 'Please input action',
-    type: 'string'
-  }],
-  icon: [{
-    required: true,
-    message: 'Please input icon',
-    type: 'string'
-  }],
-  size: [{
-    required: true,
-    asyncValidator: (rule, value) => {
-      return new Promise((resolve, reject) => {
-        if (value < 10) {
-          reject('Too short value, correct value is between > 9 and < 30');
-        } else if (value > 29) {
-          reject('Too much value, correct value is between > 9 and < 30');
-        } else {
-          resolve();
-        }
-      });
+  title: [
+    {
+      required: true,
+      message: "Please input title",
+      type: "string",
     },
-  }]
-})
+  ],
+  action: [
+    {
+      required: true,
+      message: "Please input action",
+      type: "string",
+    },
+  ],
+  icon: [
+    {
+      required: true,
+      message: "Please input icon",
+      type: "string",
+    },
+  ],
+  size: [
+    {
+      required: true,
+      asyncValidator: (rule, value) => {
+        return new Promise((resolve, reject) => {
+          if (value < 10) {
+            reject("Too short value, correct value is between > 9 and < 30");
+          } else if (value > 29) {
+            reject("Too much value, correct value is between > 9 and < 30");
+          } else {
+            resolve();
+          }
+        });
+      },
+    },
+  ],
+});
 
-const {
-  resetFields,
-  validate,
-  validateInfos,
-  mergeValidateInfo,
-} = Form.useForm(shortcut, rules);
+const { resetFields, validate, validateInfos, mergeValidateInfo } =
+  Form.useForm(shortcut, rules);
 
 const errorInfos = computed(() => {
   return mergeValidateInfo([
-      validateInfos.title,
-      validateInfos.action,
-      validateInfos.icon,
-      validateInfos.size
+    validateInfos.title,
+    validateInfos.action,
+    validateInfos.icon,
+    validateInfos.size,
   ]);
 });
 
 export default {
-  name: 'AddShortcut',
-  props: ['open', 'close'],
+  name: "AddShortcut",
+  props: ["open", "close"],
   components: {
     InfoCircleOutlined,
     FontSizeOutlined,
     SettingOutlined,
     FieldBinaryOutlined,
-    EyeOutlined
+    EyeOutlined,
   },
   data() {
     return {
       visible: false,
-      labelCol: {span: 4},
-      wrapperCol: {span: 14},
+      labelCol: { span: 4 },
+      wrapperCol: { span: 14 },
       loading: ref(false),
       shortcut,
       rules,
@@ -142,8 +165,8 @@ export default {
       mergeValidateInfo,
       resetFields,
       validate,
-      validateInfos
-    }
+      validateInfos,
+    };
   },
   watch: {
     open: function () {
@@ -151,40 +174,42 @@ export default {
     },
     close: function () {
       this.closeModal();
-    }
+    },
   },
   methods: {
     openModal() {
-      this.visible = true
+      this.visible = true;
     },
     closeModal() {
-      this.visible = false
+      this.visible = false;
     },
     reset() {
-      this.shortcut.title = ''
-      this.shortcut.action = ''
-      this.shortcut.icon = ''
-      this.shortcut.size = 'large'
-      this.closeModal()
+      this.shortcut.title = "";
+      this.shortcut.action = "";
+      this.shortcut.icon = "";
+      this.shortcut.size = "large";
+      this.closeModal();
     },
     submit() {
-      console.log(this.shortcut)
       this.validate()
         .then(() => {
-          this.loading = true
+          this.loading = true;
           addShortcut(
-              this.shortcut,
+            this.shortcut.action,
+            this.shortcut.icon,
+            this.shortcut.size,
+            this.shortcut.title,
             false,
             () => {
-              this.reset()
-              this.loading = false
-              this.closeModal()
-              ipcRenderer.send('reload-shortcut-list')
+              this.reset();
+              this.loading = false;
+              this.closeModal();
+              send("reload-shortcut-list");
             }
-          )
+          );
         })
-        .catch(() => {})
-    }
-  }
-}
+        .catch(() => {});
+    },
+  },
+};
 </script>

@@ -20,9 +20,9 @@
 
 <script>
 import {CodeFilled, DeleteFilled} from '@ant-design/icons-vue';
-import {shortcutLaunchByCMD} from "@/service/shortcut";
+import {launch} from "@/service/shortcut";
 import {getAllShortcut, removeShortcut} from "@/storage/crud";
-import { remote } from 'electron'
+import { on } from "@/service/utils";
 
 export default {
   name: 'ShortcutsView',
@@ -37,14 +37,14 @@ export default {
   },
   mounted() {
     this.getAll();
-    remote.ipcMain.on('reload-shortcut-list', () => {
+    on('reload-shortcut-list', () => {
       console.log('event received')
       this.getAll()
     })
   },
   methods: {
     action(cmd) {
-      shortcutLaunchByCMD(cmd)
+      launch(cmd)
     },
     getAll() {
       getAllShortcut().then(rows => {

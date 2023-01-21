@@ -1,27 +1,27 @@
-import { remote, ipcRenderer } from 'electron'
+/* eslint-disable */
+import { ipcRenderer } from 'electron';
 
-export const fs = require('fs')
 
 export function send(name) {
     return ipcRenderer.send(name)
 }
 
-export function getCurrentWindow() {
-    return remote.getCurrentWindow()
+export function on(name, callback) {
+    return ipcRenderer.on(name, callback)
 }
 
-export function showOpenDialog(window, options) {
-    return remote.dialog.showOpenDialog(window, options)
+export function showOpenDialog(options) {
+    return ipcRenderer.invoke('showOpenDialog', options)
 }
 
-export function showSaveDialog(window, options) {
-    return remote.dialog.showSaveDialog(window, options)
+export function showSaveDialog(options) {
+    return ipcRenderer.invoke('showSaveDialog', options)
 }
 
-export function readFile(filename, charset, callback) {
-    return fs.readFile(filename, charset, callback)
+export function importFile(filename, charset) {
+    return ipcRenderer.invoke('importFile', filename, charset)
 }
 
-export function writeFile(filePath, data, charset, callback) {
-    return fs.writeFile(filePath, data, callback, callback)
+export function exportFile(filePath, data, charset) {
+    return ipcRenderer.invoke('exportFile', filePath, data, charset)
 }

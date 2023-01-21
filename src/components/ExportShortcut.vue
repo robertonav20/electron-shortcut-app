@@ -10,7 +10,7 @@
 <script>
 import { ExportOutlined } from '@ant-design/icons-vue';
 import { getAllShortcut } from '@/storage/crud';
-import { showSaveDialog, getCurrentWindow, writeFile } from '@/service/utils'
+import { showSaveDialog, exportFile } from '@/service/utils'
 
 export default {
   name: 'ExportShortcut',
@@ -48,9 +48,9 @@ export default {
             { name: 'json', extensions: ['json'] },
           ]
         };
-        showSaveDialog(getCurrentWindow(), options).then(({ filePath }) => {
+        showSaveDialog(options).then(({ filePath }) => {
           if (filePath != undefined && filePath != '') {
-            writeFile(filePath, JSON.stringify(rows), 'utf-8', () => {
+            exportFile(filePath, JSON.stringify(rows), 'utf-8').then(() => {
               alert('All data exported successfully here ' + filePath)
             });
           }

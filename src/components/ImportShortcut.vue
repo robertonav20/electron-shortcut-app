@@ -9,8 +9,8 @@
 
 <script>
 import { ImportOutlined } from '@ant-design/icons-vue';
-import { addShortcut } from '@/storage/crud';
-import { showOpenDialog, getCurrentWindow, send, readFile } from '@/service/utils'
+import { showOpenDialog, send, importFile } from '@/service/utils'
+import { addShortcut } from '@/storage/crud'
 
 export default {
   name: 'ImportShortcut',
@@ -47,12 +47,12 @@ export default {
         ],
         properties: ['openFile']
       };
-      showOpenDialog(getCurrentWindow(), options).then(({ filePaths }) => {
+      showOpenDialog(options).then(({ filePaths }) => {
         if (filePaths != undefined && filePaths.length > 0) {
           const filename = filePaths[0]
-          readFile(filename, 'utf-8', (err, data) => {
+          importFile(filename, 'utf-8').then((data) => {
             const rows = JSON.parse(data)
-            rows.forEach(row => addShortcut(row, false))
+            rows.forEach(row => addShortcut(row.action, row.icon, row.size, row.title, false))
             alert('All data imported from file ' + filename)
             send('reload-shortcut-list')
           })

@@ -3,9 +3,9 @@
 import { app, protocol, BrowserWindow } from 'electron';
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
-import { initDB } from './storage/db';
+import { initialize } from './preload'
 
-initDB();
+require('@electron/remote/main').initialize()
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
@@ -20,18 +20,21 @@ async function createWindow() {
     width: 1024,
     height: 768,
     webPreferences: {
-      contextIsolation: false,
-      enableRemoteModule: true,
       nodeIntegration: true,
-      nodeIntegrationInWorker: true
+      contextIsolation: false,
+      enableRemoteModule: true
     }
   });
+
+  require("@electron/remote/main").enable(win.webContents)
+  initialize(win)
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
     await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
     if (!process.env.IS_TEST) win.webContents.openDevTools()
   } else {
+
     createProtocol("app");
     // Load the index.html when not in development
     win.loadURL("app://./index.html")

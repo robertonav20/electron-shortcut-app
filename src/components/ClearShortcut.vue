@@ -10,7 +10,7 @@
 <script>
 import {ClearOutlined} from "@ant-design/icons-vue";
 import {deleteAll} from "@/storage/crud";
-import {ipcRenderer} from "electron";
+import { send } from "@/service/utils";
 
 export default {
   name: 'ClearAllShortcut',
@@ -43,7 +43,7 @@ export default {
       deleteAll()
         .then(() => {
           alert('All data are deleted successfully')
-          ipcRenderer.send('reload-shortcut-list')
+          send('reload-shortcut-list')
         })
     }
   }
