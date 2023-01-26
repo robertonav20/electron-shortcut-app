@@ -3,22 +3,19 @@
 </template>
 
 <script>
-import { countAllShortcut } from "@/storage/crud";
-
 export default {
   name: "FooterComponent",
+  props: ['size'],
   data() {
     return {
-      size: 0
+      data: 0
     };
   },
-  mounted() {
-    countAllShortcut().then(res => {
-      if (res.CNT) {
-        this.size = res.CNT
-      }
-    })
-  }
+  watch: {
+    size: function (data) {
+      this.data = data;
+    },
+  },
 };
 </script>
 

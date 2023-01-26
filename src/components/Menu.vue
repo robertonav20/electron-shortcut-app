@@ -1,5 +1,10 @@
 <template>
-  <a-menu :selectedKeys="current" mode="horizontal" theme="dark" class="menu-container">
+  <a-menu
+    :selectedKeys="current"
+    mode="horizontal"
+    theme="dark"
+    class="menu-container"
+  >
     <a-sub-menu key="settings">
       <template #icon>
         <a-icon type="setting" theme="filled" :style="iconStyle" />
@@ -14,10 +19,10 @@
         <a-menu-item key="export" @click="openExportDialog">Export</a-menu-item>
       </a-menu-item-group>
     </a-sub-menu>
-    <add-shortcut :open="addTrigger" />
-    <clear-shortcut :open="clearTrigger" />
-    <import-shortcut :open="importTrigger" />
-    <export-shortcut :open="exportTrigger" />
+    <add-shortcut :open="addTrigger" @refresh="refresh" />
+    <clear-shortcut :open="clearTrigger" @refresh="refresh" />
+    <import-shortcut :open="importTrigger" @refresh="refresh" />
+    <export-shortcut :open="exportTrigger"/>
   </a-menu>
 </template>
 
@@ -29,6 +34,7 @@ import ImportShortcut from "@/components/ImportShortcut";
 import ExportShortcut from "@/components/ExportShortcut";
 export default {
   name: "MenuComponent",
+  emits: ["refresh"],
   components: {
     AddShortcut,
     ClearShortcut,
@@ -61,6 +67,9 @@ export default {
     openExportDialog() {
       this.exportTrigger = !this.exportTrigger;
     },
+    refresh() {
+      this.$emit("refresh");
+    }
   },
 };
 </script>

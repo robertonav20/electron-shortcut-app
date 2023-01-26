@@ -2,7 +2,7 @@
   <div class="shortcuts-container">
     <div
       class="shortcut-button-card"
-      v-for="(s, index) in shortcuts"
+      v-for="(s, index) in data"
       :key="index"
     >
       <div class="shortcut-button-card-header">
@@ -34,37 +34,29 @@
 
 <script>
 import { launch } from "@/service/shortcut";
-import { getAllShortcut, removeShortcut } from "@/storage/crud";
-import { on } from "@/service/utils";
+import { removeShortcut } from "@/storage/crud";
 
 export default {
   name: "ShortcutView",
+  props: ["shortcuts"],
+  emits: ['refresh'],
   data() {
     return {
-      shortcuts: [],
+      data: [],
     };
   },
-  mounted() {
-    this.getAll();
-    on("reload-shortcut-list", () => {
-      console.log("event received");
-      this.getAll();
-    });
+  watch: {
+    shortcuts: function (data) {
+      this.data = data;
+    },
   },
   methods: {
     action(cmd) {
       launch(cmd);
     },
-    getAll() {
-      getAllShortcut().then((rows) => {
-        if (rows && rows.length > 0) {
-          this.shortcuts = rows;
-        }
-      });
-    },
     deleteShortcut(id) {
       removeShortcut(id, true);
-      this.shortcuts = this.shortcuts.filter((s) => s.id !== id);
+      this.$emit('refresh')
     },
   },
 };

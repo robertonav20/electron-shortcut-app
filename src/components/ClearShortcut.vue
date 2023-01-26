@@ -14,11 +14,11 @@
 
 <script>
 import { deleteAll } from "@/storage/crud";
-import { send } from "@/service/utils";
 
 export default {
   name: "ClearAllShortcut",
   props: ["open", "close"],
+  emits: ['refresh'],
   data() {
     return {
       visible: false,
@@ -40,14 +40,17 @@ export default {
       this.visible = false;
     },
     clear() {
-      this.closeModal();
       deleteAll().then(() => {
         this.$notification.success({
           message: "All data are deleted successfully"
         });
-        send("reload-shortcut-list");
+        this.refresh();
+        this.closeModal();
       });
     },
+    refresh() {
+      this.$emit('refresh');
+    }
   },
 };
 </script>

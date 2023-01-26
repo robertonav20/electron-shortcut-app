@@ -62,7 +62,6 @@
 <script>
 import { ref } from "vue";
 import { addShortcut } from "@/storage/crud";
-import { send } from "@/service/utils";
 
 export default {
   name: "AddShortcut",
@@ -105,8 +104,6 @@ export default {
       this.closeModal();
     },
     submit(e) {
-      console.log(e);
-      console.log(this.form);
       e.preventDefault();
       this.form.validateFields((error, values) => {
         this.loading = true;
@@ -119,12 +116,15 @@ export default {
           () => {
             this.reset();
             this.loading = false;
+            this.refresh();
             this.closeModal();
-            send("reload-shortcut-list");
           }
         );
       });
     },
+    refresh() {
+      this.$emit("refresh");
+    }
   },
 };
 </script>

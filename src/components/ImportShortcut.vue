@@ -13,12 +13,13 @@
 </template>
 
 <script>
-import { showOpenDialog, send, importFile } from "@/service/utils";
+import { showOpenDialog, importFile } from "@/service/utils";
 import { addShortcut } from "@/storage/crud";
 
 export default {
   name: "ImportShortcut",
   props: ["open", "close"],
+  emits: ["refresh"],
   data() {
     return {
       visible: false,
@@ -55,13 +56,16 @@ export default {
               addShortcut(row.action, row.icon, row.size, row.title, false)
             );
             this.$notification.success({
-              message: "All data imported from file " + filename
+              message: "All data imported from file " + filename,
             });
-            send("reload-shortcut-list");
+            this.refresh();
+            this.closeModal();
           });
         }
       });
-      this.closeModal();
+    },
+    refresh() {
+      this.$emit("refresh");
     },
   },
 };
