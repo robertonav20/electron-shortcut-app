@@ -4,13 +4,12 @@
       <a-form-item
         label="Title"
         required
-        :validate-status="validate('title')"
       >
         <a-input
           placeholder="Insert title"
           v-decorator="[
             'title',
-            { rules: [{ required: true, message: 'Please insert title!' }] },
+            { initialValue: '', rules: [{ required: true, message: 'Please insert title!' }] },
           ]"
         >
           <template #prefix>
@@ -26,7 +25,6 @@
       <a-form-item
         label="Action"
         required
-        :validate-status="validate('action')"
       >
         <a-input
           placeholder="Action like http://google.it"
@@ -99,10 +97,6 @@ export default {
     closeModal() {
       this.visible = false;
     },
-    validate(fieldName) {
-      const { getFieldError, isFieldTouched } = this.form;
-      this.form.setFieldsValue(isFieldTouched(fieldName) && getFieldError(fieldName));
-    },
     hasErrors(fieldsError) {
       return Object.keys(fieldsError).some((field) => fieldsError[field]);
     },
@@ -115,8 +109,6 @@ export default {
       console.log(this.form);
       e.preventDefault();
       this.form.validateFields((error, values) => {
-        console.log("error", error);
-        console.log("Received values of form: ", values);
         this.loading = true;
         addShortcut(
           values.action,

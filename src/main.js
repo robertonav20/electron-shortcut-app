@@ -6,6 +6,8 @@ import App from './App.vue'
 import 'ant-design-vue/dist/antd.css';
 import './asset/font.scss'
 
+Vue.config.productionTip = false;
+
 Vue.use(Antd);
 
 const app = new Vue({
