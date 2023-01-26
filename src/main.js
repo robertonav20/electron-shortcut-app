@@ -1,14 +1,16 @@
+import Vue from 'vue'
 import Antd from 'ant-design-vue';
 import router from './router'
-import {createApp} from 'vue'
 import App from './App.vue'
 
 import 'ant-design-vue/dist/antd.css';
 import './asset/font.scss'
 
-const app = createApp(App)
+Vue.use(Antd);
 
-app.use(router)
-app.use(Antd)
+const app = new Vue({
+    router,
+    render: h => h(App)
+})
 
-app.mount('#app')
+app.$mount("#app")

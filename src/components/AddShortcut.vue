@@ -1,70 +1,60 @@
 <template>
   <a-modal :visible="visible" title="Add Shortcut">
-    <a-form :label-col="labelCol" :wrapper-col="wrapperCol">
-      <a-form-item label="Title">
-        <a-input v-model:value="shortcut.title" placeholder="Insert title">
-          <template #prefix>
-            <font-size-outlined />
-          </template>
-          <template #suffix>
-            <a-tooltip title="Extra information">
-              <info-circle-outlined style="color: rgba(0, 0, 0, 0.45)" />
-            </a-tooltip>
-          </template>
-        </a-input>
-      </a-form-item>
-      <a-form-item label="Action">
+    <a-form :label-col="labelCol" :wrapper-col="wrapperCol" :form="form">
+      <a-form-item
+        label="Title"
+        required
+        :validate-status="validate('title')"
+      >
         <a-input
-          v-model:value="shortcut.action"
-          placeholder="Action like http://google.it"
+          placeholder="Insert title"
+          v-decorator="[
+            'title',
+            { rules: [{ required: true, message: 'Please insert title!' }] },
+          ]"
         >
           <template #prefix>
-            <setting-outlined />
+            <a-icon type="font-size" />
           </template>
           <template #suffix>
             <a-tooltip title="Extra information">
-              <info-circle-outlined style="color: rgba(0, 0, 0, 0.45)" />
-            </a-tooltip>
-          </template>
-        </a-input>
-      </a-form-item>
-      <a-form-item label="Icon">
-        <a-input v-model:value="shortcut.icon" placeholder="Icon">
-          <template #prefix>
-            <eye-outlined />
-          </template>
-          <template #suffix>
-            <a-tooltip title="Extra information">
-              <info-circle-outlined style="color: rgba(0, 0, 0, 0.45)" />
-            </a-tooltip>
-          </template>
-        </a-input>
-      </a-form-item>
-      <a-form-item label="Size">
-        <a-input
-          disabled
-          v-model:value="shortcut.size"
-          placeholder="Size like small, middle, large"
-        >
-          <template #prefix>
-            <field-binary-outlined />
-          </template>
-          <template #suffix>
-            <a-tooltip title="Extra information">
-              <info-circle-outlined style="color: rgba(0, 0, 0, 0.45)" />
+              <a-icon type="info-circle" style="color: rgba(0, 0, 0, 0.45)" />
             </a-tooltip>
           </template>
         </a-input>
       </a-form-item>
       <a-form-item
-        class="error-infos"
-        :wrapper-col="{ span: 1, offset: 1 }"
-        v-bind="errorInfos"
-      />
+        label="Action"
+        required
+        :validate-status="validate('action')"
+      >
+        <a-input
+          placeholder="Action like http://google.it"
+          v-decorator="[
+            'action',
+            { rules: [{ required: true, message: 'Please insert action!' }] },
+          ]"
+        >
+          <template #prefix>
+            <a-icon type="setting" />
+          </template>
+          <template #suffix>
+            <a-tooltip title="Extra information">
+              <a-icon type="info-circle" style="color: rgba(0, 0, 0, 0.45)" />
+            </a-tooltip>
+          </template>
+        </a-input>
+      </a-form-item>
     </a-form>
     <template #footer>
       <a-button key="back" @click="reset">Cancel</a-button>
-      <a-button key="submit" type="primary" :loading="loading" @click="submit"
+      <a-button
+        key="submit"
+        type="primary"
+        :loading="loading"
+        @click="submit"
+        html-type="submit"
+        :disabled="hasErrors(form.getFieldsError())"
         >Add</a-button
       >
     </template>
@@ -72,100 +62,20 @@
 </template>
 
 <script>
-import {
-  InfoCircleOutlined,
-  FontSizeOutlined,
-  SettingOutlined,
-  FieldBinaryOutlined,
-  EyeOutlined,
-} from "@ant-design/icons-vue";
-import { reactive, ref, computed } from "vue";
+import { ref } from "vue";
 import { addShortcut } from "@/storage/crud";
 import { send } from "@/service/utils";
-import { Form } from "ant-design-vue";
-
-const shortcut = reactive({
-  title: "",
-  action: "",
-  icon: "",
-  size: "large",
-});
-
-const rules = reactive({
-  title: [
-    {
-      required: true,
-      message: "Please input title",
-      type: "string",
-    },
-  ],
-  action: [
-    {
-      required: true,
-      message: "Please input action",
-      type: "string",
-    },
-  ],
-  icon: [
-    {
-      required: true,
-      message: "Please input icon",
-      type: "string",
-    },
-  ],
-  size: [
-    {
-      required: true,
-      asyncValidator: (rule, value) => {
-        return new Promise((resolve, reject) => {
-          if (value < 10) {
-            reject("Too short value, correct value is between > 9 and < 30");
-          } else if (value > 29) {
-            reject("Too much value, correct value is between > 9 and < 30");
-          } else {
-            resolve();
-          }
-        });
-      },
-    },
-  ],
-});
-
-const { resetFields, validate, validateInfos, mergeValidateInfo } =
-  Form.useForm(shortcut, rules);
-
-const errorInfos = computed(() => {
-  return mergeValidateInfo([
-    validateInfos.title,
-    validateInfos.action,
-    validateInfos.icon,
-    validateInfos.size,
-  ]);
-});
 
 export default {
   name: "AddShortcut",
   props: ["open", "close"],
-  components: {
-    InfoCircleOutlined,
-    FontSizeOutlined,
-    SettingOutlined,
-    FieldBinaryOutlined,
-    EyeOutlined,
-  },
   data() {
     return {
       visible: false,
       labelCol: { span: 4 },
       wrapperCol: { span: 14 },
       loading: ref(false),
-      shortcut,
-      rules,
-      errorInfos,
-      mergeValidateInfo,
-      resetFields,
-      validate,
-      validateInfos,
+      form: this.$form.createForm(this, { name: "add" }),
     };
   },
   watch: {
@@ -176,6 +86,12 @@ export default {
       this.closeModal();
     },
   },
+  mounted() {
+    this.$nextTick(() => {
+      // To disabled submit button at the beginning.
+      this.form.validateFields();
+    });
+  },
   methods: {
     openModal() {
       this.visible = true;
@@ -183,32 +99,39 @@ export default {
     closeModal() {
       this.visible = false;
     },
+    validate(fieldName) {
+      const { getFieldError, isFieldTouched } = this.form;
+      this.form.setFieldsValue(isFieldTouched(fieldName) && getFieldError(fieldName));
+    },
+    hasErrors(fieldsError) {
+      return Object.keys(fieldsError).some((field) => fieldsError[field]);
+    },
     reset() {
-      this.shortcut.title = "";
-      this.shortcut.action = "";
-      this.shortcut.icon = "";
-      this.shortcut.size = "large";
+      this.form.resetFields();
       this.closeModal();
     },
-    submit() {
-      this.validate()
-        .then(() => {
-          this.loading = true;
-          addShortcut(
-            this.shortcut.action,
-            this.shortcut.icon,
-            this.shortcut.size,
-            this.shortcut.title,
-            false,
-            () => {
-              this.reset();
-              this.loading = false;
-              this.closeModal();
-              send("reload-shortcut-list");
-            }
-          );
-        })
-        .catch(() => {});
+    submit(e) {
+      console.log(e);
+      console.log(this.form);
+      e.preventDefault();
+      this.form.validateFields((error, values) => {
+        console.log("error", error);
+        console.log("Received values of form: ", values);
+        this.loading = true;
+        addShortcut(
+          values.action,
+          'code',
+          'large',
+          values.title,
+          false,
+          () => {
+            this.reset();
+            this.loading = false;
+            this.closeModal();
+            send("reload-shortcut-list");
+          }
+        );
+      });
     },
   },
 };

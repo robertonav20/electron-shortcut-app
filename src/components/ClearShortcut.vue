@@ -1,27 +1,28 @@
 <template>
-  <a-modal :visible="visible" title="Clear Shortcut" @cancel="closeModal" @ok="clear">
+  <a-modal
+    :visible="visible"
+    title="Clear Shortcut"
+    @cancel="closeModal"
+    @ok="clear"
+  >
     <div class="ant-modal-body">
-      <clear-outlined class="icon"/>
+      <a-icon type="delete" class="icon" />
       <p>Are you sure delete data?</p>
     </div>
   </a-modal>
 </template>
 
 <script>
-import {ClearOutlined} from "@ant-design/icons-vue";
-import {deleteAll} from "@/storage/crud";
+import { deleteAll } from "@/storage/crud";
 import { send } from "@/service/utils";
 
 export default {
-  name: 'ClearAllShortcut',
-  props: ['open', 'close'],
-  components: {
-    ClearOutlined
-  },
+  name: "ClearAllShortcut",
+  props: ["open", "close"],
   data() {
     return {
-      visible: false
-    }
+      visible: false,
+    };
   },
   watch: {
     open: function () {
@@ -29,25 +30,27 @@ export default {
     },
     close: function () {
       this.closeModal();
-    }
+    },
   },
   methods: {
     openModal() {
-      this.visible = true
+      this.visible = true;
     },
     closeModal() {
-      this.visible = false
+      this.visible = false;
     },
     clear() {
-      this.closeModal()
-      deleteAll()
-        .then(() => {
-          alert('All data are deleted successfully')
-          send('reload-shortcut-list')
-        })
-    }
-  }
-}
+      this.closeModal();
+      deleteAll().then(() => {
+        this.$notification["success"]({
+          message: "All data are deleted successfully",
+          placement: "bottomRight",
+        });
+        send("reload-shortcut-list");
+      });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

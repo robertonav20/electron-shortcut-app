@@ -1,28 +1,16 @@
-const { defineConfig } = require('@vue/cli-service')
 const { IgnorePlugin } = require('webpack')
 
-module.exports = defineConfig({
+module.exports = {
     configureWebpack: {
-        /*
-        resolve: {
-            fallback: {
-                tty: require.resolve('tty-browserify'),
-                stream: require.resolve('stream-browserify'),
-                crypto: require.resolve('crypto-browserify'),
-                timers: require.resolve('timers-browserify')
-            }
-        },
-        */
         devtool: "source-map",
         plugins: [
             new IgnorePlugin({ resourceRegExp: new RegExp('^(mssql|mariasql|.*oracle.*|mysql.*|pg.*|node-pre-gyp)$') })
         ]
     },
-    transpileDependencies: true,
     pluginOptions: {
         electronBuilder: {
             appId: "electron.multimedia.app",
-            asar: false,
+            asar: true,
             builderOptions: {
                 extraResources: ['src']
             },
@@ -47,4 +35,4 @@ module.exports = defineConfig({
             productName: "shortcut-app",
         }
     }
-})
+}

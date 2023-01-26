@@ -1,64 +1,73 @@
 <template>
   <div class="shortcuts-container">
-    <div class="shortcut-button-card" v-for="(s, index) in shortcuts" :key="index">
+    <div
+      class="shortcut-button-card"
+      v-for="(s, index) in shortcuts"
+      :key="index"
+    >
       <div class="shortcut-button-card-header">
-        <span class="shortcut-button-title">{{s.title}}</span>
+        <span class="shortcut-button-title">{{ s.title }}</span>
         <div class="delete-button-container">
-          <delete-filled key="delete" class="delete-button" @click="deleteShortcut(s.id)"/>
+          <a-icon
+            type="delete"
+            theme="filled"
+            key="delete"
+            class="delete-button"
+            @click="deleteShortcut(s.id)"
+          />
         </div>
       </div>
       <div class="shortcut-button-card-content">
-        <a-button class="shortcut-button" shape="circle" :size="s.size" type="primary" @click="action(s.action)">
-        <template #icon>
-          <code-filled class="shortcut-button-icon"/>
-        </template>
-      </a-button>
+        <a-button
+          class="shortcut-button"
+          shape="circle"
+          :size="s.size"
+          type="primary"
+          icon="code"
+          theme="filled"
+          @click="action(s.action)"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import {CodeFilled, DeleteFilled} from '@ant-design/icons-vue';
-import {launch} from "@/service/shortcut";
-import {getAllShortcut, removeShortcut} from "@/storage/crud";
+import { launch } from "@/service/shortcut";
+import { getAllShortcut, removeShortcut } from "@/storage/crud";
 import { on } from "@/service/utils";
 
 export default {
-  name: 'ShortcutsView',
-  components: {
-    CodeFilled,
-    DeleteFilled
-  },
+  name: "ShortcutsView",
   data() {
     return {
-      shortcuts: []
-    }
+      shortcuts: [],
+    };
   },
   mounted() {
     this.getAll();
-    on('reload-shortcut-list', () => {
-      console.log('event received')
-      this.getAll()
-    })
+    on("reload-shortcut-list", () => {
+      console.log("event received");
+      this.getAll();
+    });
   },
   methods: {
     action(cmd) {
-      launch(cmd)
+      launch(cmd);
     },
     getAll() {
-      getAllShortcut().then(rows => {
+      getAllShortcut().then((rows) => {
         if (rows && rows.length > 0) {
-          this.shortcuts = rows
+          this.shortcuts = rows;
         }
-      })
+      });
     },
     deleteShortcut(id) {
-      removeShortcut(id, true)
-      this.shortcuts = this.shortcuts.filter(s => s.id !== id)
-    }
-  }
-}
+      removeShortcut(id, true);
+      this.shortcuts = this.shortcuts.filter((s) => s.id !== id);
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -108,11 +117,11 @@ export default {
 }
 
 .delete-button-container:hover {
-  background-color: #DA4D4DF9;
+  background-color: #da4d4df9;
 }
 
 .delete-button-container:active {
-  background-color: #4B4B4BF7;
+  background-color: #4b4b4bf7;
 }
 
 .delete-button {
@@ -133,23 +142,27 @@ export default {
 .shortcut-button {
   background: #096dd9;
   border: 1px #096dd9 solid;
-  box-shadow: 1px 2px #489BFFF7;
+  box-shadow: 1px 2px #489bfff7;
   color: white;
   min-width: 50px;
   min-height: 50px;
+  font-size: 25px !important;
+}
+
+.shortcut-button .ant-btn > .anticon {
+  line-height: 0 !important;
 }
 
 .shortcut-button:hover {
   background: white;
-  border: 1px #4B4B4BF7 solid;
-  box-shadow: 1px 2px #4B4B4BF7;
-  color: #4B4B4BF7;
-
+  border: 1px #4b4b4bf7 solid;
+  box-shadow: 1px 2px #4b4b4bf7;
+  color: #4b4b4bf7;
 }
 
 .shortcut-button:active {
-  background: #489BFFF7;
-  border: 1px #489BFFF7 solid;
+  background: #489bfff7;
+  border: 1px #489bfff7 solid;
   box-shadow: none;
   color: white;
 }

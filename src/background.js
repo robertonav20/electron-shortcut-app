@@ -5,7 +5,7 @@ import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
 import { initialize } from './preload'
 
-require('@electron/remote/main').initialize()
+app.disableHardwareAcceleration()
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
@@ -26,7 +26,6 @@ async function createWindow() {
     }
   });
 
-  require("@electron/remote/main").enable(win.webContents)
   initialize(win)
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {

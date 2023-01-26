@@ -1,22 +1,23 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import Vue from 'vue'
+import Router from "vue-router";
+
+Vue.use(Router);
 
 const routes = [
   {
     path: '/',
-    name: 'home',
     component: () => import('../views/HomeView.vue'),
     children: [
       {
         path: '/',
-        name: 'default',
         component: () => import('../views/ShortcutsView.vue')
       }
     ]
   }
 ]
 
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+const router = new Router({
+  mode: 'history',
   routes
 })
 

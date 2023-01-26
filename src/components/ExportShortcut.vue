@@ -1,27 +1,28 @@
 <template>
-  <a-modal :visible="visible" title="Export Shortcut" @cancel="closeModal" @ok="exportAll">
+  <a-modal
+    :visible="visible"
+    title="Export Shortcut"
+    @cancel="closeModal"
+    @ok="exportAll"
+  >
     <div class="ant-modal-body">
-      <export-outlined class="icon" />
+      <a-icon type="export" class="icon" />
       <p>Are you sure export all data?</p>
     </div>
   </a-modal>
 </template>
 
 <script>
-import { ExportOutlined } from '@ant-design/icons-vue';
-import { getAllShortcut } from '@/storage/crud';
-import { showSaveDialog, exportFile } from '@/service/utils'
+import { getAllShortcut } from "@/storage/crud";
+import { showSaveDialog, exportFile } from "@/service/utils";
 
 export default {
-  name: 'ExportShortcut',
-  components: {
-    ExportOutlined
-  },
-  props: ['open', 'close'],
+  name: "ExportShortcut",
+  props: ["open", "close"],
   data() {
     return {
-      visible: false
-    }
+      visible: false,
+    };
   },
   watch: {
     open: function () {
@@ -29,37 +30,38 @@ export default {
     },
     close: function () {
       this.closeModal();
-    }
+    },
   },
   methods: {
     openModal() {
-      this.visible = true
+      this.visible = true;
     },
     closeModal() {
-      this.visible = false
+      this.visible = false;
     },
     exportAll() {
-      getAllShortcut().then(rows => {
+      getAllShortcut().then((rows) => {
         const options = {
           title: "Export shortcuts",
           defaultPath: "export_shortcuts.json",
           buttonLabel: "Export",
-          filters: [
-            { name: 'json', extensions: ['json'] },
-          ]
+          filters: [{ name: "json", extensions: ["json"] }],
         };
         showSaveDialog(options).then(({ filePath }) => {
-          if (filePath != undefined && filePath != '') {
-            exportFile(filePath, JSON.stringify(rows), 'utf-8').then(() => {
-              alert('All data exported successfully here ' + filePath)
+          if (filePath != undefined && filePath != "") {
+            exportFile(filePath, JSON.stringify(rows), "utf-8").then(() => {
+              this.$notification["success"]({
+                message: "All data exported successfully here " + filePath,
+                placement: "bottomRight",
+              });
             });
           }
         });
-        this.closeModal()
-      })
-    }
-  }
-}
+        this.closeModal();
+      });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
