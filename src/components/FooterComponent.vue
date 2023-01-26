@@ -14,9 +14,9 @@ export default {
   },
   mounted() {
     countAllShortcut().then(res => {
-      console.log(res[0])
-      if (res) {
-        this.size = res
+      console.log(res)
+      if (res.CNT) {
+        this.size = res.CNT
       }
     })
   }

@@ -54,11 +54,15 @@ function getAllShortcut() {
 }
 
 function countAllShortcut() {
-    return connection.count('*', {as: 'rows'})
+    return connection
+        .count('* as CNT')
+        .table(shortcutTable)
+        .first()
 }
 
 function addShortcut(action, icon, size, title) {
-    return connection.table(shortcutTable)
+    return connection
+        .table(shortcutTable)
         .insert({
             action: action,
             icon: icon,
