@@ -38,7 +38,7 @@ import { getAllShortcut, removeShortcut } from "@/storage/crud";
 import { on } from "@/service/utils";
 
 export default {
-  name: "ShortcutsView",
+  name: "ShortcutView",
   data() {
     return {
       shortcuts: [],
@@ -144,8 +144,6 @@ export default {
   border: 1px #096dd9 solid;
   box-shadow: 1px 2px #489bfff7;
   color: white;
-  min-width: 50px;
-  min-height: 50px;
   font-size: 25px !important;
 }
 

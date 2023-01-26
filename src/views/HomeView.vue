@@ -1,21 +1,30 @@
 <template>
   <a-layout class="layout">
-    <menu-component />
+    <a-layout-header>
+      <menu-component/>
+    </a-layout-header>
     <a-layout-content class="content">
-      <router-view />
+      <shortcut-view/>
     </a-layout-content>
+    <a-layout-footer>
+      <footer-component/>
+    </a-layout-footer>
   </a-layout>
 </template>
 
 <script>
+import FooterComponent from "@/components/FooterComponent.vue";
 import MenuComponent from "@/components/Menu.vue";
+import ShortcutView from '@/views/ShortcutView.vue'
 
 export default {
-  name: "HomeView",
+  name: 'HomeView',
   components: {
+    FooterComponent,
     MenuComponent,
-  },
-};
+    ShortcutView
+  }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -6,6 +6,10 @@ export function getAllShortcut() {
     return ipcRenderer.invoke('getAllShortcut')
 }
 
+export function countAllShortcut() {
+    return ipcRenderer.invoke('countAllShortcut')
+}
+
 export function addShortcut(action, icon, size, title, showAlert, callback) {
     return ipcRenderer.invoke('addShortcut', action, icon, size, title)
         .then(result => {

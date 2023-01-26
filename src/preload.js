@@ -43,6 +43,7 @@ function initHandlers(win) {
     ipcMain.handle('addShortcut', (_event, action, icon, size, title) => addShortcut(action, icon, size, title))
     ipcMain.handle('removeShortcut', (_event, id) => removeShortcut(id))
     ipcMain.handle('getAllShortcut', () => getAllShortcut())
+    ipcMain.handle('countAllShortcut', () => countAllShortcut())
     ipcMain.handle('deleteAll', () => deleteAll())
 }
 
@@ -50,6 +51,10 @@ function getAllShortcut() {
     return connection
         .select('id', 'title', 'action', 'icon', 'size')
         .table(shortcutTable)
+}
+
+function countAllShortcut() {
+    return connection.count('*', {as: 'rows'})
 }
 
 function addShortcut(action, icon, size, title) {

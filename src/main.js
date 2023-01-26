@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Antd, {notification} from 'ant-design-vue';
-import router from './router'
-import App from './App.vue'
+import App from '@/App.vue'
 
 import 'ant-design-vue/dist/antd.css';
 import './asset/font.scss'
@@ -15,7 +14,6 @@ notification.config({
 })
 
 const app = new Vue({
-    router,
     render: h => h(App)
 })
 
