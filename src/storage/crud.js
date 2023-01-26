@@ -10,9 +10,8 @@ export function addShortcut(action, icon, size, title, showAlert, callback) {
     return ipcRenderer.invoke('addShortcut', action, icon, size, title)
         .then(result => {
             if (showAlert === true) {
-                notification["success"]({
-                    message: 'Id ' + result + ' added successfully',
-                    placement: "bottomRight",
+                notification.success({
+                    message: 'Id ' + result + ' added successfully'
                 });
             }
             if (callback != null && callback != undefined) {
@@ -25,9 +24,8 @@ export function removeShortcut(id, showAlert) {
     return ipcRenderer.invoke('removeShortcut', id)
         .then(() => {
             if (showAlert === true) {
-                notification["success"]({
-                    message: 'Id ' + id + ' deleted successfully',
-                    placement: "bottomRight",
+                notification.success({
+                    message: 'Id ' + id + ' deleted successfully'
                 });
             }
         })

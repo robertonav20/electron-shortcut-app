@@ -54,9 +54,8 @@ export default {
             rows.forEach((row) =>
               addShortcut(row.action, row.icon, row.size, row.title, false)
             );
-            this.$notification["success"]({
-              message: "All data imported from file " + filename,
-              placement: "bottomRight",
+            this.$notification.success({
+              message: "All data imported from file " + filename
             });
             send("reload-shortcut-list");
           });

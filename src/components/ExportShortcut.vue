@@ -50,9 +50,8 @@ export default {
         showSaveDialog(options).then(({ filePath }) => {
           if (filePath != undefined && filePath != "") {
             exportFile(filePath, JSON.stringify(rows), "utf-8").then(() => {
-              this.$notification["success"]({
-                message: "All data exported successfully here " + filePath,
-                placement: "bottomRight",
+              this.$notificatio.success({
+                message: "All data exported successfully here " + filePath
               });
             });
           }

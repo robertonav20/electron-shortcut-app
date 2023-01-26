@@ -42,9 +42,8 @@ export default {
     clear() {
       this.closeModal();
       deleteAll().then(() => {
-        this.$notification["success"]({
-          message: "All data are deleted successfully",
-          placement: "bottomRight",
+        this.$notification.success({
+          message: "All data are deleted successfully"
         });
         send("reload-shortcut-list");
       });
