@@ -1,5 +1,5 @@
 <template>
-  <div class="footer-container">Size {{ size }}</div>
+  <div class="footer-container">Shortcut size {{ size }}</div>
 </template>
 
 <script>
