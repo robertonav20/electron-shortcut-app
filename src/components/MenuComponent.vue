@@ -1,28 +1,24 @@
 <template>
-  <a-menu
-    :selectedKeys="current"
-    mode="horizontal"
-    theme="dark"
-    class="menu-container"
-  >
+  <a-menu :selectedKeys="current" mode="horizontal" theme="dark" class="menu-container">
     <a-sub-menu key="settings">
       <template #icon>
         <a-icon type="setting" theme="filled" :style="iconStyle" />
       </template>
       <template #title>Settings</template>
-      <a-menu-item-group title="Shortcuts">
-        <a-menu-item key="add" @click="openAddDialog">Add</a-menu-item>
+      <a-menu-item-group class="menu-item" title="Shortcuts">
+        <a-menu-item class="menu-item" key="add" @click="openAddDialog">Add</a-menu-item>
       </a-menu-item-group>
-      <a-menu-item-group title="DB Configuration">
-        <a-menu-item key="clear" @click="openClearDialog">Clear</a-menu-item>
-        <a-menu-item key="import" @click="openImportDialog">Import</a-menu-item>
-        <a-menu-item key="export" @click="openExportDialog">Export</a-menu-item>
+      <a-menu-item-group class="menu-item" title="DB Configuration">
+        <a-menu-item class="menu-item" key="import" @click="refresh">Reload</a-menu-item>
+        <a-menu-item class="menu-item" key="import" @click="openImportDialog">Import</a-menu-item>
+        <a-menu-item class="menu-item" key="export" @click="openExportDialog">Export</a-menu-item>
+        <a-menu-item class="menu-item" key="clear" @click="openClearDialog">Clear</a-menu-item>
       </a-menu-item-group>
     </a-sub-menu>
     <add-shortcut :open="addTrigger" @refresh="refresh" />
     <clear-shortcut :open="clearTrigger" @refresh="refresh" />
     <import-shortcut :open="importTrigger" @refresh="refresh" />
-    <export-shortcut :open="exportTrigger"/>
+    <export-shortcut :open="exportTrigger" />
   </a-menu>
 </template>
 
@@ -77,5 +73,10 @@ export default {
 <style lang="scss" scoped>
 .menu-container {
   padding: 0.5rem;
+  font-weight: bold;
+}
+
+.menu-item {
+  font-weight: bold;
 }
 </style>

@@ -7,14 +7,14 @@
       <shortcut-view :shortcuts="shortcuts" @refresh="refresh"/>
     </a-layout-content>
     <a-layout-footer>
-      <footer-component :size="shortcuts.length"/>
+      <footer-component :size="shortcuts.length" @refresh="refresh"/>
     </a-layout-footer>
   </a-layout>
 </template>
 
 <script>
 import FooterComponent from "@/components/FooterComponent.vue";
-import MenuComponent from "@/components/Menu.vue";
+import MenuComponent from "@/components/MenuComponent.vue";
 import ShortcutView from '@/views/ShortcutView.vue'
 
 import { getAllShortcut } from "@/storage/crud";
@@ -42,6 +42,9 @@ export default {
           this.shortcuts = rows;
           this.size = rows.length;
         }
+        this.$notification.success({
+          message: "All data loaded successfully"
+        });
       });
     }
   }

@@ -1,7 +1,8 @@
 "use strict";
 
-import { app, protocol, BrowserWindow } from 'electron';
+import { app, protocol, BrowserWindow, screen } from 'electron';
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
+import { h } from 'vue';
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
 import { initialize } from './preload'
 
@@ -15,11 +16,28 @@ protocol.registerSchemesAsPrivileged([
 ]);
 
 async function createWindow() {
+  let displays = screen.getAllDisplays()
+  let externalDisplay = displays.find((display) => {
+    return display.bounds.x !== 0 || display.bounds.y !== 0
+  })
+
+  let x, y = undefined
+  let width = 1024
+  let height = 768
+  if (externalDisplay) {
+    x = externalDisplay.bounds.x + 50
+    y = externalDisplay.bounds.y + 50
+    width = externalDisplay.workAreaSize.width
+    height = externalDisplay.workAreaSize.height
+  }
+
   // Create the browser window.
   const win = new BrowserWindow({
     autoHideMenuBar: true,
-    width: 1024,
-    height: 768,
+    x,
+    y,
+    width,
+    height,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -34,7 +52,6 @@ async function createWindow() {
     await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
     if (!process.env.IS_TEST) win.webContents.openDevTools()
   } else {
-
     createProtocol("app");
     // Load the index.html when not in development
     win.loadURL("app://./index.html")

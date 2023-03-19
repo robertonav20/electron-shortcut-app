@@ -28,6 +28,7 @@ function initDB() {
                 table.string('icon')
                 table.string('size')
                 table.string('action')
+                table.integer('position').unsigned()
             }).then(result => console.log('Connection successful' + result))
             console.log('Table created')
         }
@@ -41,6 +42,7 @@ function initHandlers(win) {
     ipcMain.handle('exportFile', (_event, filePath, data, charset) => exportFile(filePath, data, charset))
     ipcMain.handle('launch', (_event, cmd) => shell.openExternal(cmd))
     ipcMain.handle('addShortcut', (_event, action, icon, size, title) => addShortcut(action, icon, size, title))
+    ipcMain.handle('updateShortcut', (_event, id, action, icon, size, title, position) => updateShortcut(id, action, icon, size, title, position))
     ipcMain.handle('removeShortcut', (_event, id) => removeShortcut(id))
     ipcMain.handle('getAllShortcut', () => getAllShortcut())
     ipcMain.handle('countAllShortcut', () => countAllShortcut())
@@ -51,6 +53,8 @@ function getAllShortcut() {
     return connection
         .select('id', 'title', 'action', 'icon', 'size')
         .table(shortcutTable)
+        .orderBy('position', 'asc')
+        .orderBy('title', 'asc')
 }
 
 function countAllShortcut() {
@@ -69,6 +73,19 @@ function addShortcut(action, icon, size, title) {
             size: size,
             title: title
         })
+}
+
+function updateShortcut(id, action, icon, size, title, position) {
+    return connection
+        .table(shortcutTable)
+        .update({
+            action: action,
+            icon: icon,
+            size: size,
+            title: title,
+            position: position
+        })
+        .where('id', '=', id)
 }
 
 function removeShortcut(id) {

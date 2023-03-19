@@ -7,15 +7,6 @@
     >
       <div class="shortcut-button-card-header">
         <span class="shortcut-button-title">{{ s.title }}</span>
-        <div class="delete-button-container">
-          <a-icon
-            type="delete"
-            theme="filled"
-            key="delete"
-            class="delete-button"
-            @click="deleteShortcut(s.id)"
-          />
-        </div>
       </div>
       <div class="shortcut-button-card-content">
         <a-button
@@ -27,6 +18,44 @@
           theme="filled"
           @click="action(s.action)"
         />
+      </div>
+      <div class="shortcut-button-card-footer">
+        <div class="move-up-button-container">
+          <a-icon
+            type="caret-up"
+            theme="filled"
+            key="edit"
+            class="edit-button"
+            @click="moveUpShortcut(s.id)"
+          ></a-icon>
+        </div>
+        <div class="move-down-button-container">
+          <a-icon
+            type="caret-down"
+            theme="filled"
+            key="edit"
+            class="edit-button"
+            @click="moveDownShortcut(s.id)"
+          ></a-icon>
+        </div>
+        <div class="edit-button-container">
+          <a-icon
+            type="edit"
+            theme="filled"
+            key="edit"
+            class="edit-button"
+            @click="editShortcut(s.id)"
+          ></a-icon>
+        </div>
+        <div class="delete-button-container">
+          <a-icon
+            type="delete"
+            theme="filled"
+            key="delete"
+            class="delete-button"
+            @click="deleteShortcut(s.id)"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -54,6 +83,18 @@ export default {
     action(cmd) {
       launch(cmd);
     },
+    moveUpShortcut(id) {
+      console.log(id)
+      this.$emit('refresh')
+    },
+    moveDownShortcut(id) {
+      console.log(id)
+      this.$emit('refresh')
+    },
+    editShortcut(id) {
+      console.log(id)
+      this.$emit('refresh')
+    },
     deleteShortcut(id) {
       removeShortcut(id, true);
       this.$emit('refresh')
@@ -79,6 +120,8 @@ export default {
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  align-content: space-between;
 }
 
 .shortcut-button-card-header {
@@ -100,12 +143,83 @@ export default {
   margin-right: 1rem;
   font-size: 16px;
   font-weight: bold;
+  padding: 0.5rem;
+}
+
+.shortcut-button-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  width: 100%;
+  border-top: 1px #f0f0f0 solid;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+
+.move-up-button-container {
+  padding: 0.3rem;
+  background-color: #096dd9;
+  border-bottom-left-radius: 1rem;
+}
+
+.move-up-button-container:hover {
+  background-color: #3280d3;
+}
+
+.move-up-button-container:active {
+  background-color: #4b4b4bf7;
+}
+
+.move-up-button {
+  font-size: 20px;
+  color: white;
+  padding: 0.2rem;
+}
+
+
+.move-down-button-container {
+  padding: 0.3rem;
+  background-color: #096dd9;
+}
+
+.move-down-button-container:hover {
+  background-color: #3280d3;
+}
+
+.move-down-button-container:active {
+  background-color: #4b4b4bf7;
+}
+
+.move-down-button {
+  font-size: 20px;
+  color: white;
+  padding: 0.2rem;
+}
+
+.edit-button-container {
+  padding: 0.3rem;
+  background-color: #096dd9;
+}
+
+.edit-button-container:hover {
+  background-color: #3280d3;
+}
+
+.edit-button-container:active {
+  background-color: #4b4b4bf7;
+}
+
+.edit-button {
+  font-size: 20px;
+  color: white;
+  padding: 0.2rem;
 }
 
 .delete-button-container {
   padding: 0.3rem;
   background-color: firebrick;
-  border-radius: 0 1rem 0 0;
+  border-bottom-right-radius: 1rem;
 }
 
 .delete-button-container:hover {
