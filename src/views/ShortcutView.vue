@@ -159,7 +159,7 @@ export default {
 
 .move-up-button-container {
   padding: 0.3rem;
-  background-color: #096dd9;
+  background-color: #001529;
   border-bottom-left-radius: 1rem;
 }
 
@@ -180,7 +180,7 @@ export default {
 
 .move-down-button-container {
   padding: 0.3rem;
-  background-color: #096dd9;
+  background-color: #001529;
 }
 
 .move-down-button-container:hover {
@@ -199,7 +199,7 @@ export default {
 
 .edit-button-container {
   padding: 0.3rem;
-  background-color: #096dd9;
+  background-color: #001529;
 }
 
 .edit-button-container:hover {

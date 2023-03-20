@@ -109,7 +109,8 @@ export default {
 }
 
 .action-button {
-  background-color: #096dd9;
+  border-color: #001529;
+  background-color: #001529;
 }
 
 .action-divider {
