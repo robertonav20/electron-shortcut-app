@@ -9,7 +9,7 @@ module.exports = {
     },
     pluginOptions: {
         electronBuilder: {
-            appId: "electron.multimedia.app",
+            appId: "electron.shortcut.app",
             asar: true,
             builderOptions: {
                 extraResources: ['src']

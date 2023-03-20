@@ -2,7 +2,6 @@
 
 import { app, protocol, BrowserWindow, screen } from 'electron';
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
-import { h } from 'vue';
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
 import { initialize } from './preload'
 
