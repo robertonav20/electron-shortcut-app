@@ -7,6 +7,7 @@ const data: Array<any> = [
     id: 1,
     action: "action",
     size: "large",
+    title: 'Title'
   },
 ];
 

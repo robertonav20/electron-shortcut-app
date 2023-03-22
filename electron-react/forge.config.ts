@@ -27,6 +27,7 @@ const config: ForgeConfig = {
             },
           },
         ],
+        nodeIntegration: true
       },
     }),
   ],

@@ -42,8 +42,8 @@ const createWindow = (): void => {
     width,
     height,
     webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false
+      contextIsolation: false,
+      nodeIntegration: true
     }
   });
 

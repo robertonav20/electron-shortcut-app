@@ -1,4 +1,4 @@
-const AddShortcutComponent = () => (
+const AddShortcutComponent = (open: boolean) => (
     <div
     style={{
       width: '100%',

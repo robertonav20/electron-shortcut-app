@@ -1,4 +1,4 @@
-const ExportShortcutComponent = () => (
+const ExportShortcutComponent = (open: boolean) => (
     <div
     style={{
       width: '100%',

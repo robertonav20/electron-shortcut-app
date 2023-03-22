@@ -1,4 +1,4 @@
-const ClearShortcutComponent = () => (
+const ClearShortcutComponent = (open: boolean) => (
     <div
     style={{
       width: '100%',
