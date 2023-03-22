@@ -12,6 +12,9 @@ export const mainConfig: Configuration = {
     rules,
   },
   resolve: {
+    fallback: {
+      path: resolve("path-browserify")
+    },
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.scss', '.json'],
   },
 };

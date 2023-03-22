@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'TitilliumWeb-Regular' !important;
+    src: local('TitilliumWeb-Regular'), url('./TitilliumWeb-Regular.ttf') format('ttf');
+}
+
+html, body {
+    font-family: "TitilliumWeb-Regular", serif !important;
+    font-weight: bold;
+}

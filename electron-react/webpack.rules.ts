@@ -28,4 +28,16 @@ export const rules: Required<ModuleOptions>["rules"] = [
       },
     },
   },
+  {
+    test: /\.scss$/,
+    use: [{ loader: "style-loader" }, { loader: "css-loader" }],
+  },
+  {
+    test: /\.css$/,
+    use: [{ loader: "style-loader" }, { loader: "css-loader" }],
+  },
+  {
+    test: /\.(woff|woff2|eot|ttf|otf)$/i,
+    type: 'asset/resource'
+  }
 ];

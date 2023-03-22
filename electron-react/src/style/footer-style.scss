@@ -1,0 +1,32 @@
+
+.footer-container {
+    display: flex;
+    min-width: 20px;
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .footer-left-item {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+  }
+  
+  .footer-right-item {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 50%;
+    gap: 5px;
+  }
+  
+  .action-button {
+    border-color: #001529;
+    background-color: #001529;
+  }
+  
+  .action-divider {
+    background-color: rgba(0, 0, 0, 0.65);
+    width: 2px;
+    height: 25px;
+  }

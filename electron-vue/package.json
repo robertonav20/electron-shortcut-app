@@ -13,6 +13,7 @@
     "electron:build": "vue-cli-service electron:build"
   },
   "dependencies": {
+    "@flaticon/flaticon-uicons": "^2.0.1",
     "ant-design-vue": "^1.7.8",
     "better-sqlite3": "^8.0.1",
     "core-js": "^3.6.5",
@@ -24,10 +25,10 @@
     "vue": "^2.6.11"
   },
   "devDependencies": {
+    "@electron/remote": "^2.0.1",
     "@vue/cli-plugin-babel": "^5.0.8",
     "@vue/cli-plugin-eslint": "^5.0.8",
     "@vue/cli-service": "^5.0.8",
-    "@electron/remote": "^2.0.1",
     "babel-eslint": "^10.1.0",
     "electron": "^13.0.0",
     "electron-devtools-installer": "^3.1.0",

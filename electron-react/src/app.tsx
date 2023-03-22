@@ -1,6 +1,6 @@
 import * as ReactDOMClient from 'react-dom/client';
 import Home from './view/Home';
-import "./asset/font.scss";
+import "./assets/font.scss";
 
 const container = document.getElementById('root');
 
