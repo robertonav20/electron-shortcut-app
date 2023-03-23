@@ -11,6 +11,9 @@ import {
 import "../style/footer-style.scss";
 import { useState } from "react";
 import ImportShortcutComponent from "./ImportShortcutComponent";
+import AddShortcutComponent from "./AddShortcutComponent";
+import ClearShortcutComponent from "./ClearShortcutComponent";
+import ExportShortcutComponent from "./ExportShortcutComponent";
 
 const FooterComponent = () => {
   const [addDialog, setAddDialog] = useState(false);
@@ -18,10 +21,18 @@ const FooterComponent = () => {
   const [exportDialog, setExportDialog] = useState(false);
   const [importDialog, setImportDialog] = useState(false);
 
-  const openAddDialog = () => {setAddDialog(!addDialog)};
-  const openClearDialog = () => {setClearDialog(!clearDialog)};
-  const openExportDialog = () => {setExportDialog(!exportDialog)};
-  const openImportDialog = () => {setImportDialog(!importDialog)};
+  const openAddDialog = () => {
+    setAddDialog(true);
+  };
+  const openClearDialog = () => {
+    setClearDialog(true);
+  };
+  const openExportDialog = () => {
+    setExportDialog(true);
+  };
+  const openImportDialog = () => {
+    setImportDialog(true);
+  };
   const refresh = () => {};
 
   return (
@@ -81,6 +92,10 @@ const FooterComponent = () => {
           ></Button>
         </Tooltip>
       </div>
+      <AddShortcutComponent isOpen={addDialog} closeModal={() => setAddDialog(false)}/>
+      <ClearShortcutComponent isOpen={clearDialog} closeModal={() => setClearDialog(false)}/>
+      <ExportShortcutComponent isOpen={exportDialog} closeModal={() => setExportDialog(false)}/>
+      <ImportShortcutComponent isOpen={importDialog} closeModal={() => setImportDialog(false)} />
     </div>
   );
 };
