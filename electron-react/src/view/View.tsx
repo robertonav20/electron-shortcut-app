@@ -1,6 +1,7 @@
 import { Button } from "antd";
 import { CaretDownOutlined, CaretUpOutlined, CodeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import "../style/view-style.scss";
+import SortingTable from "./SortingTable";
 
 const data: Array<any> = [
   {
@@ -19,6 +20,7 @@ const deleteShortcut = (id: any) => {};
 
 const View = () => (
   <div className="shortcuts-container">
+    <SortingTable></SortingTable>
     {data.map((d: any, index: number) => (
       <div className="shortcut-button-card" key={index}>
         <div className="shortcut-button-card-header">
