@@ -1,6 +1,7 @@
 import * as ReactDOMClient from 'react-dom/client';
 import Home from './view/Home';
 import "./assets/font.scss";
+import "@flaticon/flaticon-uicons/css/all/all";
 
 const container = document.getElementById('root');
 

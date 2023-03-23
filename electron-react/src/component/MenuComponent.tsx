@@ -55,29 +55,29 @@ const MenuComponent = () => {
   const [importDialog, setImportDialog] = useState(false);
 
   const openAddDialog = () => {
-    setAddDialog(!addDialog);
+    setAddDialog(true);
   };
   const openClearDialog = () => {
-    setClearDialog(!clearDialog);
+    setClearDialog(true);
   };
   const openExportDialog = () => {
-    setExportDialog(!exportDialog);
+    setExportDialog(true);
   };
   const openImportDialog = () => {
     setImportDialog(true);
   };
 
   const onClick = (e: any) => {
-    if (e.key == "add") {
+    if (e.key === "add") {
       openAddDialog();
     }
-    if (e.key == "clear") {
+    if (e.key === "clear") {
       openClearDialog();
     }
-    if (e.key == "export") {
+    if (e.key === "export") {
       openExportDialog();
     }
-    if (e.key == "import") {
+    if (e.key === "import") {
       openImportDialog();
     }
   };
@@ -91,9 +91,9 @@ const MenuComponent = () => {
         theme="dark"
         items={items}
       ></Menu>
-      <AddShortcutComponent open={addDialog} />
-      <ClearShortcutComponent open={clearDialog} />
-      <ExportShortcutComponent open={exportDialog} />
+      <AddShortcutComponent isOpen={addDialog} closeModal={() => setAddDialog(false)}/>
+      <ClearShortcutComponent isOpen={clearDialog} closeModal={() => setClearDialog(false)}/>
+      <ExportShortcutComponent isOpen={exportDialog} closeModal={() => setExportDialog(false)}/>
       <ImportShortcutComponent isOpen={importDialog} closeModal={() => setImportDialog(false)} />
     </>
   );

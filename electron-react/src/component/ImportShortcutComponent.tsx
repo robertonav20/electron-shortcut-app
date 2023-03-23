@@ -4,6 +4,8 @@ import { addShortcut } from "../storage/crud";
 import { importFile, showOpenDialog } from "../service/utils";
 import openNotification from "./Notification";
 
+import "../style/import-style.scss"
+
 function ImportShortcutComponent(props: { isOpen: boolean, closeModal: any}) {
   const close = () => {props.closeModal();};
   const importAll = () => {
@@ -37,7 +39,7 @@ function ImportShortcutComponent(props: { isOpen: boolean, closeModal: any}) {
       onCancel={close}
       onOk={importAll}
     >
-      <div className="ant-modal-body">
+      <div className="import-modal-content">
         <ImportOutlined className="icon" />
         <p>Are you sure import all data?</p>
       </div>
