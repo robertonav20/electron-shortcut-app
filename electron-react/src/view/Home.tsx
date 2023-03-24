@@ -8,9 +8,9 @@ import "../style/home-style.scss"
 const { Header, Footer, Content } = Layout;
 
 const Home = () => (
-    <Layout className="layout">
+    <Layout className="home-layout">
       <Header><MenuComponent/></Header>
-      <Content className="content"><View/></Content>
+      <Content className="home-content"><View/></Content>
       <Footer><FooterComponent/></Footer>
     </Layout>
 );
