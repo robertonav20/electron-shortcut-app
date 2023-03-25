@@ -59,7 +59,7 @@ function getAllShortcut() {
 
 function countAllShortcut() {
     return connection
-        .count('id')
+        .count('id as total')
         .table(shortcutTable)
         .first()
 }

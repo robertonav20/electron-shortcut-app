@@ -17,7 +17,7 @@ import { countAllShortcut } from "../storage/crud";
 
 import "../style/footer-style.scss";
 
-class FooterComponent extends Component {
+class FooterComponent extends Component<any, any> {
   constructor(props: any) {
     super(props);
 
@@ -47,8 +47,8 @@ class FooterComponent extends Component {
     this.setState({ importDialog: true });
   };
   refresh = () => {
-    countAllShortcut().then((size) => {
-      this.setState({ size: size["count(`id`)"] });
+    countAllShortcut().then((result) => {
+      this.setState({ size: result.total});
     });
   };
 
