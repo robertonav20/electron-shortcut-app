@@ -41,6 +41,10 @@ const createWindow = (): void => {
     y,
     width,
     height,
+    minWidth: width - 100,
+    maxWidth: width + 100,
+    minHeight: height - 100,
+    maxHeight: height + 100,
     webPreferences: {
       contextIsolation: false,
       nodeIntegration: true

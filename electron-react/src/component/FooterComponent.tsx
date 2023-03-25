@@ -8,96 +8,129 @@ import {
   ReloadOutlined,
 } from "@ant-design/icons";
 
-import "../style/footer-style.scss";
-import { useState } from "react";
+import { Component } from "react";
 import ImportShortcutComponent from "./ImportShortcutComponent";
 import AddShortcutComponent from "./AddShortcutComponent";
 import ClearShortcutComponent from "./ClearShortcutComponent";
 import ExportShortcutComponent from "./ExportShortcutComponent";
+import { countAllShortcut } from "../storage/crud";
 
-function FooterComponent() {
-  const [addDialog, setAddDialog] = useState(false);
-  const [clearDialog, setClearDialog] = useState(false);
-  const [exportDialog, setExportDialog] = useState(false);
-  const [importDialog, setImportDialog] = useState(false);
+import "../style/footer-style.scss";
 
-  const openAddDialog = () => {
-    setAddDialog(true);
-  };
-  const openClearDialog = () => {
-    setClearDialog(true);
-  };
-  const openExportDialog = () => {
-    setExportDialog(true);
-  };
-  const openImportDialog = () => {
-    setImportDialog(true);
-  };
-  const refresh = () => {};
+class FooterComponent extends Component {
+  constructor(props: any) {
+    super(props);
 
-  return (
-    <div className="footer-container">
-      <span className="footer-left-item">Shortcut size </span>
-      <div className="footer-right-item">
-        <Tooltip title="Add">
-          <Button
-            className="action-button"
-            shape="circle"
-            size={"large"}
-            type="primary"
-            icon={<PlusOutlined />}
-            onClick={openAddDialog}
-          ></Button>
-        </Tooltip>
-        <Divider type="vertical" className="action-divider" />
-        <Tooltip title="Refresh">
-          <Button
-            className="action-button"
-            shape="circle"
-            size={"large"}
-            type="primary"
-            icon={<ReloadOutlined />}
-            onClick={refresh}
-          ></Button>
-        </Tooltip>
-        <Tooltip title="Import">
-          <Button
-            className="action-button"
-            shape="circle"
-            size={"large"}
-            type="primary"
-            icon={<ImportOutlined />}
-            onClick={openImportDialog}
-          ></Button>
-        </Tooltip>
-        <Tooltip title="Export">
-          <Button
-            className="action-button"
-            shape="circle"
-            size={"large"}
-            type="primary"
-            icon={<ExportOutlined />}
-            onClick={openExportDialog}
-          ></Button>
-        </Tooltip>
-        <Divider type="vertical" className="action-divider" />
-        <Tooltip title="Clear">
-          <Button
-            className="action-button"
-            shape="circle"
-            size={"large"}
-            type="primary"
-            icon={<DeleteOutlined />}
-            onClick={openClearDialog}
-          ></Button>
-        </Tooltip>
+    this.state = {
+      addDialog: false,
+      clearDialog: false,
+      exportDialog: false,
+      importDialog: false,
+      size: 0,
+    };
+  }
+
+  componentDidMount() {
+    this.refresh();
+  }
+
+  openAddDialog = () => {
+    this.setState({ addDialog: true });
+  };
+  openClearDialog = () => {
+    this.setState({ clearDialog: true });
+  };
+  openExportDialog = () => {
+    this.setState({ exportDialog: true });
+  };
+  openImportDialog = () => {
+    this.setState({ importDialog: true });
+  };
+  refresh = () => {
+    countAllShortcut().then((size) => {
+      this.setState({ size: size["count(`id`)"] });
+    });
+  };
+
+  render() {
+    return (
+      <div className="footer-container">
+        <span className="footer-left-item">
+          Shortcut size {this.state.size}
+        </span>
+        <div className="footer-right-item">
+          <Tooltip title="Add">
+            <Button
+              className="action-button"
+              shape="circle"
+              size={"large"}
+              type="primary"
+              icon={<PlusOutlined />}
+              onClick={this.openAddDialog}
+            ></Button>
+          </Tooltip>
+          <Divider type="vertical" className="action-divider" />
+          <Tooltip title="Refresh">
+            <Button
+              className="action-button"
+              shape="circle"
+              size={"large"}
+              type="primary"
+              icon={<ReloadOutlined />}
+              onClick={this.refresh}
+            ></Button>
+          </Tooltip>
+          <Tooltip title="Import">
+            <Button
+              className="action-button"
+              shape="circle"
+              size={"large"}
+              type="primary"
+              icon={<ImportOutlined />}
+              onClick={this.openImportDialog}
+            ></Button>
+          </Tooltip>
+          <Tooltip title="Export">
+            <Button
+              className="action-button"
+              shape="circle"
+              size={"large"}
+              type="primary"
+              icon={<ExportOutlined />}
+              onClick={this.openExportDialog}
+            ></Button>
+          </Tooltip>
+          <Divider type="vertical" className="action-divider" />
+          <Tooltip title="Clear">
+            <Button
+              className="action-button"
+              shape="circle"
+              size={"large"}
+              type="primary"
+              icon={<DeleteOutlined />}
+              onClick={this.openClearDialog}
+            ></Button>
+          </Tooltip>
+        </div>
+        <AddShortcutComponent
+          isOpen={this.state.addDialog}
+          closeModal={() => this.setState({ addDialog: false })}
+        />
+        <ClearShortcutComponent
+          isOpen={this.state.clearDialog}
+          closeModal={() => this.setState({ clearDialog: false })}
+        />
+        <ExportShortcutComponent
+          isOpen={this.state.exportDialog}
+          closeModal={() => this.setState({ exportDialog: false })}
+        />
+        <ImportShortcutComponent
+          isOpen={this.state.importDialog}
+          closeModal={() => this.setState({ importDialog: false })}
+        />
       </div>
-      <AddShortcutComponent isOpen={addDialog} closeModal={() => setAddDialog(false)}/>
-      <ClearShortcutComponent isOpen={clearDialog} closeModal={() => setClearDialog(false)}/>
-      <ExportShortcutComponent isOpen={exportDialog} closeModal={() => setExportDialog(false)}/>
-      <ImportShortcutComponent isOpen={importDialog} closeModal={() => setImportDialog(false)} />
-    </div>
-  );
+    );
+  }
 }
 
 export default FooterComponent;
