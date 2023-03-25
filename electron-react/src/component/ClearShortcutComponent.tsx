@@ -36,4 +36,5 @@ function ClearShortcutComponent(props: { isOpen: boolean; closeModal: any }) {
     </Modal>
   );
 }
+
 export default ClearShortcutComponent;

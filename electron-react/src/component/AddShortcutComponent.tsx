@@ -20,4 +20,5 @@ function AddShortcutComponent(props: { isOpen: boolean; closeModal: any }) {
     </Modal>
   );
 }
+
 export default AddShortcutComponent;

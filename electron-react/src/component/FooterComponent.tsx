@@ -15,7 +15,7 @@ import AddShortcutComponent from "./AddShortcutComponent";
 import ClearShortcutComponent from "./ClearShortcutComponent";
 import ExportShortcutComponent from "./ExportShortcutComponent";
 
-const FooterComponent = () => {
+function FooterComponent() {
   const [addDialog, setAddDialog] = useState(false);
   const [clearDialog, setClearDialog] = useState(false);
   const [exportDialog, setExportDialog] = useState(false);
@@ -98,5 +98,6 @@ const FooterComponent = () => {
       <ImportShortcutComponent isOpen={importDialog} closeModal={() => setImportDialog(false)} />
     </div>
   );
-};
+}
+
 export default FooterComponent;

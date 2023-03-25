@@ -48,7 +48,7 @@ const items = [
   },
 ];
 
-const MenuComponent = () => {
+function MenuComponent() {
   const [addDialog, setAddDialog] = useState(false);
   const [clearDialog, setClearDialog] = useState(false);
   const [exportDialog, setExportDialog] = useState(false);
@@ -97,6 +97,6 @@ const MenuComponent = () => {
       <ImportShortcutComponent isOpen={importDialog} closeModal={() => setImportDialog(false)} />
     </>
   );
-};
+}
 
 export default MenuComponent;
