@@ -25,7 +25,6 @@ class Home extends Component {
   }
 
   getData = () => {
-    console.log('load')
     getAllShortcut().then((rows) => {
       if (rows && rows.length > 0) {
         this.setState({ shortcuts: rows });

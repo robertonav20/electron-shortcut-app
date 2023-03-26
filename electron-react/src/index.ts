@@ -19,8 +19,8 @@ protocol.registerSchemesAsPrivileged([
 
 const createWindow = (): void => {
   // Create the browser window.
-  let displays = screen.getAllDisplays()
-  let externalDisplay = displays.find((display) => {
+  const displays = screen.getAllDisplays()
+  const externalDisplay = displays.find((display) => {
     return display.bounds.x !== 0 || display.bounds.y !== 0
   })
 
