@@ -10,7 +10,7 @@ const GlobalStyles = createGlobalStyle`
     font-family:'TitilliumWeb-Regular';
     src: url(${require('./assets/fonts/TitilliumWeb-Regular.ttf')});
   }
-  html, body, div, span {
+  html, body, * {
     font-family: 'TitilliumWeb-Regular', serif;
     font-weight: bold;
   }

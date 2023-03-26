@@ -3,17 +3,17 @@ import { CodeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { launch } from "../service/shortcut";
 import { removeShortcut } from "../storage/crud";
 
-import "../style/shortcut-style.scss"
+import "../style/shortcut-style.scss";
 
-function ShortcutComponent(props: { shortcut: any, refresh: any }) {
+function ShortcutComponent(props: { shortcut: any; refresh: any }) {
   const action = (action: string) => {
     launch(action);
   };
   const editShortcut = (id: any) => {};
   const deleteShortcut = (id: any) => {
     removeShortcut(id, true).then(() => {
-      props.refresh()
-    })
+      props.refresh();
+    });
   };
 
   return (
@@ -27,22 +27,23 @@ function ShortcutComponent(props: { shortcut: any, refresh: any }) {
           shape="circle"
           size={props.shortcut.size}
           type="primary"
-          icon={<CodeOutlined />}
+          icon={<CodeOutlined/>}
           onClick={() => action(props.shortcut.action)}
         />
       </div>
       <div className="shortcut-button-card-footer">
-        <div className="edit-button-container">
-          <EditOutlined
-            className="edit-button"
-            onClick={() => editShortcut(props.shortcut.id)}
-          />
+        <div></div>
+        <div
+          className="edit-button-container"
+          onClick={() => editShortcut(props.shortcut.id)}
+        >
+          <EditOutlined className="edit-button" />
         </div>
-        <div className="delete-button-container">
-          <DeleteOutlined
-            className="delete-button"
-            onClick={() => deleteShortcut(props.shortcut.id)}
-          />
+        <div
+          className="delete-button-container"
+          onClick={() => deleteShortcut(props.shortcut.id)}
+        >
+          <DeleteOutlined className="delete-button" />
         </div>
       </div>
     </div>
