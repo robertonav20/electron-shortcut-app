@@ -1,19 +1,17 @@
 import { notification } from "antd";
 
-const openNotification: React.FC = () => {
-  notification.config({
-    placement: 'topRight',
+export function notificationSuccess({message}) {
+  notification.success({
+    placement: "topRight",
     duration: 3,
-    rtl: true
+    message
   });
+}
 
-  const [api, contextHolder] = notification.useNotification();
-
-  const openNotification = (message: string) => {
-    api.success({ message });
-  };
-  return(<>{contextHolder}</>)
-};
-
-
-export default openNotification;
+export function notificationError({message}) {
+  notification.error({
+    placement: "topRight",
+    duration: 3,
+    message
+  });
+}

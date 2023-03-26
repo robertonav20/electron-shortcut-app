@@ -5,7 +5,6 @@ import {
   DeleteOutlined,
   ExportOutlined,
   ImportOutlined,
-  ReloadOutlined,
 } from "@ant-design/icons";
 
 import { Component } from "react";
@@ -13,7 +12,6 @@ import ImportShortcutComponent from "./ImportShortcutComponent";
 import AddShortcutComponent from "./AddShortcutComponent";
 import ClearShortcutComponent from "./ClearShortcutComponent";
 import ExportShortcutComponent from "./ExportShortcutComponent";
-import { countAllShortcut } from "../storage/crud";
 
 import "../style/footer-style.scss";
 
@@ -25,13 +23,8 @@ class FooterComponent extends Component<any, any> {
       addDialog: false,
       clearDialog: false,
       exportDialog: false,
-      importDialog: false,
-      size: 0,
+      importDialog: false
     };
-  }
-
-  componentDidMount() {
-    this.refresh();
   }
 
   openAddDialog = () => {
@@ -46,17 +39,12 @@ class FooterComponent extends Component<any, any> {
   openImportDialog = () => {
     this.setState({ importDialog: true });
   };
-  refresh = () => {
-    countAllShortcut().then((result) => {
-      this.setState({ size: result.total});
-    });
-  };
 
   render() {
     return (
       <div className="footer-container">
         <span className="footer-left-item">
-          Shortcut size {this.state.size}
+          Shortcut size {this.props.size}
         </span>
         <div className="footer-right-item">
           <Tooltip title="Add">
@@ -70,16 +58,6 @@ class FooterComponent extends Component<any, any> {
             ></Button>
           </Tooltip>
           <Divider type="vertical" className="action-divider" />
-          <Tooltip title="Refresh">
-            <Button
-              className="action-button"
-              shape="circle"
-              size={"large"}
-              type="primary"
-              icon={<ReloadOutlined />}
-              onClick={this.refresh}
-            ></Button>
-          </Tooltip>
           <Tooltip title="Import">
             <Button
               className="action-button"
@@ -115,18 +93,22 @@ class FooterComponent extends Component<any, any> {
         <AddShortcutComponent
           isOpen={this.state.addDialog}
           closeModal={() => this.setState({ addDialog: false })}
+          refresh={this.props.refresh}
         />
         <ClearShortcutComponent
           isOpen={this.state.clearDialog}
           closeModal={() => this.setState({ clearDialog: false })}
+          refresh={this.props.refresh}
         />
         <ExportShortcutComponent
           isOpen={this.state.exportDialog}
           closeModal={() => this.setState({ exportDialog: false })}
+          refresh={this.props.refresh}
         />
         <ImportShortcutComponent
           isOpen={this.state.importDialog}
           closeModal={() => this.setState({ importDialog: false })}
+          refresh={this.props.refresh}
         />
       </div>
     );

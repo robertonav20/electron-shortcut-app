@@ -2,14 +2,15 @@ import { Modal } from "antd";
 import { ExportOutlined } from "@ant-design/icons";
 import { getAllShortcut } from "../storage/crud";
 import { exportFile, showSaveDialog } from "../service/utils";
-import openNotification from "./Notification";
+import { notificationSuccess } from "./Notification";
 
 import "../style/export-style.scss"
 
-function ExportShortcutComponent(props: { isOpen: boolean; closeModal: any }) {
+function ExportShortcutComponent(props: { isOpen: boolean; closeModal: any, refresh: any }) {
   const close = () => {
     props.closeModal();
   };
+
   const exportAll = () => {
     getAllShortcut().then((rows) => {
       const options = {
@@ -21,13 +22,14 @@ function ExportShortcutComponent(props: { isOpen: boolean; closeModal: any }) {
       showSaveDialog(options).then(({ filePath }) => {
         if (filePath != undefined && filePath != "") {
           exportFile(filePath, JSON.stringify(rows), "utf-8").then(() => {
-            openNotification({
+            props.refresh();
+            close();
+            notificationSuccess({
               message: "All data exported successfully here " + filePath,
             });
           });
         }
       });
-      close();
     });
   };
 

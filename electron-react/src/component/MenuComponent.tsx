@@ -1,5 +1,5 @@
 import { Menu } from "antd";
-import { useState } from "react";
+import { Component } from "react";
 import AddShortcutComponent from "./AddShortcutComponent";
 import ClearShortcutComponent from "./ClearShortcutComponent";
 import ExportShortcutComponent from "./ExportShortcutComponent";
@@ -48,55 +48,79 @@ const items = [
   },
 ];
 
-function MenuComponent() {
-  const [addDialog, setAddDialog] = useState(false);
-  const [clearDialog, setClearDialog] = useState(false);
-  const [exportDialog, setExportDialog] = useState(false);
-  const [importDialog, setImportDialog] = useState(false);
+class MenuComponent extends Component<any, any> {
+  constructor(props: {refresh: any}) {
+    super(props);
 
-  const openAddDialog = () => {
-    setAddDialog(true);
+    this.state = {
+      addDialog: false,
+      clearDialog: false,
+      exportDialog: false,
+      importDialog: false,
+    };
+  }
+
+  setAddDialog = (value: boolean) => {
+    this.setState({ addDialog: value });
   };
-  const openClearDialog = () => {
-    setClearDialog(true);
+  setClearDialog = (value: boolean) => {
+    this.setState({ clearDialog: value });
   };
-  const openExportDialog = () => {
-    setExportDialog(true);
+  setExportDialog = (value: boolean) => {
+    this.setState({ clearDialog: value });
   };
-  const openImportDialog = () => {
-    setImportDialog(true);
+  setImportDialog = (value: boolean) => {
+    this.setState({ clearDialog: value });
   };
 
-  const onClick = (e: any) => {
+  onClick = (e: any) => {
     if (e.key === "add") {
-      openAddDialog();
+      this.setAddDialog(true);
     }
     if (e.key === "clear") {
-      openClearDialog();
+      this.setClearDialog(true);
     }
     if (e.key === "export") {
-      openExportDialog();
+      this.setExportDialog(true);
     }
     if (e.key === "import") {
-      openImportDialog();
+      this.setImportDialog(true);
     }
   };
 
-  return (
-    <>
-      <Menu
-        onClick={onClick}
-        selectedKeys={["shortcuts"]}
-        mode="horizontal"
-        theme="dark"
-        items={items}
-      ></Menu>
-      <AddShortcutComponent isOpen={addDialog} closeModal={() => setAddDialog(false)}/>
-      <ClearShortcutComponent isOpen={clearDialog} closeModal={() => setClearDialog(false)}/>
-      <ExportShortcutComponent isOpen={exportDialog} closeModal={() => setExportDialog(false)}/>
-      <ImportShortcutComponent isOpen={importDialog} closeModal={() => setImportDialog(false)} />
-    </>
-  );
+  render() {
+    return (
+      <>
+        <Menu
+          onClick={this.onClick}
+          selectedKeys={["shortcuts"]}
+          mode="horizontal"
+          theme="dark"
+          items={items}
+        ></Menu>
+        <AddShortcutComponent
+          isOpen={this.state.addDialog}
+          closeModal={() => this.setAddDialog(false)}
+          refresh={this.props.refresh}
+        />
+        <ClearShortcutComponent
+          isOpen={this.state.clearDialog}
+          closeModal={() => this.setClearDialog(false)}
+          refresh={this.props.refresh}
+        />
+        <ExportShortcutComponent
+          isOpen={this.state.exportDialog}
+          closeModal={() => this.setExportDialog(false)}
+          refresh={this.props.refresh}
+        />
+        <ImportShortcutComponent
+          isOpen={this.state.importDialog}
+          closeModal={() => this.setImportDialog(false)}
+          refresh={this.props.refresh}
+        />
+      </>
+    );
+  }
 }
 
 export default MenuComponent;

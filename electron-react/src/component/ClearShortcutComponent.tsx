@@ -1,23 +1,21 @@
 import { Modal } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
-import openNotification from "./Notification";
+import { notificationSuccess } from "./Notification";
 import { deleteAll } from "../storage/crud";
 
 import "../style/clear-style.scss"
 
-function ClearShortcutComponent(props: { isOpen: boolean; closeModal: any }) {
+function ClearShortcutComponent(props: { isOpen: boolean; closeModal: any, refresh: any }) {
   const close = () => {
     props.closeModal();
   };
-  const refresh = () => {
-    props.closeModal();
-  };
+
   const clear = () => {
     deleteAll().then(() => {
-      openNotification({
+      props.refresh();
+      notificationSuccess({
         message: "All data are deleted successfully",
       });
-      refresh();
       close();
     });
   };

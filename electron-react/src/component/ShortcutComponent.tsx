@@ -1,15 +1,20 @@
 import { Button } from "antd";
 import { CodeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { launch } from "../service/shortcut";
+import { removeShortcut } from "../storage/crud";
 
 import "../style/shortcut-style.scss"
 
-function ShortcutComponent(props: { shortcut: any }) {
+function ShortcutComponent(props: { shortcut: any, refresh: any }) {
   const action = (action: string) => {
     launch(action);
   };
   const editShortcut = (id: any) => {};
-  const deleteShortcut = (id: any) => {};
+  const deleteShortcut = (id: any) => {
+    removeShortcut(id, true).then(() => {
+      props.refresh()
+    })
+  };
 
   return (
     <div className="shortcut-button-card">

@@ -1,5 +1,5 @@
 import { ipcRenderer } from 'electron';
-import openNotification from "../component/Notification";
+import { notificationSuccess } from "../component/Notification";
 
 
 export function getAllShortcut() {
@@ -14,7 +14,7 @@ export function addShortcut(action, icon, size, title, showAlert, callback) {
     return ipcRenderer.invoke('addShortcut', action, icon, size, title)
         .then(result => {
             if (showAlert === true) {
-                openNotification({
+                notificationSuccess({
                     message: 'Id ' + result + ' added successfully'
                 });
             }
@@ -29,7 +29,7 @@ export function updateShortcut(id, action, icon, size, title, position, showAler
     return ipcRenderer.invoke('updateShortcut', id, action, icon, size, title, position)
         .then(result => {
             if (showAlert === true) {
-                openNotification ({
+                notificationSuccess({
                     message: 'Id ' + result + ' updated successfully'
                 });
             }
@@ -43,7 +43,7 @@ export function removeShortcut(id, showAlert) {
     return ipcRenderer.invoke('removeShortcut', id)
         .then(() => {
             if (showAlert === true) {
-                openNotification ({
+                notificationSuccess({
                     message: 'Id ' + id + ' deleted successfully'
                 });
             }
