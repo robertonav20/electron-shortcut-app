@@ -4,7 +4,7 @@ import FooterComponent from "../component/FooterComponent";
 import MenuComponent from "../component/MenuComponent";
 import { notificationSuccess } from "../component/Notification";
 import View from "./View";
-import { getAllShortcut } from "../storage/crud";
+import { getAllLayout, getAllShortcut } from "../storage/crud";
 
 import "../style/home-style.scss";
 
@@ -29,7 +29,6 @@ class Home extends Component {
       if (rows && rows.length > 0) {
         this.setState({ shortcuts: rows });
         this.setState({ shortcutSize: rows.length });
-        notificationSuccess({ message: "All data loaded successfully" });
       }
     })
   };

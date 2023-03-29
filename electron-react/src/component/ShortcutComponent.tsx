@@ -1,4 +1,4 @@
-import { Button } from "antd";
+import { Button, Tooltip } from "antd";
 import { CodeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { launch } from "../service/shortcut";
 import { removeShortcut } from "../storage/crud";
@@ -22,14 +22,16 @@ function ShortcutComponent(props: { shortcut: any; refresh: any }) {
         <span className="shortcut-button-title">{props.shortcut.title}</span>
       </div>
       <div className="shortcut-button-card-content">
-        <Button
-          className="shortcut-button"
-          shape="circle"
-          size={props.shortcut.size}
-          type="primary"
-          icon={<CodeOutlined/>}
-          onClick={() => action(props.shortcut.action)}
-        />
+        <Tooltip title={props.shortcut.action}>
+          <Button
+            className="shortcut-button"
+            shape="circle"
+            size={props.shortcut.size}
+            type="primary"
+            icon={<CodeOutlined />}
+            onClick={() => action(props.shortcut.action)}
+          />
+        </Tooltip>
       </div>
       <div className="shortcut-button-card-footer">
         <div></div>

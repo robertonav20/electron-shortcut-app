@@ -1,1 +1,9 @@
-[{"id":35,"title":"Chrome","action":"https://google.it","icon":"chrome-filled","size":"large"}]
+[
+  {
+    "id": 1,
+    "title": "Chrome",
+    "action": "https://google.it",
+    "icon": "chrome-filled",
+    "size": "large"
+  }
+]

@@ -1,6 +1,7 @@
 import { Component, useEffect, useState } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import ShortcutComponent from "../component/ShortcutComponent";
+import { getAllLayout, saveLayout } from "../storage/crud";
 
 import "../style/view-style.scss";
 
@@ -21,14 +22,31 @@ class View extends Component<any, any> {
       cols: { lg: 12, md: 12, sm: 10, xs: 6, xss: 1 },
       layouts: {},
       currentLayout: {},
+      currentLayoutType: null,
+      isLoaded: false,
     };
   }
 
   componentDidMount(): void {
     const layouts = this.generateLayouts();
-    this.setState({
-      layouts: layouts,
-      currentLayout: layouts["lg"],
+    getAllLayout().then((rows) => {
+      if (rows && rows.length > 0) {
+        const layouts = {};
+        rows.forEach((r: {name: string, layout: any}) => {
+          layouts[r.name] = JSON.parse(JSON.parse(r.layout).json_data);
+        });
+        this.setState({
+          currentLayout: layouts["lg"],
+          currentLayoutType: "lg",
+        });
+      } else {
+        this.setState({
+          currentLayout: layouts["lg"],
+          currentLayoutType: "lg",
+        });
+      }
+      this.setState({ isLoaded: true });
+      console.log(this.state.currentLayout);
     });
   }
 
@@ -129,7 +147,8 @@ class View extends Component<any, any> {
   };
 
   onLayoutChange = (layout: any) => {
-    this.configureLayout(layout);
+    console.log(layout);
+    saveLayout("lg", layout, false);
   };
 
   configureLayout = (type: string) => {
@@ -142,7 +161,10 @@ class View extends Component<any, any> {
     ) {
       const newLayout = this.state.layouts[type];
       if (newLayout) {
-        this.setState({ currentLayout: newLayout });
+        this.setState({
+          currentLayout: newLayout,
+          currentLayoutType: type,
+        });
       }
     }
   };
@@ -151,14 +173,14 @@ class View extends Component<any, any> {
     return this.props.shortcuts.map((s: any, i: number) => {
       return (
         <div key={i} data-grid={this.state.currentLayout[i]}>
-          <ShortcutComponent shortcut={s} refresh={this.props.refresh}/>
+          <ShortcutComponent shortcut={s} refresh={this.props.refresh} />
         </div>
       );
     });
   };
 
   render() {
-    return (
+    return this.state.isLoaded ? (
       <ResponsiveGridLayout
         breakpoints={this.state.breakpoints}
         cols={this.state.cols}
@@ -177,6 +199,8 @@ class View extends Component<any, any> {
       >
         {this.generateDOM()}
       </ResponsiveGridLayout>
+    ) : (
+      <></>
     );
   }
 }
