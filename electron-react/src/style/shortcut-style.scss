@@ -1,129 +1,127 @@
-
-
 .shortcut-button-card {
-    min-width: 130px;
-    background-color: white;
-    border-radius: 1rem;
-    border: 1px solid #001529;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-content: space-between;
-  }
-  
-  .shortcut-button-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
-    align-items: center;
-    width: 100%;
-    border-bottom: 1px #f0f0f0 solid;
-    background-color: #001529;
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
-  }
-  
-  .shortcut-button-title {
-    color: rgba(255, 255, 255, 0.65) !important;
-    font-size: inherit;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    font-size: 16px;
-    font-weight: bold;
-    padding: 0.5rem;
-  }
-  
-  .shortcut-button-card-footer {
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
-    align-items: center;
-    width: 100%;
-    border-top: 1px #f0f0f0 solid;
-    border-bottom-left-radius: 1rem;
-    border-bottom-right-radius: 1rem;
-  }
-  
-  .edit-button-container {
-    padding: 0.3rem;
-    background-color: #001529;
-    border-bottom-left-radius: 1rem;
-    width: 100%;
-  }
-  
-  .edit-button-container:hover {
-    background-color: #3280d3;
-    cursor: pointer;
-  }
-  
-  .edit-button-container:active {
-    background-color: #4b4b4bf7;
-  }
-  
-  .edit-button {
-    font-size: 20px;
-    color: white;
-    padding: 0.2rem;
-  }
-  
-  .delete-button-container {
-    padding: 0.3rem;
-    background-color: firebrick;
-    border-bottom-right-radius: 1rem;
-    width: 100%;
-  }
-  
-  .delete-button-container:hover {
-    background-color: #da4d4df9;
-    cursor: pointer;
-  }
-  
-  .delete-button-container:active {
-    background-color: #4b4b4bf7;
-  }
-  
-  .delete-button {
-    font-size: 20px;
-    color: white;
-    padding: 0.2rem;
-  }
-  
-  .shortcut-button-card-content {
-    min-height: 100px;
-    height: 100%;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .shortcut-button {
-    background: #096dd9;
-    border: 1px #096dd9 solid;
-    box-shadow: 1px 2px #489bfff7;
-    color: white;
-  }
-  
-  .shortcut-button .ant-btn > .anticon {
-    line-height: 0 !important;
-  }
-  
-  .shortcut-button:hover {
-    background: white;
-    border: 1px #4b4b4bf7 solid;
-    box-shadow: 1px 2px #4b4b4bf7;
-    color: #4b4b4bf7;
-  }
-  
-  .shortcut-button:active {
-    background: #489bfff7;
-    border: 1px #489bfff7 solid;
-    box-shadow: none;
-    color: white;
-  }
-  
-  .shortcut-button-icon {
-    font-size: 25px;
-    color: inherit;
-  }
-  
+  min-width: 150px;
+  background-color: white;
+  border-radius: 1rem;
+  border: 1px solid #ffffffa6;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: space-between;
+  border-left-width: 10px;
+  border-left-color: #096dd9;
+}
+
+.shortcut-button-card:hover {
+  background: white;
+  border: 1px #4b4b4bf7 solid;
+  box-shadow: 1px 2px #4b4b4bf7;
+  color: #4b4b4bf7;
+  border-left-width: 10px;
+  border-left-color: #4b4b4bf7;
+}
+
+.shortcut-button-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  width: 100%;
+  color: #001529 !important;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+.shortcut-button-title {
+  color: #001529 !important;
+  font-size: inherit;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.shortcut-settings-button {
+  font-size: 20px;
+  padding: 0.5rem;
+}
+
+li.ant-dropdown-menu-item.ant-dropdown-menu-item-only-child {
+  padding: 0 !important;
+}
+
+.edit-button {
+  color: #001529;
+  border-radius: 0.3rem;
+  border-radius: 0.3rem;
+  width: 100%;
+  height: 100%;
+  font-size: 20px;
+  padding: 0.1em;
+}
+
+.edit-button:hover {
+  color: #3280d3;
+}
+
+.edit-button:active {
+  color: #4b4b4bf7;
+}
+
+.delete-button {
+  color: firebrick;
+  border-radius: 0.3rem;
+  border-radius: 0.3rem;
+  width: 100%;
+  height: 100%;
+  font-size: 20px;
+  padding: 0.1em;
+}
+
+.delete-button:hover {
+  color: #da4d4df9;
+}
+
+.delete-button:active {
+  color: #4b4b4bf7;
+}
+
+.shortcut-button-card-content {
+  min-height: 100px;
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.shortcut-button {
+  background: #096dd9;
+  border: 1px #096dd9 solid;
+  box-shadow: 1px 2px #489bfff7;
+  color: white;
+}
+
+.shortcut-button .ant-btn > .anticon {
+  line-height: 0 !important;
+}
+
+.shortcut-button:hover {
+  background: white;
+  border: 1px #4b4b4bf7 solid;
+  box-shadow: 1px 2px #4b4b4bf7;
+  color: #4b4b4bf7;
+}
+
+.shortcut-button:active {
+  background: #489bfff7;
+  border: 1px #489bfff7 solid;
+  box-shadow: none;
+  color: white;
+}
+
+.shortcut-button-icon {
+  font-size: 25px;
+  color: inherit;
+}

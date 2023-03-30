@@ -13,10 +13,10 @@ function ClearShortcutComponent(props: { isOpen: boolean; closeModal: any, refre
   const clear = () => {
     deleteAll().then(() => {
       props.refresh();
+      close();
       notificationSuccess({
         message: "All data are deleted successfully",
       });
-      close();
     });
   };
 

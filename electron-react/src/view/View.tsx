@@ -30,7 +30,7 @@ class View extends Component<any, any> {
   componentDidMount(): void {
     const layouts = this.generateLayouts();
     getAllLayout().then((rows) => {
-      if (rows && rows.length > 0) {
+      if (false) {
         const layouts = {};
         rows.forEach((r: {name: string, layout: any}) => {
           layouts[r.name] = JSON.parse(JSON.parse(r.layout).json_data);
@@ -193,7 +193,7 @@ class View extends Component<any, any> {
         onBreakpointChange={this.onBreakpointChange}
         onLayoutChange={this.onLayoutChange}
         onWidthChange={this.onWidthChange}
-        rowHeight={180}
+        rowHeight={150}
         useCSSTransforms={true}
         {...this.props}
       >

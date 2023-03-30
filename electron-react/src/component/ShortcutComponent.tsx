@@ -1,5 +1,5 @@
-import { Button, Tooltip } from "antd";
-import { CodeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { Button, Dropdown, Tooltip, Space } from "antd";
+import { CodeOutlined, EditOutlined, DeleteOutlined, ToolOutlined } from "@ant-design/icons";
 import { launch } from "../service/shortcut";
 import { removeShortcut } from "../storage/crud";
 
@@ -16,10 +16,26 @@ function ShortcutComponent(props: { shortcut: any; refresh: any }) {
     });
   };
 
+  const items = [
+    {
+      label: <EditOutlined className="edit-button" onClick={() => editShortcut(props.shortcut.id)}/>,
+      key: 'edit',
+    },
+    {
+      label: <DeleteOutlined className="delete-button" onClick={() => deleteShortcut(props.shortcut.id)}/>,
+      key: 'delete',
+    }
+  ]
+
   return (
     <div className="shortcut-button-card">
       <div className="shortcut-button-card-header">
-        <span className="shortcut-button-title">{props.shortcut.title}</span>
+        <Tooltip title={props.shortcut.title}><span className="shortcut-button-title">{props.shortcut.title}</span></Tooltip>
+        <Dropdown menu={{ items }} trigger={['click']}>
+          <a onClick={(e) => e.preventDefault()}>
+            <Space><ToolOutlined className="shortcut-settings-button"/></Space>
+          </a>
+        </Dropdown>
       </div>
       <div className="shortcut-button-card-content">
         <Tooltip title={props.shortcut.action}>
@@ -32,21 +48,6 @@ function ShortcutComponent(props: { shortcut: any; refresh: any }) {
             onClick={() => action(props.shortcut.action)}
           />
         </Tooltip>
-      </div>
-      <div className="shortcut-button-card-footer">
-        <div></div>
-        <div
-          className="edit-button-container"
-          onClick={() => editShortcut(props.shortcut.id)}
-        >
-          <EditOutlined className="edit-button" />
-        </div>
-        <div
-          className="delete-button-container"
-          onClick={() => deleteShortcut(props.shortcut.id)}
-        >
-          <DeleteOutlined className="delete-button" />
-        </div>
       </div>
     </div>
   );
