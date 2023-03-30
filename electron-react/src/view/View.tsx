@@ -1,4 +1,4 @@
-import { Component, useEffect, useState } from "react";
+import { Component } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import ShortcutComponent from "../component/ShortcutComponent";
 import { getAllLayout, saveLayout } from "../storage/crud";
@@ -30,7 +30,7 @@ class View extends Component<any, any> {
   componentDidMount(): void {
     const layouts = this.generateLayouts();
     getAllLayout().then((rows) => {
-      if (false) {
+      if (rows && rows.length > 0) {
         const layouts = {};
         rows.forEach((r: {name: string, layout: any}) => {
           layouts[r.name] = JSON.parse(JSON.parse(r.layout).json_data);
