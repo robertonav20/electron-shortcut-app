@@ -1,6 +1,8 @@
 import * as ReactDOMClient from 'react-dom/client';
 import { createGlobalStyle } from 'styled-components';
 import Home from './view/Home';
+
+// eslint-disable-next-line import/no-unresolved
 import "@flaticon/flaticon-uicons/css/all/all";
 import "react-grid-layout/css/styles.css"
 import "react-resizable/css/styles.css"
@@ -18,7 +20,7 @@ const GlobalStyles = createGlobalStyle`
 
 const container = document.getElementById('root');
 
-// Create a root.
+// @ts-ignore
 const root = ReactDOMClient.createRoot(container);
 
 // Initial render: Render an element to the root.

@@ -7,7 +7,17 @@ import "../style/view-style.scss";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
-class View extends Component<any, any> {
+class View extends Component<
+  { shortcuts: Array<any>; refresh: any },
+  {
+    breakpoints: any;
+    cols: any;
+    layouts: any;
+    currentLayout: any;
+    currentLayoutType: string;
+    isLoaded: boolean;
+  }
+> {
   constructor(props: any) {
     super(props);
 
@@ -22,7 +32,7 @@ class View extends Component<any, any> {
       cols: { lg: 12, md: 12, sm: 10, xs: 6, xss: 1 },
       layouts: {},
       currentLayout: {},
-      currentLayoutType: null,
+      currentLayoutType: "",
       isLoaded: false,
     };
   }
@@ -31,9 +41,16 @@ class View extends Component<any, any> {
     const layouts = this.generateLayouts();
     getAllLayout().then((rows) => {
       if (rows && rows.length > 0) {
-        const layouts = {};
-        rows.forEach((r: {name: string, layout: any}) => {
-          layouts[r.name] = JSON.parse(JSON.parse(r.layout).json_data);
+        const layouts: { lg: any; md: any; sm: any; xss: any } = {
+          lg: undefined,
+          md: undefined,
+          sm: undefined,
+          xss: undefined,
+        };
+        rows.forEach((r: { name: string; layout: any }) => {
+          Object.assign(layouts, {
+            [r.name]: JSON.parse(JSON.parse(r.layout).json_data),
+          });
         });
         this.setState({
           currentLayout: layouts["lg"],
@@ -46,7 +63,6 @@ class View extends Component<any, any> {
         });
       }
       this.setState({ isLoaded: true });
-      console.log(this.state.currentLayout);
     });
   }
 
@@ -147,7 +163,6 @@ class View extends Component<any, any> {
   };
 
   onLayoutChange = (layout: any) => {
-    console.log(layout);
     saveLayout("lg", layout, false);
   };
 
@@ -185,7 +200,6 @@ class View extends Component<any, any> {
         breakpoints={this.state.breakpoints}
         cols={this.state.cols}
         className="view-layout"
-        items={this.props.shortcuts.length}
         isBounded={false}
         isResizable={false}
         layouts={this.state.layouts}

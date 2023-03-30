@@ -2,22 +2,24 @@ import { Component } from "react";
 import { Layout } from "antd";
 import FooterComponent from "../component/FooterComponent";
 import MenuComponent from "../component/MenuComponent";
-import { notificationSuccess } from "../component/Notification";
 import View from "./View";
-import { getAllLayout, getAllShortcut } from "../storage/crud";
+import { getAllShortcut } from "../storage/crud";
 
 import "../style/home-style.scss";
 
 const { Header, Footer, Content } = Layout;
 
-class Home extends Component {
+class Home extends Component<
+  any,
+  { shortcuts: Array<any>; shortcutSize: number }
+> {
   constructor(props: any) {
     super(props);
 
     this.state = {
       shortcuts: [],
-      shortcutSize: 0
-    }
+      shortcutSize: 0,
+    };
   }
 
   componentDidMount() {
@@ -30,21 +32,27 @@ class Home extends Component {
         this.setState({ shortcuts: rows });
         this.setState({ shortcutSize: rows.length });
       }
-    })
+    });
   };
 
   render() {
     return (
-      <Layout 
-      className="home-layout">
+      <Layout className="home-layout">
         <Header>
-          <MenuComponent refresh={this.getData}/>
+          <MenuComponent refresh={this.getData} />
         </Header>
         <Content className="home-content">
-          {this.state.shortcuts.length > 0 ? <View shortcuts={this.state.shortcuts} refresh={this.getData}/> : <></>}
+          {this.state.shortcuts.length > 0 ? (
+            <View shortcuts={this.state.shortcuts} refresh={this.getData} />
+          ) : (
+            <></>
+          )}
         </Content>
         <Footer>
-          <FooterComponent size={this.state.shortcutSize} refresh={this.getData}/>
+          <FooterComponent
+            size={this.state.shortcutSize}
+            refresh={this.getData}
+          />
         </Footer>
       </Layout>
     );
