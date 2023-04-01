@@ -94,7 +94,7 @@ class View extends Component<
       maxH: 1,
       minH: 1,
       isBounded: true,
-      isDraggable: true,
+      isDraggable: false,
     });
     for (let i = 1; i < shortcuts.length; i++) {
       x += xAxisIncrement;
@@ -113,7 +113,7 @@ class View extends Component<
         minH: 1,
         maxH: 1,
         isBounded: true,
-        isDraggable: true,
+        isDraggable: false,
       });
     }
     return layout;

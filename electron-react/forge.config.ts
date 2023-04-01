@@ -7,11 +7,17 @@ import { WebpackPlugin } from '@electron-forge/plugin-webpack';
 
 import { mainConfig } from './webpack.main.config';
 import { rendererConfig } from './webpack.renderer.config';
+const path = require('path')
 
 const config: ForgeConfig = {
-  packagerConfig: {},
+  packagerConfig: {
+    icon: path.join(__dirname, './src/public/favicon.ico'),
+  },
   rebuildConfig: {},
-  makers: [new MakerSquirrel({}), new MakerZIP({}, ['darwin']), new MakerRpm({}), new MakerDeb({})],
+  makers: [new MakerSquirrel({
+    iconUrl: path.join(__dirname, './src/public/favicon.ico'),
+    setupIcon: path.join(__dirname, './src/public/favicon.ico')
+  }), new MakerZIP({}, ['darwin']), new MakerRpm({}), new MakerDeb({})],
   plugins: [
     new WebpackPlugin({
       mainConfig,
@@ -19,7 +25,7 @@ const config: ForgeConfig = {
         config: rendererConfig,
         entryPoints: [
           {
-            html: './src/index.html',
+            html: './src/public/index.html',
             js: './src/renderer.ts',
             name: 'main_window',
             preload: {

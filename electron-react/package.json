@@ -57,5 +57,16 @@
     "react-grid-layout": "^1.3.4",
     "sqlite3": "^5.1.6",
     "styled-components": "^5.3.9"
+  },
+  "build": {
+    "win": {
+      "icon": "./src/public/favicon.ico"
+    },
+    "linux": {
+      "icon": "./src/public/favicon.ico"
+    },
+    "extraResources": [
+      "favicon.icon"
+    ]
   }
 }

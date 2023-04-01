@@ -48,7 +48,7 @@ const createWindow = (): void => {
     maxWidth: width + 100,
     minHeight: height - 100,
     maxHeight: height + 100,
-    icon: path.join(__dirname, '../../src/assets/icons/tap.ico'),
+    icon: path.join(__dirname, '../../src/public/favicon.ico'),
     webPreferences: {
       contextIsolation: false,
       nodeIntegration: true
