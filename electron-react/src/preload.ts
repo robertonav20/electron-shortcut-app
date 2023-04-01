@@ -43,8 +43,9 @@ function initDB() {
       connection.schema
         .createTable(layoutTable, (table: any) => {
           table.increments("id", { primaryKey: true });
-          table.string("name").notNullable().unique({indexName:'layout_name_unique'});
+          table.string("name").notNullable().unique({ indexName: 'layout_name_unique' });
           table.json("layout");
+          table.boolean("active");
         })
         .then((result: any) =>
           console.log(layoutTable + " table created" + result)
@@ -69,10 +70,11 @@ function initHandlers(win: any) {
   ipcMain.handle("launch", (_event, cmd) => shell.openExternal(cmd));
   ipcMain.handle("getAllLayout", (_event) => getAllLayout());
   ipcMain.handle("getLayout", (_event, name) => getLayout(name));
-  ipcMain.handle("saveLayout", (_event, name, layout) =>
-    saveLayout(name, layout)
+  ipcMain.handle("saveLayout", (_event, name, layout, active) =>
+    saveLayout(name, layout, active)
   );
   ipcMain.handle("removeLayout", (_event, name) => removeLayout(name));
+  ipcMain.handle("removeActiveLayout", (_event) => removeActiveLayout());
   ipcMain.handle("addShortcut", (_event, action, icon, size, title) =>
     addShortcut(action, icon, size, title)
   );
@@ -146,17 +148,22 @@ function getLayout(name: string) {
     .where("name", name);
 }
 
-function saveLayout(name: string, layout: any) {
+function saveLayout(name: string, layout: any, active: boolean) {
   return connection.table(layoutTable).insert({
     name,
-    layout: { json_data: JSON.stringify(layout) },
+    layout: JSON.stringify(layout),
+    active
   })
-  .onConflict("name")
-  .merge(["layout"]);
+    .onConflict("name")
+    .merge(["layout"]);
 }
 
 function removeLayout(name: string) {
   return connection.del().table(layoutTable).where("name", name);
+}
+
+function removeActiveLayout() {
+  return connection.del().table(layoutTable).where("active", true);
 }
 
 async function importFile(filename: any, charset: any) {

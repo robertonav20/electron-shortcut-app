@@ -32,7 +32,7 @@ class View extends Component<
       cols: { lg: 12, md: 12, sm: 10, xs: 6, xss: 1 },
       layouts: {},
       currentLayout: {},
-      currentLayoutType: "",
+      currentLayoutType: "lg",
       isLoaded: false,
     };
   }
@@ -40,7 +40,8 @@ class View extends Component<
   componentDidMount(): void {
     const layouts = this.generateLayouts();
     getAllLayout().then((rows) => {
-      if (rows && rows.length > 0) {
+      const found = rows.find((r: { name: string }) => r.name === this.state.currentLayoutType)
+      if (rows && rows.length > 0 && found) {
         const layouts: { lg: any; md: any; sm: any; xss: any } = {
           lg: undefined,
           md: undefined,
@@ -49,17 +50,15 @@ class View extends Component<
         };
         rows.forEach((r: { name: string; layout: any }) => {
           Object.assign(layouts, {
-            [r.name]: JSON.parse(JSON.parse(r.layout).json_data),
+            [r.name]: JSON.parse(r.layout),
           });
         });
         this.setState({
-          currentLayout: layouts["lg"],
-          currentLayoutType: "lg",
+          currentLayout: layouts[this.state.currentLayoutType],
         });
       } else {
         this.setState({
-          currentLayout: layouts["lg"],
-          currentLayoutType: "lg",
+          currentLayout: layouts[this.state.currentLayoutType],
         });
       }
       this.setState({ isLoaded: true });
@@ -122,7 +121,7 @@ class View extends Component<
   };
 
   onWidthChange = (containerWidth: number) => {
-    let type = "lg";
+    let type = this.state.currentLayoutType;
     if (containerWidth >= this.state.breakpoints.lg) {
       type = "lg";
     }
@@ -163,7 +162,7 @@ class View extends Component<
   };
 
   onLayoutChange = (layout: any) => {
-    saveLayout("lg", layout, false);
+    saveLayout(this.state.currentLayoutType, layout, false);
   };
 
   configureLayout = (type: string) => {

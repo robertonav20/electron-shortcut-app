@@ -463,7 +463,7 @@
 
 "@electron/rebuild@^3.2.10":
   version "3.2.10"
-  resolved "https://registry.npmjs.org/@electron/rebuild/-/rebuild-3.2.10.tgz"
+  resolved "https://registry.yarnpkg.com/@electron/rebuild/-/rebuild-3.2.10.tgz#adc9443179709d4e4b93a68fac6a08b9a3b9e5e6"
   integrity sha512-SUBM6Mwi3yZaDFQjZzfGKpYTtOp9m60glounwX6tfGeVc/ZOl4jbquktUcyy7gYSLDWFLtKkftkY2xgMJZLQgg==
   dependencies:
     "@malept/cross-spawn-promise" "^2.0.0"

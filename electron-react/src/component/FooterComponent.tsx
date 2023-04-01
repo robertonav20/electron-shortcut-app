@@ -5,11 +5,13 @@ import {
   DeleteOutlined,
   ExportOutlined,
   ImportOutlined,
+  ReloadOutlined
 } from "@ant-design/icons";
 
 import { Component } from "react";
 import ImportShortcutComponent from "./ImportShortcutComponent";
 import AddShortcutComponent from "./AddShortcutComponent";
+import ClearLayoutComponent from "./ClearLayoutComponent";
 import ClearShortcutComponent from "./ClearShortcutComponent";
 import ExportShortcutComponent from "./ExportShortcutComponent";
 
@@ -21,7 +23,8 @@ class FooterComponent extends Component<any, any> {
 
     this.state = {
       addDialog: false,
-      clearDialog: false,
+      clearShortcutDialog: false,
+      clearLayoutDialog: false,
       exportDialog: false,
       importDialog: false,
     };
@@ -31,7 +34,10 @@ class FooterComponent extends Component<any, any> {
     this.setState({ addDialog: true });
   };
   openClearDialog = () => {
-    this.setState({ clearDialog: true });
+    this.setState({ clearShortcutDialog: true });
+  };
+  openClearLayoutDialog = () => {
+    this.setState({ clearLayoutDialog: true });
   };
   openExportDialog = () => {
     this.setState({ exportDialog: true });
@@ -79,7 +85,7 @@ class FooterComponent extends Component<any, any> {
             ></Button>
           </Tooltip>
           <Divider type="vertical" className="action-divider" />
-          <Tooltip title="Clear">
+          <Tooltip title="Clear Shortcut">
             <Button
               className="action-button"
               shape="circle"
@@ -89,6 +95,16 @@ class FooterComponent extends Component<any, any> {
               onClick={this.openClearDialog}
             ></Button>
           </Tooltip>
+          <Tooltip title="Clear Layout">
+            <Button
+              className="action-button"
+              shape="circle"
+              size={"large"}
+              type="primary"
+              icon={<ReloadOutlined />}
+              onClick={this.openClearLayoutDialog}
+            ></Button>
+          </Tooltip>
         </div>
         <AddShortcutComponent
           isOpen={this.state.addDialog}
@@ -96,8 +112,13 @@ class FooterComponent extends Component<any, any> {
           refresh={this.props.refresh}
         />
         <ClearShortcutComponent
-          isOpen={this.state.clearDialog}
-          closeModal={() => this.setState({ clearDialog: false })}
+          isOpen={this.state.clearShortcutDialog}
+          closeModal={() => this.setState({ clearShortcutDialog: false })}
+          refresh={this.props.refresh}
+        />
+        <ClearLayoutComponent
+          isOpen={this.state.clearLayoutDialog}
+          closeModal={() => this.setState({ clearLayoutDialog: false })}
           refresh={this.props.refresh}
         />
         <ExportShortcutComponent

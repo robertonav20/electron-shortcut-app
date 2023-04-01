@@ -31,5 +31,6 @@ export const mainConfig: Configuration = {
   resolve: {
     extensions: [".js", ".ts", ".jsx", ".tsx", ".css", ".scss", ".json"],
   },
-  externals: ["better-sqlite3", "sqlite3"],
+  // Comment this line when you want generate package
+  //externals: ["better-sqlite3", "sqlite3", "knex"]
 };

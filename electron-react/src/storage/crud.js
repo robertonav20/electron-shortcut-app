@@ -6,8 +6,8 @@ export function getAllLayout() {
   return ipcRenderer.invoke("getAllLayout");
 }
 
-export function saveLayout(name, layout, showAlert, callback) {
-  return ipcRenderer.invoke("saveLayout", name, layout).then((result) => {
+export function saveLayout(name, layout, active, showAlert, callback) {
+  return ipcRenderer.invoke("saveLayout", name, layout, active).then((result) => {
     if (showAlert === true) {
       notificationSuccess({
         message: "Layout saved"
@@ -24,6 +24,16 @@ export function removeLayout(name, showAlert) {
     if (showAlert === true) {
       notificationSuccess({
         message: "Layout " + name + " deleted"
+      });
+    }
+  });
+}
+
+export function removeActiveLayout(showAlert) {
+  return ipcRenderer.invoke("removeActiveLayout").then(() => {
+    if (showAlert === true) {
+      notificationSuccess({
+        message: "Active layout deleted"
       });
     }
   });
