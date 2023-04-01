@@ -7,6 +7,8 @@ import "../style/view-style.scss";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
+type LayoutType = "lg" | "md" | "sm" | "xs" | "xss"
+
 class View extends Component<
   { shortcuts: Array<any>; refresh: any },
   {
@@ -14,7 +16,7 @@ class View extends Component<
     cols: any;
     layouts: any;
     currentLayout: any;
-    currentLayoutType: string;
+    currentLayoutType: LayoutType;
     isLoaded: boolean;
   }
 > {
@@ -42,10 +44,11 @@ class View extends Component<
     getAllLayout().then((rows) => {
       const found = rows.find((r: { name: string }) => r.name === this.state.currentLayoutType)
       if (rows && rows.length > 0 && found) {
-        const layouts: { lg: any; md: any; sm: any; xss: any } = {
+        const layouts: { lg: any; md: any; sm: any; xs: any; xss: any } = {
           lg: undefined,
           md: undefined,
           sm: undefined,
+          xs: undefined,
           xss: undefined,
         };
         rows.forEach((r: { name: string; layout: any }) => {
@@ -116,7 +119,7 @@ class View extends Component<
     return layout;
   };
 
-  onBreakpointChange = (newBreakpoint: string) => {
+  onBreakpointChange = (newBreakpoint: LayoutType) => {
     this.configureLayout(newBreakpoint);
   };
 
@@ -165,7 +168,7 @@ class View extends Component<
     saveLayout(this.state.currentLayoutType, layout, false);
   };
 
-  configureLayout = (type: string) => {
+  configureLayout = (type: LayoutType) => {
     if (
       type === "lg" ||
       type === "md" ||
