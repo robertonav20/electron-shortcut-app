@@ -23,7 +23,7 @@ class FooterComponent extends Component<any, any> {
       addDialog: false,
       clearDialog: false,
       exportDialog: false,
-      importDialog: false
+      importDialog: false,
     };
   }
 

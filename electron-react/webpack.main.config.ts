@@ -1,6 +1,6 @@
 import type { Configuration } from "webpack";
 import { rules } from "./webpack.rules";
-const { IgnorePlugin, NormalModuleReplacementPlugin } = require("webpack");
+const { NormalModuleReplacementPlugin } = require("webpack");
 
 export const mainConfig: Configuration = {
   /**
@@ -13,23 +13,23 @@ export const mainConfig: Configuration = {
     rules,
   },
   plugins: [
-    new NormalModuleReplacementPlugin(/pg.*/, "node-noop"),
+    new NormalModuleReplacementPlugin(/pg/, "node-noop"),
+    new NormalModuleReplacementPlugin(/pg-connection-string/, "node-noop"),
+    new NormalModuleReplacementPlugin(/pg-native/, "node-noop"),
+    new NormalModuleReplacementPlugin(/mssql/, "node-noop"),
+    new NormalModuleReplacementPlugin(/mariasql/, "node-noop"),
+    new NormalModuleReplacementPlugin(/oracledb/, "node-noop"),
+    new NormalModuleReplacementPlugin(/mysql/, "node-noop"),
+    new NormalModuleReplacementPlugin(/mysql2/, "node-noop"),
+    new NormalModuleReplacementPlugin(/tedious/, "node-noop"),
+    new NormalModuleReplacementPlugin(/nock/, "node-noop"),
+    new NormalModuleReplacementPlugin(/aws-sdk/, "node-noop"),
+    new NormalModuleReplacementPlugin(/mock-aws-s3/, "node-noop"),
     new NormalModuleReplacementPlugin(/\.\.\/migrate/, "node-noop"),
     new NormalModuleReplacementPlugin(/\.\.\/seed/, "node-noop"),
-    new IgnorePlugin({
-      resourceRegExp: new RegExp(
-        "^(mssql|mariasql|.*oracle.*|mysql.*|pg.*|node-pre-gyp|tedious|nock|aws-sdk|mock-aws-s3|seed)$"
-      ),
-    }),
   ],
   resolve: {
     extensions: [".js", ".ts", ".jsx", ".tsx", ".css", ".scss", ".json"],
   },
-  externals: [
-    "better-sqlite3",
-    "pg",
-    "pg-connection-string",
-    "seed",
-    "migrate",
-  ],
+  externals: ["better-sqlite3", "sqlite3"],
 };

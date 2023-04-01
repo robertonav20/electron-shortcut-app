@@ -1,13 +1,12 @@
 import { Component } from "react";
 import { Layout } from "antd";
 import FooterComponent from "../component/FooterComponent";
-import MenuComponent from "../component/MenuComponent";
 import View from "./View";
 import { getAllShortcut } from "../storage/crud";
 
 import "../style/home-style.scss";
 
-const { Header, Footer, Content } = Layout;
+const { Footer, Content } = Layout;
 
 class Home extends Component<
   any,
@@ -38,9 +37,6 @@ class Home extends Component<
   render() {
     return (
       <Layout className="home-layout">
-        <Header>
-          <MenuComponent refresh={this.getData} />
-        </Header>
         <Content className="home-content">
           {this.state.shortcuts.length > 0 ? (
             <View shortcuts={this.state.shortcuts} refresh={this.getData} />
