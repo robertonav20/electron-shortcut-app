@@ -2,6 +2,8 @@
 
 Shortcut App, it's based on **electron** and a SPA framework **react** version or **vue** version (_older_).
 
+![Alt text](https://raw.githubusercontent.com/robertonav20/electron-shortcut-app/main/Home.png?raw=true"Home")
+
 ### Versions
  - React:
  > - electron 23.1.4
