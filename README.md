@@ -38,7 +38,7 @@ Create installer
 
     yarn run make
 
-## Vue
+## Vue (older)
 Prerequisites
 
     npm i -g electron @vue/cli-service
