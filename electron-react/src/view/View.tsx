@@ -165,7 +165,7 @@ class View extends Component<
   };
 
   onLayoutChange = (layout: any) => {
-    saveLayout(this.state.currentLayoutType, layout, false);
+    saveLayout(this.state.currentLayoutType, layout, true);
   };
 
   configureLayout = (type: LayoutType) => {
