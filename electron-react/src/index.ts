@@ -45,9 +45,7 @@ const createWindow = (): void => {
     width,
     height,
     minWidth: width - 100,
-    maxWidth: width + 100,
     minHeight: height - 100,
-    maxHeight: height + 100,
     icon: path.join(__dirname, '../../src/public/favicon.ico'),
     webPreferences: {
       contextIsolation: false,

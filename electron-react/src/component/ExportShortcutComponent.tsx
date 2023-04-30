@@ -4,9 +4,13 @@ import { getAllShortcut } from "../storage/crud";
 import { exportFile, showSaveDialog } from "../service/utils";
 import { notificationSuccess } from "./Notification";
 
-import "../style/export-style.scss"
+import "../style/export-style.scss";
 
-function ExportShortcutComponent(props: { isOpen: boolean; closeModal: any, refresh: any }) {
+function ExportShortcutComponent(props: {
+  isOpen: boolean;
+  closeModal: any;
+  refresh: any;
+}) {
   const close = () => {
     props.closeModal();
   };

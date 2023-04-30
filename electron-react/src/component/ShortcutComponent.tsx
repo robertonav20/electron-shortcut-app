@@ -21,11 +21,18 @@ function ShortcutComponent(props: { shortcut: any; refresh: any }) {
     });
   };
 
+  const defaultColor = "#096dd9";
+  const defaultIcon = "fi fi-ss-square-terminal";
+  const defaultSize = "30px";
+
   const items = [
     {
       label: (
         <EditOutlined
           className="edit-button"
+          style={{
+            color: props.shortcut.color ? props.shortcut.color : defaultColor,
+          }}
           onClick={() => editShortcut(props.shortcut.id)}
         />
       ),
@@ -42,11 +49,6 @@ function ShortcutComponent(props: { shortcut: any; refresh: any }) {
     },
   ];
 
-  const defaultColor = "#096dd9";
-  const defaultIcon = "fi fi-ss-square-terminal";
-  const defaultSize = "30px";
-
-  console.log(props.shortcut);
   return (
     <div
       className="shortcut-button-card"
@@ -70,7 +72,14 @@ function ShortcutComponent(props: { shortcut: any; refresh: any }) {
         <Dropdown menu={{ items }} trigger={["click"]}>
           <a onClick={(e) => e.preventDefault()}>
             <Space>
-              <ToolOutlined className="shortcut-settings-button" />
+              <ToolOutlined
+                className="shortcut-settings-button"
+                style={{
+                  color: props.shortcut.color
+                    ? props.shortcut.color
+                    : defaultColor,
+                }}
+              />
             </Space>
           </a>
         </Dropdown>
