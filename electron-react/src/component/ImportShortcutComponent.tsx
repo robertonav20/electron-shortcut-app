@@ -4,9 +4,13 @@ import { addShortcut } from "../storage/crud";
 import { importFile, showOpenDialog } from "../service/utils";
 import { notificationSuccess } from "./Notification";
 
-import "../style/import-style.scss"
+import "../style/import-style.scss";
 
-function ImportShortcutComponent(props: { isOpen: boolean, closeModal: any, refresh: any}) {
+function ImportShortcutComponent(props: {
+  isOpen: boolean;
+  closeModal: any;
+  refresh: any;
+}) {
   const close = () => {
     props.closeModal();
   };
@@ -24,11 +28,20 @@ function ImportShortcutComponent(props: { isOpen: boolean, closeModal: any, refr
         importFile(filename, "utf-8").then((data) => {
           const rows = JSON.parse(data);
           rows.forEach((row: any) =>
-            addShortcut(row.action, row.icon, row.size, row.title, false)
+            addShortcut(
+              row.action,
+              row.color,
+              row.icon,
+              row.size,
+              row.title,
+              false
+            )
           );
           props.refresh();
           close();
-          notificationSuccess({ message: "All data imported from file " + filename });
+          notificationSuccess({
+            message: "All data imported from file " + filename,
+          });
         });
       }
       close();
@@ -51,4 +64,3 @@ function ImportShortcutComponent(props: { isOpen: boolean, closeModal: any, refr
 }
 
 export default ImportShortcutComponent;
-

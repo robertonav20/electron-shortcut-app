@@ -27,6 +27,7 @@ function initDB() {
         .createTable(shortcutTable, (table: any) => {
           table.increments("id", { primaryKey: true });
           table.string("title");
+          table.string("color");
           table.string("icon");
           table.string("size");
           table.string("action");
@@ -75,11 +76,11 @@ function initHandlers(win: any) {
   );
   ipcMain.handle("removeLayout", (_event, name) => removeLayout(name));
   ipcMain.handle("removeActiveLayout", (_event) => removeActiveLayout());
-  ipcMain.handle("addShortcut", (_event, action, icon, size, title) =>
-    addShortcut(action, icon, size, title)
+  ipcMain.handle("addShortcut", (_event, action, color, icon, size, title) =>
+    addShortcut(action, color, icon, size, title)
   );
-  ipcMain.handle("updateShortcut", (_event, id, action, icon, size, title) =>
-    updateShortcut(id, action, icon, size, title)
+  ipcMain.handle("updateShortcut", (_event, id, action, color, icon, size, title) =>
+    updateShortcut(id, action, color, icon, size, title)
   );
   ipcMain.handle("removeShortcut", (_event, id) => removeShortcut(id));
   ipcMain.handle("getAllShortcut", () => getAllShortcut());
@@ -89,7 +90,7 @@ function initHandlers(win: any) {
 
 function getAllShortcut() {
   return connection
-    .select("id", "title", "action", "icon", "size")
+    .select("id", "title", "action", "color", "icon", "size")
     .table(shortcutTable)
     .orderBy("title", "asc");
 }
@@ -98,9 +99,10 @@ function countAllShortcut() {
   return connection.count("id as total").table(shortcutTable).first();
 }
 
-function addShortcut(action: any, icon: any, size: any, title: any) {
+function addShortcut(action: any, color: any, icon: any, size: any, title: any) {
   return connection.table(shortcutTable).insert({
     action,
+    color,
     icon,
     size,
     title,
@@ -110,6 +112,7 @@ function addShortcut(action: any, icon: any, size: any, title: any) {
 function updateShortcut(
   id: any,
   action: any,
+  color: any,
   icon: any,
   size: any,
   title: any
@@ -118,6 +121,7 @@ function updateShortcut(
     .table(shortcutTable)
     .update({
       action,
+      color,
       icon,
       size,
       title,

@@ -1,29 +1,30 @@
 import { ipcRenderer } from "electron";
 import { notificationSuccess } from "../component/Notification";
 
-
 export function getAllLayout() {
   return ipcRenderer.invoke("getAllLayout");
 }
 
 export function saveLayout(name, layout, active, showAlert, callback) {
-  return ipcRenderer.invoke("saveLayout", name, layout, active).then((result) => {
-    if (showAlert === true) {
-      notificationSuccess({
-        message: "Layout saved"
-      });
-    }
-    if (callback != null && callback != undefined) {
-      callback(result);
-    }
-  });
+  return ipcRenderer
+    .invoke("saveLayout", name, layout, active)
+    .then((result) => {
+      if (showAlert === true) {
+        notificationSuccess({
+          message: "Layout saved",
+        });
+      }
+      if (callback != null && callback != undefined) {
+        callback(result);
+      }
+    });
 }
 
 export function removeLayout(name, showAlert) {
   return ipcRenderer.invoke("removeLayout", name).then(() => {
     if (showAlert === true) {
       notificationSuccess({
-        message: "Layout " + name + " deleted"
+        message: "Layout " + name + " deleted",
       });
     }
   });
@@ -33,7 +34,7 @@ export function removeActiveLayout(showAlert) {
   return ipcRenderer.invoke("removeActiveLayout").then(() => {
     if (showAlert === true) {
       notificationSuccess({
-        message: "Active layout deleted"
+        message: "Active layout deleted",
       });
     }
   });
@@ -47,13 +48,21 @@ export function countAllShortcut() {
   return ipcRenderer.invoke("countAllShortcut");
 }
 
-export function addShortcut(action, icon, size, title, showAlert, callback) {
+export function addShortcut(
+  action,
+  color,
+  icon,
+  size,
+  title,
+  showAlert,
+  callback
+) {
   return ipcRenderer
-    .invoke("addShortcut", action, icon, size, title)
+    .invoke("addShortcut", action, color, icon, size, title)
     .then((result) => {
       if (showAlert === true) {
         notificationSuccess({
-          message: "Id " + result + " added"
+          message: "Id " + result + " added",
         });
       }
       if (callback != null && callback != undefined) {
@@ -65,6 +74,7 @@ export function addShortcut(action, icon, size, title, showAlert, callback) {
 export function updateShortcut(
   id,
   action,
+  color,
   icon,
   size,
   title,
@@ -72,11 +82,11 @@ export function updateShortcut(
   callback
 ) {
   return ipcRenderer
-    .invoke("updateShortcut", id, action, icon, size, title)
+    .invoke("updateShortcut", id, action, color, icon, size, title)
     .then((result) => {
       if (showAlert === true) {
         notificationSuccess({
-          message: "Id " + result + " updated"
+          message: "Id " + result + " updated",
         });
       }
       if (callback != null && callback != undefined) {
@@ -89,7 +99,7 @@ export function removeShortcut(id, showAlert) {
   return ipcRenderer.invoke("removeShortcut", id).then(() => {
     if (showAlert === true) {
       notificationSuccess({
-        message: "Id " + id + " deleted"
+        message: "Id " + id + " deleted",
       });
     }
   });

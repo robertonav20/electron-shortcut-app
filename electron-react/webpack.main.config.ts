@@ -32,5 +32,5 @@ export const mainConfig: Configuration = {
     extensions: [".js", ".ts", ".jsx", ".tsx", ".css", ".scss", ".json"],
   },
   // Comment this line when you want generate package
-  //externals: ["better-sqlite3", "sqlite3", "knex"]
+  externals: ["better-sqlite3", "sqlite3", "knex"]
 };
