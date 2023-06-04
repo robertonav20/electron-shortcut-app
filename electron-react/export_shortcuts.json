@@ -1,1 +1,74 @@
-[{"id":3,"title":"Discord","action":"discord://","color":null,"icon":"fi fi-rr-square-terminal","size":"40"},{"id":5,"title":"Netflix","action":"netflix://","color":null,"icon":"fi fi-rr-square-terminal","size":"40"},{"id":6,"title":"Prime Video","action":"https://www.primevideo.com/","color":null,"icon":"fi fi-rr-square-terminal","size":"40"},{"id":2,"title":"Steam","action":"steam://","color":null,"icon":"fi fi-rr-square-terminal","size":"40"},{"id":1,"title":"Twitch","action":"https://twitch.com","color":"#6441a5","icon":"fi fi-brands-twitch","size":"40"},{"id":4,"title":"Twitch","action":"https://www.twitch.tv","color":null,"icon":"fi fi-rr-square-terminal","size":"40"}]
+[
+  {
+    "id": 38,
+    "title": "Bluetooth",
+    "action": "ms-settings:bluetooth",
+    "color": "#096dd9",
+    "icon": "fi fi-brands-bluetooth",
+    "size": "40"
+  },
+  {
+    "id": 42,
+    "title": "Discord",
+    "action": "discord://",
+    "color": "#7289da",
+    "icon": "fi fi-brands-discord",
+    "size": "40"
+  },
+  {
+    "id": 43,
+    "title": "Gmail",
+    "action": "https://mail.google.com/mail",
+    "color": "#3e65cf",
+    "icon": "fi fi-rr-envelope",
+    "size": "40"
+  },
+  {
+    "id": 40,
+    "title": "Netflix",
+    "action": "netflix://",
+    "color": "#db0000",
+    "icon": "fi fi-brands-netflix",
+    "size": "40"
+  },
+  {
+    "id": 32,
+    "title": "Prime Video",
+    "action": "https://www.primevideo.com/",
+    "color": null,
+    "icon": "fi fi-rr-square-terminal",
+    "size": "40"
+  },
+  {
+    "id": 37,
+    "title": "Sound",
+    "action": "ms-settings:sound",
+    "color": "#096dd9",
+    "icon": "fi fi-sr-speaker",
+    "size": "40"
+  },
+  {
+    "id": 34,
+    "title": "Steam",
+    "action": "steam://",
+    "color": null,
+    "icon": "fi fi-rr-square-terminal",
+    "size": "40"
+  },
+  {
+    "id": 35,
+    "title": "Twitch",
+    "action": "https://www.twitch.tv",
+    "color": "#6441a5",
+    "icon": "fi fi-brands-twitch",
+    "size": "40"
+  },
+  {
+    "id": 41,
+    "title": "Whatsapp",
+    "action": "whatsapp://",
+    "color": "#25d366",
+    "icon": "fi fi-brands-whatsapp",
+    "size": "40"
+  }
+]
