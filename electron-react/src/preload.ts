@@ -1,5 +1,6 @@
-const { ipcMain, shell, dialog } = require("electron");
+const { ipcMain, dialog } = require("electron");
 const fs = require("fs");
+const process = require("child_process");
 
 const configuration = {
   client: "sqlite3",
@@ -54,7 +55,6 @@ function initDB() {
     }
   });
 }
-
 function initHandlers(win: any) {
   ipcMain.handle("showOpenDialog", (_event, options) =>
     dialog.showOpenDialog(win, options)
@@ -68,7 +68,19 @@ function initHandlers(win: any) {
   ipcMain.handle("exportFile", (_event, filePath, data, charset) =>
     exportFile(filePath, data, charset)
   );
-  ipcMain.handle("launch", (_event, cmd) => shell.openExternal(cmd));
+  ipcMain.handle("launch", (_event, cmd) => {
+    const command = process.spawn(cmd, [], { shell: true })
+
+    command.stdout.on('data', (data: any) => {
+      console.log(data.toString());
+    });
+    command.stderr.on('data', (data: any) => {
+      console.error(data.toString());
+    });
+    command.on('exit', (code: any) => {
+      console.log(`Command [${cmd}] executed with exit code [${code}]`);
+    }); 
+  });
   ipcMain.handle("getAllLayout", (_event) => getAllLayout());
   ipcMain.handle("getLayout", (_event, name) => getLayout(name));
   ipcMain.handle("saveLayout", (_event, name, layout, active) =>
