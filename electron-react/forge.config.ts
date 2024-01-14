@@ -17,7 +17,7 @@ const config: ForgeConfig = {
   makers: [new MakerSquirrel({
     iconUrl: path.join(__dirname, './src/public/favicon.ico'),
     setupIcon: path.join(__dirname, './src/public/favicon.ico')
-  }), new MakerZIP({}, ['darwin']), new MakerRpm({}), new MakerDeb({})],
+  }), new MakerZIP({}, ['linux'])],
   plugins: [
     new WebpackPlugin({
       mainConfig,
