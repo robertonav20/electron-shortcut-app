@@ -22,4 +22,5 @@ const container = document.getElementById('root');
 const root = ReactDOMClient.createRoot(container);
 
 // Initial render: Render an element to the root.
+// @ts-ignore
 root.render(<><GlobalStyles/><Home/></>);

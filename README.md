@@ -6,7 +6,8 @@ Shortcut App, it's based on **electron** and a SPA framework **react** version o
 
 ## Versions
 
-- React:
+- Versions:
+  > - node 18
   > - electron 23.1.4
   > - react 18.2.0
 
@@ -24,8 +25,8 @@ Shortcut App, it's based on **electron** and a SPA framework **react** version o
 
 Prerequisites
 
-    npm i -g yarn electron
-    yarn i
+    npm install -g yarn electron
+    yarn install && yarn run rebuild
 
 Run dev app
 

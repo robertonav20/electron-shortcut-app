@@ -3,15 +3,17 @@
   "productName": "Shortcut App",
   "version": "1.0.0",
   "icon": "./src/public/favicon.ico",
-  "description": "My Electron application description",
+  "description": "Shortcut App - Create your stream deck with a touch monitor",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
+    "rebuild": "electron-rebuild -f -w sqlite3",
     "rebuild-win": "electron-rebuild -f -w sqlite3 --platform=win32",
     "package-win": "electron-forge package --platform=win32",
-    "make-win": "electron-forge make --platform=win32 --skip-package",
+    "make-win": "electron-forge make --platform=win32",
+    "rebuild-linux": "electron-rebuild -f -w sqlite3 --platform=linux",
     "package-linux": "electron-forge package --platform=linux",
-    "make-linux": "electron-forge make --platform=linux --skip-package",
+    "make-linux": "electron-forge make --platform=linux",
     "lint": "eslint --ext .ts,.tsx ."
   },
   "keywords": [],
@@ -48,16 +50,16 @@
   },
   "dependencies": {
     "@flaticon/flaticon-uicons": "^2.0.1",
-    "antd": "^5.3.1",
-    "better-sqlite3": "^8.2.0",
+    "antd": "^5.25.3",
+    "better-sqlite3": "^8.7.0",
     "electron-squirrel-startup": "^1.0.0",
-    "knex": "^2.4.2",
+    "knex": "^2.5.1",
     "node-noop": "^1.0.0",
     "path-browserify": "^1.0.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "sqlite3": "^5.1.6",
-    "styled-components": "^5.3.9"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sqlite3": "^5.1.7",
+    "styled-components": "^5.3.11"
   },
   "build": {
     "win": {

@@ -56,19 +56,19 @@ function initDB() {
   });
 }
 function initHandlers(win: any) {
-  ipcMain.handle("showOpenDialog", (_event, options) =>
+  ipcMain.handle("showOpenDialog", (_event: any, options: any) =>
     dialog.showOpenDialog(win, options)
   );
-  ipcMain.handle("showSaveDialog", (_event, options) =>
+  ipcMain.handle("showSaveDialog", (_event: any, options: any) =>
     dialog.showSaveDialog(win, options)
   );
-  ipcMain.handle("importFile", (_event, filename, charset) =>
+  ipcMain.handle("importFile", (_event: any, filename: any, charset: any) =>
     importFile(filename, charset)
   );
-  ipcMain.handle("exportFile", (_event, filePath, data, charset) =>
+  ipcMain.handle("exportFile", (_event: any, filePath: any, data: any, charset: any) =>
     exportFile(filePath, data, charset)
   );
-  ipcMain.handle("launch", (_event, cmd) => {
+  ipcMain.handle("launch", (_event: any, cmd: any) => {
     const command = process.spawn(cmd, [], { shell: true })
 
     command.stdout.on('data', (data: any) => {
@@ -79,22 +79,22 @@ function initHandlers(win: any) {
     });
     command.on('exit', (code: any) => {
       console.log(`Command [${cmd}] executed with exit code [${code}]`);
-    }); 
+    });
   });
-  ipcMain.handle("getAllLayout", (_event) => getAllLayout());
-  ipcMain.handle("getLayout", (_event, name) => getLayout(name));
-  ipcMain.handle("saveLayout", (_event, name, layout, active) =>
+  ipcMain.handle("getAllLayout", (_event: any) => getAllLayout());
+  ipcMain.handle("getLayout", (_event: any, name: string) => getLayout(name));
+  ipcMain.handle("saveLayout", (_event: any, name: string, layout: any, active: boolean) =>
     saveLayout(name, layout, active)
   );
-  ipcMain.handle("removeLayout", (_event, name) => removeLayout(name));
-  ipcMain.handle("removeActiveLayout", (_event) => removeActiveLayout());
-  ipcMain.handle("addShortcut", (_event, action, color, icon, size, title) =>
+  ipcMain.handle("removeLayout", (_event: any, name: string) => removeLayout(name));
+  ipcMain.handle("removeActiveLayout", (_event: any) => removeActiveLayout());
+  ipcMain.handle("addShortcut", (_event: any, action: any, color: any, icon: any, size: any, title: any) =>
     addShortcut(action, color, icon, size, title)
   );
-  ipcMain.handle("updateShortcut", (_event, id, action, color, icon, size, title) =>
+  ipcMain.handle("updateShortcut", (_event: any, id: any, action: any, color: any, icon: any, size: any, title: any) =>
     updateShortcut(id, action, color, icon, size, title)
   );
-  ipcMain.handle("removeShortcut", (_event, id) => removeShortcut(id));
+  ipcMain.handle("removeShortcut", (_event: any, id: any) => removeShortcut(id));
   ipcMain.handle("getAllShortcut", () => getAllShortcut());
   ipcMain.handle("countAllShortcut", () => countAllShortcut());
   ipcMain.handle("deleteAll", () => deleteAll());
