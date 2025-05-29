@@ -14,7 +14,6 @@ function ShortcutComponent(props: { shortcut: any; refresh: any }) {
   const action = (action: string) => {
     launch(action);
   };
-  const editShortcut = (id: any) => {};
   const deleteShortcut = (id: any) => {
     removeShortcut(id, true).then(() => {
       props.refresh();
@@ -28,21 +27,9 @@ function ShortcutComponent(props: { shortcut: any; refresh: any }) {
   const items = [
     {
       label: (
-        <EditOutlined
-          className="edit-button"
-          style={{
-            color: props.shortcut.color ? props.shortcut.color : defaultColor,
-          }}
-          onClick={() => editShortcut(props.shortcut.id)}
-        />
-      ),
-      key: "edit",
-    },
-    {
-      label: (
         <DeleteOutlined
           className="delete-button"
-          onClick={() => deleteShortcut(props.shortcut.id)}
+          onClick={(e) => deleteShortcut(props.shortcut.id)}
         />
       ),
       key: "delete",
@@ -55,19 +42,19 @@ function ShortcutComponent(props: { shortcut: any; refresh: any }) {
       style={{
         border:
           "1px solid " +
-          (props.shortcut.color ? props.shortcut.color : defaultColor),
-        borderLeftWidth: 10,
-        borderLeftColor: props.shortcut.color
+          (props.shortcut.color ? props.shortcut.color : defaultColor) + " !important",
+        borderLeftWidth: "10px !important",
+        borderLeftColor: (props.shortcut.color
           ? props.shortcut.color
-          : defaultColor,
+          : defaultColor) + " !important",
         boxShadow:
           "1px 2px " +
-          (props.shortcut.color ? props.shortcut.color : defaultColor),
+          (props.shortcut.color ? props.shortcut.color : defaultColor) + " !important",
       }}
     >
       <div className="shortcut-button-card-header">
         <Tooltip title={props.shortcut.title}>
-          <span className="shortcut-button-title">{props.shortcut.title}</span>
+          <span className="shortcut-button-title" style={{ color: props.shortcut.color ? props.shortcut.color : defaultColor }}>{props.shortcut.title}</span>
         </Tooltip>
         <Dropdown menu={{ items }} trigger={["click"]}>
           <a onClick={(e) => e.preventDefault()}>

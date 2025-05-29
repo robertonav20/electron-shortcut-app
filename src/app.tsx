@@ -4,8 +4,6 @@ import Home from './view/Home';
 
 // eslint-disable-next-line import/no-unresolved
 import "@flaticon/flaticon-uicons/css/all/all";
-import "react-grid-layout/css/styles.css"
-import "react-resizable/css/styles.css"
 
 const GlobalStyles = createGlobalStyle`
   @font-face {

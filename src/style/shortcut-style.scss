@@ -1,5 +1,4 @@
 .shortcut-button-card {
-  min-width: 150px;
   background-color: white;
   border-radius: 1rem;
   display: flex;
@@ -9,10 +8,29 @@
 }
 
 .shortcut-button-card:hover {
-  border: 1px #6ab2ff solid !important;
-  border-left-width: 10px !important;
-  border-left-color: #6ab2ff !important;
-  box-shadow: 1px 2px #6ab2ff !important;
+  color: #001529 !important;
+}
+.shortcut-button-card:hover .shortcut-button-card-header .shortcut-button-title {
+  color: #001529 !important;
+}
+.shortcut-button-card:hover .shortcut-settings-button {
+  color: #001529 !important;
+}
+.shortcut-button-card:hover .shortcut-button {
+  color: #001529 !important;
+}
+
+.shortcut-button-card:active {
+  color: #001529 !important;
+}
+.shortcut-button-card:active .shortcut-button-card-header .shortcut-button-title {
+  color: #001529 !important;
+}
+.shortcut-button-card:active .shortcut-settings-button {
+  color: #001529 !important;
+}
+.shortcut-button-card:active .shortcut-button {
+  color: #001529 !important;
 }
 
 .shortcut-button-card-header {
@@ -27,7 +45,6 @@
 }
 
 .shortcut-button-title {
-  color: #001529 !important;
   font-size: inherit;
   font-size: 16px;
   font-weight: bold;
@@ -37,13 +54,22 @@
   text-overflow: ellipsis;
 }
 
+.shortcut-button-card-content {
+  min-height: 100px;
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.shortcut-button {
+  cursor: pointer;
+}
+
 .shortcut-settings-button {
   font-size: 20px;
   padding: 0.5rem;
-}
-
-.shortcut-settings-button:hover {
-  color: #6ab2ff !important;
 }
 
 li.ant-dropdown-menu-item.ant-dropdown-menu-item-only-child {
@@ -58,12 +84,8 @@ li.ant-dropdown-menu-item.ant-dropdown-menu-item-only-child {
   padding: 0.1em;
 }
 
-.edit-button:hover {
-  color: #6ab2ff !important;
-}
-
 .edit-button:active {
-  color: #6ab2ff !important;
+  color: #001529 !important;
 }
 
 .delete-button {
@@ -81,21 +103,4 @@ li.ant-dropdown-menu-item.ant-dropdown-menu-item-only-child {
 
 .delete-button:active {
   color: #001529;
-}
-
-.shortcut-button-card-content {
-  min-height: 100px;
-  height: 100%;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.shortcut-button {
-  cursor: pointer;
-}
-
-.shortcut-button:hover {
-  color: #6ab2ff !important;
 }

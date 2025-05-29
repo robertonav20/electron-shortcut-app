@@ -1,222 +1,27 @@
 import { Component } from "react";
-import { Responsive, WidthProvider } from "react-grid-layout";
 import ShortcutComponent from "../component/ShortcutComponent";
-import { getAllLayout, saveLayout } from "../storage/crud";
 
 import "../style/view-style.scss";
-
-const ResponsiveGridLayout = WidthProvider(Responsive);
-
-type LayoutType = "lg" | "md" | "sm" | "xs" | "xss"
+import { Row, Col } from "antd/es";
 
 class View extends Component<
-  { shortcuts: Array<any>; refresh: any },
-  {
-    breakpoints: any;
-    cols: any;
-    layouts: any;
-    currentLayout: any;
-    currentLayoutType: LayoutType;
-    isLoaded: boolean;
-  }
+  { shortcuts: Array<any>; refresh: any }
 > {
-  constructor(props: any) {
-    super(props);
-
-    this.state = {
-      breakpoints: {
-        lg: 1000,
-        md: 800,
-        sm: 600,
-        xs: 300,
-        xss: 150,
-      },
-      cols: { lg: 12, md: 12, sm: 10, xs: 6, xss: 1 },
-      layouts: {},
-      currentLayout: {},
-      currentLayoutType: "lg",
-      isLoaded: false,
-    };
-  }
-
-  componentDidMount(): void {
-    const layouts = this.generateLayouts();
-    getAllLayout().then((rows) => {
-      const found = rows.find((r: { name: string }) => r.name === this.state.currentLayoutType)
-      if (rows && rows.length > 0 && found) {
-        const layouts: { lg: any; md: any; sm: any; xs: any; xss: any } = {
-          lg: undefined,
-          md: undefined,
-          sm: undefined,
-          xs: undefined,
-          xss: undefined,
-        };
-        rows.forEach((r: { name: string; layout: any }) => {
-          Object.assign(layouts, {
-            [r.name]: JSON.parse(r.layout),
-          });
-        });
-        this.setState({
-          currentLayout: layouts[this.state.currentLayoutType],
-        });
-      } else {
-        this.setState({
-          currentLayout: layouts[this.state.currentLayoutType],
-        });
-      }
-      this.setState({ isLoaded: true });
-    });
-  }
-
-  generateLayouts = () => {
-    return {
-      lg: this.generateLayout(this.props.shortcuts, this.state.cols.lg, 2),
-      md: this.generateLayout(this.props.shortcuts, this.state.cols.md, 4),
-      sm: this.generateLayout(this.props.shortcuts, this.state.cols.sm, 2),
-      xs: this.generateLayout(this.props.shortcuts, this.state.cols.xs, 2),
-      xss: this.generateLayout(this.props.shortcuts, this.state.cols.xss, 2),
-    };
-  };
-
-  generateLayout = (shortcuts: any, cols: number, xAxisIncrement: number) => {
-    const layout: any = [];
-    let x = 0;
-    let y = 0;
-
-    layout.push({
-      i: shortcuts[0].id,
-      x: 0,
-      y: 0,
-      w: 2,
-      maxW: 2,
-      minW: 2,
-      h: 1,
-      maxH: 1,
-      minH: 1,
-      isBounded: true,
-      isDraggable: false,
-    });
-    for (let i = 1; i < shortcuts.length; i++) {
-      x += xAxisIncrement;
-      if (cols <= x) {
-        x = 0;
-        y++;
-      }
-      layout.push({
-        i: shortcuts[i].id,
-        x,
-        y,
-        w: 2,
-        minW: 2,
-        maxW: 2,
-        h: 1,
-        minH: 1,
-        maxH: 1,
-        isBounded: true,
-        isDraggable: false,
-      });
-    }
-    return layout;
-  };
-
-  onBreakpointChange = (newBreakpoint: LayoutType) => {
-    this.configureLayout(newBreakpoint);
-  };
-
-  onWidthChange = (containerWidth: number) => {
-    let type = this.state.currentLayoutType;
-    if (containerWidth >= this.state.breakpoints.lg) {
-      type = "lg";
-    }
-
-    if (
-      this.state.breakpoints.lg > containerWidth &&
-      containerWidth >= this.state.breakpoints.md
-    ) {
-      type = "md";
-    }
-
-    if (
-      this.state.breakpoints.md > containerWidth &&
-      containerWidth >= this.state.breakpoints.sm
-    ) {
-      type = "md";
-    }
-
-    if (
-      this.state.breakpoints.sm > containerWidth &&
-      containerWidth >= this.state.breakpoints.xs
-    ) {
-      type = "sm";
-    }
-
-    if (
-      this.state.breakpoints.xs > containerWidth &&
-      containerWidth >= this.state.breakpoints.xss
-    ) {
-      type = "xs";
-    }
-
-    if (this.state.breakpoints.xss > containerWidth) {
-      type = "xss";
-    }
-
-    this.configureLayout(type);
-  };
-
-  onLayoutChange = (layout: any) => {
-    saveLayout(this.state.currentLayoutType, layout, true);
-  };
-
-  configureLayout = (type: LayoutType) => {
-    if (
-      type === "lg" ||
-      type === "md" ||
-      type === "sm" ||
-      type === "xs" ||
-      type === "xss"
-    ) {
-      const newLayout = this.state.layouts[type];
-      if (newLayout) {
-        this.setState({
-          currentLayout: newLayout,
-          currentLayoutType: type,
-        });
-      }
-    }
-  };
-
-  generateDOM = () => {
-    return this.props.shortcuts.map((s: any, i: number) => {
-      return (
-        <div key={i} data-grid={this.state.currentLayout[i]}>
-          <ShortcutComponent shortcut={s} refresh={this.props.refresh} />
-        </div>
-      );
-    });
-  };
-
   render() {
-    return this.state.isLoaded ? (
-      <ResponsiveGridLayout
-        breakpoints={this.state.breakpoints}
-        cols={this.state.cols}
-        className="view-layout"
-        isBounded={false}
-        isResizable={false}
-        layouts={this.state.layouts}
-        margin={[5, 5]}
-        onBreakpointChange={this.onBreakpointChange}
-        onLayoutChange={this.onLayoutChange}
-        onWidthChange={this.onWidthChange}
-        rowHeight={150}
-        useCSSTransforms={true}
-        {...this.props}
-      >
-        {this.generateDOM()}
-      </ResponsiveGridLayout>
-    ) : (
-      <></>
+    return (
+      <Row style={{ overflowX: "hidden" }}>
+        {Array.from(this.props.shortcuts).map((s: any, i: number) => {
+          return (
+            <Col
+              span={3}
+              key={`col-${i}`}
+              style={{ margin: '5px' }}
+            >
+              <ShortcutComponent shortcut={s} refresh={this.props.refresh} />
+            </Col>
+          );
+        })}
+      </Row>
     );
   }
 }

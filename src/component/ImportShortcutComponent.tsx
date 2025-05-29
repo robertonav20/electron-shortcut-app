@@ -1,6 +1,6 @@
 import { Modal } from "antd";
 import { ImportOutlined } from "@ant-design/icons";
-import { addShortcut } from "../storage/crud";
+import { addShortcut, removeActiveLayout } from "../storage/crud";
 import { importFile, showOpenDialog } from "../service/utils";
 import { notificationSuccess } from "./Notification";
 
@@ -23,6 +23,7 @@ function ImportShortcutComponent(props: {
       properties: ["openFile"],
     };
     showOpenDialog(options).then(({ filePaths }) => {
+      removeActiveLayout().then(() => props.refresh());
       if (filePaths != undefined && filePaths.length > 0) {
         const filename = filePaths[0];
         importFile(filename, "utf-8").then((data) => {
@@ -37,14 +38,12 @@ function ImportShortcutComponent(props: {
               false
             )
           );
-          props.refresh();
           close();
           notificationSuccess({
             message: "All data imported from file " + filename,
           });
         });
       }
-      close();
     });
   };
 

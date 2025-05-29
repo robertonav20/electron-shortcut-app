@@ -3,30 +3,45 @@
     display: flex;
     min-width: 500px;
     width: 100%;
-    justify-content: space-between;
-  }
-  
-  .footer-left-item {
-    display: flex;
-    align-items: center;
-    font-weight: bold;
-  }
-  
-  .footer-right-item {
-    display: flex;
     justify-content: flex-end;
-    align-items: center;
-    width: 50%;
-    gap: 5px;
   }
-  
-  .action-button {
-    border-color: #001529;
-    background-color: #001529;
-  }
-  
-  .action-divider {
-    background-color: rgba(0, 0, 0, 0.65);
-    width: 2px;
-    height: 25px;
-  }
+
+.footer-counter-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: bold;
+  border-color: #096dd9;
+  background-color: #096dd9;
+  border-radius: 5px;
+  color: white;
+  padding: 5px;
+  height: 40px;
+  width: 40px;
+}
+
+.footer-left-item {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+.footer-right-item {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 50%;
+  gap: 5px;
+}
+
+.action-button {
+  border-color: #001529;
+  background-color: #001529;
+}
+
+.action-divider {
+  background-color: rgba(0, 0, 0, 0.65);
+  width: 2px;
+  height: 25px;
+}
