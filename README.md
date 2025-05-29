@@ -4,7 +4,7 @@ Shortcut App, it's based on **electron** and a SPA framework **react** version o
 
 ![Alt text](https://raw.githubusercontent.com/robertonav20/electron-shortcut-app/main/Home.png?raw=true"Home")
 
-### Versions
+## Versions
 
 - React:
   > - electron 23.1.4
@@ -13,14 +13,14 @@ Shortcut App, it's based on **electron** and a SPA framework **react** version o
 ### Features
 
 - Create shortcut button to launch everything
-  > - Netflix browser with https://netflix.com
+  > - Netflix browser with <https://netflix.com>
   > - Netflix windows app with netflix://
   > - etc...
 - Remove shortcut button
 - Export all shortcut
 - Import all shortcut
 
-## React
+### How to develop
 
 Prerequisites
 
@@ -31,10 +31,50 @@ Run dev app
 
     yarn run start
 
-Create package
+### How to create package Win32
 
-    yarn run package
+Create package for Win32
 
-Create installer
+    yarn run package-win
 
-    yarn run make
+Create installer for Win32
+
+    yarn run make-win
+
+Create installer from WSL with Docker for Win32
+
+    docker run --rm -ti \
+      --env-file <(env | grep -iE 'DEBUG|NODE_|ELECTRON_|YARN_|NPM_|CI|CIRCLE|TRAVIS_TAG|TRAVIS|TRAVIS_REPO_|TRAVIS_BUILD_|TRAVIS_BRANCH|TRAVIS_PULL_REQUEST_|APPVEYOR_|CSC_|GH_|GITHUB_|BT_|AWS_|STRIP|BUILD_') \
+      --env ELECTRON_CACHE="/root/.cache/electron" \
+      --env ELECTRON_BUILDER_CACHE="/root/.cache/electron-builder" \
+      -v ${PWD}:/project \
+      -v ${PWD##*/}-node-modules:/project/node_modules \
+      -v ~/.cache/electron:/root/.cache/electron \
+      -v ~/.cache/electron-builder:/root/.cache/electron-builder \
+      electronuserland/builder:18-wine-mono
+
+    yarn run make-win
+
+### How to create package Linux
+
+Create package for Linux
+
+    yarn run package-linux
+
+Create installer for Linux
+
+    yarn run make-linux
+
+Create installer from WSL with Docker for Linux
+
+    docker run --rm -ti \
+      --env-file <(env | grep -iE 'DEBUG|NODE_|ELECTRON_|YARN_|NPM_|CI|CIRCLE|TRAVIS_TAG|TRAVIS|TRAVIS_REPO_|TRAVIS_BUILD_|TRAVIS_BRANCH|TRAVIS_PULL_REQUEST_|APPVEYOR_|CSC_|GH_|GITHUB_|BT_|AWS_|STRIP|BUILD_') \
+      --env ELECTRON_CACHE="/root/.cache/electron" \
+      --env ELECTRON_BUILDER_CACHE="/root/.cache/electron-builder" \
+      -v ${PWD}:/project \
+      -v ${PWD##*/}-node-modules:/project/node_modules \
+      -v ~/.cache/electron:/root/.cache/electron \
+      -v ~/.cache/electron-builder:/root/.cache/electron-builder \
+      electronuserland/builder:18-11.23
+
+    yarn run make-linux

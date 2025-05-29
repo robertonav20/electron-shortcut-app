@@ -7,8 +7,10 @@
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
+    "package-win": "electron-forge package --platform=win32",
+    "make-win": "electron-forge make --platform=win32",
+    "package-linux": "electron-forge package --platform=linux",
+    "make-linux": "electron-forge make --platform=linux",
     "rebuild": "electron-rebuild -f -w sqlite3",
     "lint": "eslint --ext .ts,.tsx ."
   },

@@ -12,10 +12,13 @@ const config: ForgeConfig = {
     icon: path.join(__dirname, './src/public/favicon.ico'),
   },
   rebuildConfig: {},
-  makers: [new MakerSquirrel({
-    iconUrl: path.join(__dirname, './src/public/favicon.ico'),
-    setupIcon: path.join(__dirname, './src/public/favicon.ico')
-  }), new MakerZIP({}, ['linux'])],
+  makers: [
+    new MakerSquirrel({
+      iconUrl: path.join(__dirname, './src/public/favicon.ico'),
+      setupIcon: path.join(__dirname, './src/public/favicon.ico')
+    }),
+    new MakerZIP({}, ['linux'])
+  ],
   plugins: [
     new WebpackPlugin({
       mainConfig,
