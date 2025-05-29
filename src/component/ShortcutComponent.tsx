@@ -29,7 +29,7 @@ function ShortcutComponent(props: { shortcut: any; refresh: any }) {
       label: (
         <DeleteOutlined
           className="delete-button"
-          onClick={(e) => deleteShortcut(props.shortcut.id)}
+          onClick={() => deleteShortcut(props.shortcut.id)}
         />
       ),
       key: "delete",
