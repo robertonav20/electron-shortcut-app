@@ -53,7 +53,7 @@ Create installer from WSL with Docker for Win32
       -v ~/.cache/electron-builder:/root/.cache/electron-builder \
       electronuserland/builder:18-wine-mono
 
-    yarn run make-win
+    ./build-win.sh
 
 ### How to create package Linux
 
@@ -77,4 +77,4 @@ Create installer from WSL with Docker for Linux
       -v ~/.cache/electron-builder:/root/.cache/electron-builder \
       electronuserland/builder:18-11.23
 
-    yarn run make-linux
+    ./build-linux.sh

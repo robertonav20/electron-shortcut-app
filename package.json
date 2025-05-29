@@ -7,11 +7,11 @@
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
+    "rebuild-win": "electron-rebuild -f -w sqlite3 --platform=win32",
     "package-win": "electron-forge package --platform=win32",
-    "make-win": "electron-forge make --platform=win32",
+    "make-win": "electron-forge make --platform=win32 --skip-package",
     "package-linux": "electron-forge package --platform=linux",
-    "make-linux": "electron-forge make --platform=linux",
-    "rebuild": "electron-rebuild -f -w sqlite3",
+    "make-linux": "electron-forge make --platform=linux --skip-package",
     "lint": "eslint --ext .ts,.tsx ."
   },
   "keywords": [],
