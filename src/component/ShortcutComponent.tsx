@@ -1,7 +1,5 @@
-import { Button, Dropdown, Tooltip, Space } from "antd";
+import { Dropdown, Tooltip, Space } from "antd";
 import {
-  CodeOutlined,
-  EditOutlined,
   DeleteOutlined,
   ToolOutlined,
 } from "@ant-design/icons";
@@ -12,7 +10,7 @@ import "../style/shortcut-style.scss";
 
 function ShortcutComponent(props: { shortcut: any; refresh: any }) {
   const action = (action: string) => {
-    launch(action);
+    launch(action, [], true);
   };
   const deleteShortcut = (id: any) => {
     removeShortcut(id, true).then(() => {

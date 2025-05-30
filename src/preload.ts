@@ -68,19 +68,18 @@ function initHandlers(win: any) {
   ipcMain.handle("exportFile", (_event: any, filePath: any, data: any, charset: any) =>
     exportFile(filePath, data, charset)
   );
-  ipcMain.handle("launch", (_event: any, cmd: any) => {
-    const command = process.spawn(cmd, [], { shell: true })
+  ipcMain.handle("launch", async (_event: any, command: any, args: any) => {
+  return new Promise((resolve, reject) => {
+    const result = process.spawnSync(command, args, { shell: true });
 
-    command.stdout.on('data', (data: any) => {
-      console.log(data.toString());
-    });
-    command.stderr.on('data', (data: any) => {
-      console.error(data.toString());
-    });
-    command.on('exit', (code: any) => {
-      console.log(`Command [${cmd}] executed with exit code [${code}]`);
-    });
+    if (result.status === 0) {
+      resolve({ stdout: result.stdout.toString() });
+    } else {
+      exportFile('error.log', JSON.stringify({ stderr: result.stderr.toString(), code: result.status }), 'utf-8')
+      reject({ stderr: result.stderr.toString(), code: result.status });
+    }
   });
+});
   ipcMain.handle("getAllLayout", (_event: any) => getAllLayout());
   ipcMain.handle("getLayout", (_event: any, name: string) => getLayout(name));
   ipcMain.handle("saveLayout", (_event: any, name: string, layout: any, active: boolean) =>
