@@ -26,7 +26,7 @@ Shortcut App, it's based on **electron** and a SPA framework **react** version o
 Prerequisites
 
     npm install -g yarn electron
-    yarn install && yarn run rebuild
+    npm install && yarn run rebuild
 
 Run dev app
 
