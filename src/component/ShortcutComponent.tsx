@@ -10,7 +10,7 @@ import "../style/shortcut-style.scss";
 
 function ShortcutComponent(props: { shortcut: any; refresh: any }) {
   const action = (action: string) => {
-    launch(action, [], true);
+    launch(action, true);
   };
   const deleteShortcut = (id: any) => {
     removeShortcut(id, true).then(() => {
