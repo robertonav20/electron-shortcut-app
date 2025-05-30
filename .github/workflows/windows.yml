@@ -21,3 +21,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - run: ./build-win.sh
+    - name: Upload executable to release
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: out/make/squirrel.windows/x64/*.exe
+        tag: ${{ github.ref }}
+        overwrite: true
+        file_glob: true
