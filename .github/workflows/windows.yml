@@ -16,6 +16,8 @@ jobs:
       env:
         ELECTRON_CACHE: "/root/.cache/electron"
         ELECTRON_BUILDER_CACHE: "/root/.cache/electron-builder"
+        WINEARCH: win32
+        WINEPREFIX: /tmp/wineprefix
       options: --cpus 1
     steps:
     - uses: actions/checkout@v4
