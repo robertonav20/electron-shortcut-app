@@ -4,7 +4,9 @@
 set -e
 
 rm -rf .webpack
+rm -rf node_modules
 rm -rf out
 npm install --platform=win32
 yarn run rebuild-win
+yarn run postinstall-win
 yarn run make-win
