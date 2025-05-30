@@ -16,8 +16,6 @@ jobs:
       env:
         ELECTRON_CACHE: "/root/.cache/electron"
         ELECTRON_BUILDER_CACHE: "/root/.cache/electron-builder"
-      volumes:
-        - ./:/project:rw
       options: --cpus 1
     steps:
     - uses: actions/checkout@v4
