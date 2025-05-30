@@ -1,0 +1,23 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: Windows Build
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: electronuserland/builder:18-wine-mono
+      env:
+        ELECTRON_CACHE: "/root/.cache/electron"
+        ELECTRON_BUILDER_CACHE: "/root/.cache/electron-builder"
+      volumes:
+        - ${PWD}:/project:rw
+      options: --cpus 1
+    steps:
+    - uses: actions/checkout@v4
+    - run: ./build-win.sh
